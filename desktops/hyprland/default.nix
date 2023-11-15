@@ -16,7 +16,6 @@
     spotify
     nix-software-center
     discord
-    firefox
     wezterm
     kitty
     rofi-wayland
