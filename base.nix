@@ -7,6 +7,7 @@
   boot.plymouth = {
     enable = true;
   };
+  boot.kernelParams = [ "quiet" "udev.log_level=3" ];
   boot.initrd.systemd.enable = true;
 
   networking.hostName = vars.hostname;

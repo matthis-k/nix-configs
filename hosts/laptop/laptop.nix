@@ -1,16 +1,8 @@
-{pkgs, nixpkgs, config, ...}:
+{ pkgs, nixpkgs, config, ... }:
 {
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = true;
- #     efiSysMountPoint = "/boot/efi";
-    };
-  };
-##  boot.loader.grub = {
-#    enable = true;
-#    useOSProber = true;
-#    device = "/dev/sda";
-#    efiSupport = true;
-# };  
-    boot.loader.systemd-boot.enable = true;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "nodev";
+  boot.loader.grub.useOSProber = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.efiSupport = true;
 }

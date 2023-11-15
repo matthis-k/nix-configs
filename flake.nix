@@ -25,7 +25,10 @@
     {
       nixosConfigurations.matthisk-laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; vars = (import ./vars.nix "laptop"); };
+        specialArgs = {
+          inherit inputs;
+          vars = (import ./vars.nix "laptop");
+        };
         modules = [
           ({ nixpkgs, ... }: { nixpkgs.overlays = overlays; })
           home-manager.nixosModules.home-manager
