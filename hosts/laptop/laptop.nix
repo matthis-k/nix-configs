@@ -5,4 +5,5 @@
   boot.loader.grub.useOSProber = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.efiSupport = true;
+  boot.loader.grub.gfxmodeEfi = "1920x1200";
 }
