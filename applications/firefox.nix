@@ -1,8 +1,5 @@
 { pkgs, vars, home-manager, inputs, ... }: {
   home-manager.users.${vars.username} = {
-    home.file.".mozilla/firefox/nix-user-profile/chrome/firefox-gnome-theme".source = inputs.firefox-gnome-theme;
-
-
     programs.firefox = {
       enable = true;
       profiles.default = {
@@ -13,11 +10,15 @@
           "svg.context-properties.content.enabled" = true;
           "browser.uidensity" = 0;
         };
+        isDefault = true;
         userChrome = ''
-          @import "firefox-gnome-theme/userChrome.css";
-        '';
-        userContent = ''
-          @import "firefox-gnome-theme/userContent.css";
+          @import "${
+              builtins.fetchGit {
+                  url = "https://github.com/say4n/oneline";
+                  ref = "main";
+                  rev = "2907d6681c7f90d268a8335b6addf71acddd4ac5";
+              }
+            }/chrome/userChrome.css";
         '';
       };
     };
