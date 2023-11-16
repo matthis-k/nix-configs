@@ -11,186 +11,178 @@
           "browser.uidensity" = 0;
         };
         isDefault = true;
-        userChrome =
-          let userChromeRepo =
-            builtins.fetchGit {
-              url = "https://github.com/say4n/oneline";
-              ref = "main";
-              rev = "2907d6681c7f90d268a8335b6addf71acddd4ac5";
-            };
-          in
-          ''
-            :root {
-                --navbar-height: 48px;
-                --wc-height: 16px;
-                --wc-left-margin: 10px;
-                --wc-red: hsl(-10, 90%, 60%);
-                --wc-yellow: hsl(50, 90%, 60%);
-                --wc-green: hsl(160, 90%, 40%);
-                --sidebar-width: 250px;
-                --transition-duration: 0.2s;
-                --transition-ease: ease-out;
-            }
+        userChrome = ''
+          :root {
+              --navbar-height: 48px;
+              --wc-height: 16px;
+              --wc-left-margin: 10px;
+              --wc-red: hsl(-10, 90%, 60%);
+              --wc-yellow: hsl(50, 90%, 60%);
+              --wc-green: hsl(160, 90%, 40%);
+              --sidebar-width: 250px;
+              --transition-duration: 0.2s;
+              --transition-ease: ease-out;
+          }
 
-            /* hide tabline */
-            #navigator-toolbox {
-                -moz-window-dragging: drag;
-            }
+          /* hide tabline */
+          #navigator-toolbox {
+              -moz-window-dragging: drag;
+          }
 
-            #titlebar {
-                appearance: none !important;
-            }
+          #titlebar {
+              appearance: none !important;
+          }
 
-            #TabsToolbar .toolbar-items {
-                display: none !important;
-            }
+          #TabsToolbar .toolbar-items {
+              display: none !important;
+          }
 
-            #TabsToolbar.browser-toolbar {
-                display: none !important;
-            }
+          #TabsToolbar.browser-toolbar {
+              display: none !important;
+          }
 
-            #nav-bar {
-                padding: calc((var(--navbar-height) - 40px) / 2) 0;
-            }
+          #nav-bar {
+              padding: calc((var(--navbar-height) - 40px) / 2) 0;
+          }
 
-            #urlbar {
-                --urlbar-toolbar-height: 40px !important;
-                z-index: 200 !important;
-            }
+          #urlbar {
+              --urlbar-toolbar-height: 40px !important;
+              z-index: 200 !important;
+          }
 
-            #private-browsing-indicator-with-label {
-                display: none !important;
-            }
+          #private-browsing-indicator-with-label {
+              display: none !important;
+          }
 
-            #pageAction-urlbar-_testpilot-containers {
-                display: none !important;
-            }
+          #pageAction-urlbar-_testpilot-containers {
+              display: none !important;
+          }
 
-            .titlebar-button>.toolbarbutton-icon {
-                visibility: hidden;
-            }
+          .titlebar-button>.toolbarbutton-icon {
+              visibility: hidden;
+          }
 
-            .titlebar-button {
-                padding: 0 !important;
-                height: var(--wc-height) !important;
-                min-height: var(--wc-height) !important;
-                width: var(--wc-height) !important;
-                min-width: var(--wc-height) !important;
-                border-radius: 50%;
-                opacity: 0.7 !important;
-            }
+          .titlebar-button {
+              padding: 0 !important;
+              height: var(--wc-height) !important;
+              min-height: var(--wc-height) !important;
+              width: var(--wc-height) !important;
+              min-width: var(--wc-height) !important;
+              border-radius: 50%;
+              opacity: 0.7 !important;
+          }
 
-            .titlebar-button:hover {
-                transform: scale(1.1);
-                opacity: 1 !important;
-                cursor: pointer;
-            }
+          .titlebar-button:hover {
+              transform: scale(1.1);
+              opacity: 1 !important;
+              cursor: pointer;
+          }
 
-            .titlebar-buttonbox {
-                display: flex;
-                margin-right: var(--wc-height);
-                gap: var(--wc-height);
-            }
+          .titlebar-buttonbox {
+              display: flex;
+              margin-right: var(--wc-height);
+              gap: var(--wc-height);
+          }
 
-            .titlebar-close {
-                background: var(--wc-red) !important;
-            }
+          .titlebar-close {
+              background: var(--wc-red) !important;
+          }
 
-            .titlebar-min {
-                background: var(--wc-yellow) !important;
-            }
+          .titlebar-min {
+              background: var(--wc-yellow) !important;
+          }
 
-            .titlebar-max,
-            .titlebar-restore {
-                background: var(--wc-green) !important;
-            }
+          .titlebar-max,
+          .titlebar-restore {
+              background: var(--wc-green) !important;
+          }
              
-                      	
-            /* Sidebery */
-            #main-window[titlepreface*="🦊 "] .tabbrowser-tab {
-              visibility: collapse !important;
-            }
+                    	
+          /* Sidebery */
+          #main-window[titlepreface*="🦊 "] .tabbrowser-tab {
+            visibility: collapse !important;
+          }
  
-            #main-window[titlepreface*="🦊 "] .titlebar-button {
-              height: 40px !important;
-            }
+          #main-window[titlepreface*="🦊 "] .titlebar-button {
+            height: 40px !important;
+          }
  
-            #main-window[titlepreface*="🦊 "] #nav-bar {
-              margin-top: -40px;
-              margin-right: 137px;
-              box-shadow: none !important;
-            }
-            #main-window[titlepreface*="🦊 "] #titlebar-spacer {
-              background-color: var(--chrome-secondary-background-color);
-            }
+          #main-window[titlepreface*="🦊 "] #nav-bar {
+            margin-top: -40px;
+            margin-right: 137px;
+            box-shadow: none !important;
+          }
+          #main-window[titlepreface*="🦊 "] #titlebar-spacer {
+            background-color: var(--chrome-secondary-background-color);
+          }
  
-            #main-window[titlepreface*="🦊 "] #titlebar-buttonbox-container {
-              background-color: var(--chrome-secondary-background-color);
-            }
+          #main-window[titlepreface*="🦊 "] #titlebar-buttonbox-container {
+            background-color: var(--chrome-secondary-background-color);
+          }
  
-            #main-window[titlepreface*="🦊 "] .titlebar-color {
-              background-color: var(--toolbar-bgcolor);
-            }
+          #main-window[titlepreface*="🦊 "] .titlebar-color {
+            background-color: var(--toolbar-bgcolor);
+          }
  
-            #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] #sidebar-header {
-              visibility: collapse;
-            }
+          #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] #sidebar-header {
+            visibility: collapse;
+          }
  
-            /* Source file https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/autohide_sidebar.css made available under Mozilla Public License v. 2.0
-            See the above repository for updates as well as full license text. */
+          /* Source file https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/autohide_sidebar.css made available under Mozilla Public License v. 2.0
+          See the above repository for updates as well as full license text. */
  
-            /* Show sidebar only when the cursor is over it  */
-            /* The border controlling sidebar width will be removed so you'll need to modify these values to change width */
+          /* Show sidebar only when the cursor is over it  */
+          /* The border controlling sidebar width will be removed so you'll need to modify these values to change width */
  
-            #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] {
-              --uc-sidebar-width: 48px !important;
-              --uc-sidebar-hover-width: 250px;
-              --uc-autohide-sidebar-delay: 300ms; /* Wait 0.3s before hiding sidebar */
-              position: relative;
-              min-width: var(--uc-sidebar-width) !important;
-              width: var(--uc-sidebar-width) !important;
-              max-width: var(--uc-sidebar-width) !important;
-              z-index:1;
-            }
+          #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] {
+            --uc-sidebar-width: 40px !important;
+            --uc-sidebar-hover-width: 250px;
+            --uc-autohide-sidebar-delay: 300ms; /* Wait 0.3s before hiding sidebar */
+            position: relative;
+            min-width: var(--uc-sidebar-width) !important;
+            width: var(--uc-sidebar-width) !important;
+            max-width: var(--uc-sidebar-width) !important;
+            z-index:1;
+          }
  
-            #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] > #sidebar-splitter {
-              display: none
-            }
+          #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] > #sidebar-splitter {
+            display: none
+          }
  
-            #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] > #sidebar {
-              transition: min-width 115ms linear var(--uc-autohide-sidebar-delay) !important;
-              min-width: var(--uc-sidebar-width) !important;
-              will-change: min-width;
-            }
+          #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] > #sidebar {
+            transition: min-width 115ms linear var(--uc-autohide-sidebar-delay) !important;
+            min-width: var(--uc-sidebar-width) !important;
+            will-change: min-width;
+          }
  
-            #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:hover > #sidebar{
-              min-width: var(--uc-sidebar-hover-width) !important;
-              transition-delay: 0ms !important
-            }
+          #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]:hover > #sidebar{
+            min-width: var(--uc-sidebar-hover-width) !important;
+            transition-delay: 0ms !important
+          }
  
-            /* Add sidebar divider and give it background */
+          /* Add sidebar divider and give it background */
  
-            #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] > #sidebar,
-            #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] > #sidebar-header {
-              background-color: var(--toolbar-bgcolor) !important;
-            /*  border-inline: 1px solid var(--sidebar-border-color) !important;*/
-              border-inline: 1px solid var(--chrome-content-separator-color) !important;
-              border-inline-width: 0px 1px;
-            }
-            #sidebar-box[positionend]{
-              direction: rtl
-            }
-            #sidebar-box[positionend] > *{
-              direction: ltr
-            }
+          #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] > #sidebar,
+          #sidebar-box[sidebarcommand="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"] > #sidebar-header {
+            background-color: var(--toolbar-bgcolor) !important;
+          /*  border-inline: 1px solid var(--sidebar-border-color) !important;*/
+            border-inline: 1px solid var(--chrome-content-separator-color) !important;
+            border-inline-width: 0px 1px;
+          }
+          #sidebar-box[positionend]{
+            direction: rtl
+          }
+          #sidebar-box[positionend] > *{
+            direction: ltr
+          }
  
-            #sidebar-box[positionend]:-moz-locale-dir(rtl){
-              direction: ltr
-            }
-            #sidebar-box[positionend]:-moz-locale-dir(rtl) > *{
-              direction: rtl
-            }
-          '';
+          #sidebar-box[positionend]:-moz-locale-dir(rtl){
+            direction: ltr
+          }
+          #sidebar-box[positionend]:-moz-locale-dir(rtl) > *{
+            direction: rtl
+          }
+        '';
       };
     };
   };

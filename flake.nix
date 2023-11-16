@@ -9,11 +9,11 @@
     };
     stylix.url = "github:/danth/stylix";
     nix-software-center.url = "github:vlinkz/nix-software-center";
-    firefox-gnome-theme = { url = "github:rafaelmardojai/firefox-gnome-theme"; flake = false; };
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
 
-  outputs = inputs@{ self, nixpkgs, home-manager, neovim-nightly-overlay, stylix, nix-software-center, firefox-gnome-theme, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, neovim-nightly-overlay, stylix, nix-software-center, hyprland, ... }:
     let
       software-center-overlay = final: prev: {
         nix-software-center = nix-software-center.packages.x86_64-linux.nix-software-center;

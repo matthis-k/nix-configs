@@ -91,7 +91,7 @@
       backlight = {
         device = "intel_backlight";
         format = "{percent}% {icon}";
-        format-icons = [ "󰃞" "󰃟" "󰃠" ];
+        format-icons = [ "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ];
         min-length = 7;
         on-scroll-up = "brightnessctl -c backlight set +1%";
         on-scroll-down = "brightnessctl -c backlight set 1%-";

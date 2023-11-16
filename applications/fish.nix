@@ -33,7 +33,7 @@
 
     programs.starship.settings = {
       add_newline = false;
-      format = "$username$hostname[](bright-black)[─](bold bright-black)$directory$git_branch$git_status[$fill](bold bright-black)$cmd_duration[─](bold bright-black)$time\n$character";
+      format = "[](bright-black)$username$hostname[](bright-black)[─](bold bright-black)$directory$git_branch$git_status[$fill](bold bright-black)$cmd_duration[─](bold bright-black)$time[](bright-black)\n$character";
 
       fill = {
         symbol = "─";
@@ -52,13 +52,13 @@
 
       cmd_duration = {
         min_time = 500;
-        format = "[[[](bright-black) [$duration](bold yellow bg:bright-black) [](bright-black)](bg:bright-black)](bold yellow bg:bright-black)";
+        format = "[[[](bright-black) [$duration](bold yellow bg:bright-black) [](bright-black)](bg:bright-black)](bold yellow bg:bright-black)";
       };
 
       directory = {
         truncation_length = 3;
         home_symbol = "󰋜 ";
-        format = "[](bright-black)[ $path ](yellow bg:bright-black)[$read_only]($read_only_style)[](bright-black)";
+        format = "[](bright-black)[ $path ](yellow bg:bright-black)[$read_only]($read_only_style)[](bright-black)";
 
         substitutions = {
           "Documents" = "󰈙 ";
@@ -70,18 +70,18 @@
 
       git_branch = {
         symbol = "󰘬 ";
-        format = "[[[─](bright-black) $symbol $branch](bold green bg:bright-black)]($style)";
+        format = "[[[─](bright-black) $symbol $branch](bold green bg:bright-black)]($style)";
       };
 
       git_status = {
-        format = "[[[ ](bg:bright-black)($all_status$ahead_behind) ](green bg:bright-black)[](bright-black)]($style)";
+        format = "[[[ ](bg:bright-black)($all_status$ahead_behind) ](green bg:bright-black)[](bright-black)]($style)";
       };
 
       time = {
         disabled = false;
         time_format = "%R";
         style = "bg: bright-black";
-        format = "[[](bright-black)[  $time ](blue bg:bright-black)]($style)";
+        format = "[[](bright-black)[  $time ](blue bg:bright-black)]($style)";
       };
 
       character = {

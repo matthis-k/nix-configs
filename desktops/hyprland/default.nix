@@ -1,4 +1,4 @@
-{ pkgs, vars, home-manager, ... }: {
+{ inputs, pkgs, vars, home-manager, hyprland, ... }: {
   programs.hyprland.enable = true;
   # TDOD: optiondepending on sys-name for desktop
   services.pipewire = {
@@ -10,7 +10,7 @@
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
   };
   environment.systemPackages = with pkgs; [
     spotify
@@ -52,7 +52,6 @@
     })
     font-awesome
   ];
-
 
   home-manager.users.${vars.username} = {
     programs.waybar.enable = true;
