@@ -57,14 +57,14 @@
 
       directory = {
         truncation_length = 3;
-        home_symbol = "󰋜 ";
+        home_symbol = "󰋜";
         format = "[](bright-black)[ $path ](yellow bg:bright-black)[$read_only]($read_only_style)[](bright-black)";
 
         substitutions = {
-          "Documents" = "󰈙 ";
-          "Downloads" = "󰇚 ";
-          "Music" = " ";
-          "Pictures" = "󰋩 ";
+          "Documents" = "󰈙";
+          "Downloads" = "󰇚";
+          "Music" = "";
+          "Pictures" = "󰋩";
         };
       };
 
