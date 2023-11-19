@@ -26,6 +26,7 @@
     xfce.enable = false;
     fish.enable = false;
     waybar = {
+      enable = false;
       enableRightBackColors = true;
       enableCenterBackColors = true;
       enableLeftBackColors = true;

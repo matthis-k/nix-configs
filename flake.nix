@@ -24,27 +24,33 @@
       ];
     in
     {
-      nixosConfigurations.matthisk-laptop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-          vars = (import ./vars.nix "laptop");
-        };
-        modules = [
-          ({ nixpkgs, ... }: { nixpkgs.overlays = overlays; })
-          home-manager.nixosModules.home-manager
-          stylix.nixosModules.stylix
-          ./hosts/laptop/laptop.nix
-          ./hosts/laptop/hardware-configuration.nix
-          ./applications/neovim.nix
-          ./applications/virtualbox.nix
-          ./applications/firefox.nix
-          ./applications/fish.nix
-          ./desktops/hyprland
-          ./displayManagers/gdm.nix
-          ./base.nix
-          ./themes/catppuccin.nix
-        ];
-      };
+      nixosConfigurations.matthisk-laptop =
+        let
+          system = "x86_64-linux";
+        in
+        nixpkgs.lib.nixosSystem
+          {
+            inherit system;
+            specialArgs = {
+              inherit inputs;
+              vars = (import ./vars.nix "laptop");
+              inherit system;
+            };
+            modules = [
+              ({ nixpkgs, ... }: { nixpkgs.overlays = overlays; })
+              home-manager.nixosModules.home-manager
+              stylix.nixosModules.stylix
+              ./hosts/laptop/laptop.nix
+              ./hosts/laptop/hardware-configuration.nix
+              ./applications/neovim.nix
+              ./applications/virtualbox.nix
+              ./applications/firefox.nix
+              ./applications/fish.nix
+              ./desktops/hyprland
+              ./displayManagers/gdm.nix
+              ./base.nix
+              ./themes/catppuccin.nix
+            ];
+          };
     };
 }

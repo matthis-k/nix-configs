@@ -3,9 +3,83 @@
     mainBar = {
       layer = "top";
       position = "top";
-      modules-left = [ "hyprland/workspaces" "wlr/taskbar" "idle_inhibitor" ];
-      modules-center = [ "clock" ];
-      modules-right = [ "pulseaudio" "backlight" "battery" "tray" ];
+      modules-left = [ "group/left-whole" "custom/transition-c" ];
+      modules-center = [ "custom/transition-x" "group/center-whole" "custom/transition-c" ];
+      modules-right = [ "custom/transition-x" "group/right-whole" ];
+      "group/left-whole" = {
+        orientation = "inherit";
+        modules = [ "group/left-a" "custom/transition-ab" "group/left-b" "custom/transition-bc" "group/left-c" ];
+      };
+      "group/left-a" = {
+        modules = [ "hyprland/workspaces" ];
+        orientation = "inherit";
+      };
+      "group/left-b" = {
+        orientation = "inherit";
+        modules = [ "wlr/taskbar" ];
+      };
+      "group/left-c" = {
+        orientation = "inherit";
+        modules = [ "hyprland/window" ];
+      };
+
+      "group/right-whole" = {
+        orientation = "inherit";
+        modules = [ "group/right-x" "custom/transition-xy" "group/right-y" "custom/transition-yz" "group/right-z" ];
+      };
+      "group/right-x" = {
+        modules = [ "pulseaudio" ];
+        orientation = "inherit";
+      };
+      "group/right-y" = {
+        orientation = "inherit";
+        modules = [ "backlight" ];
+      };
+      "group/right-z" = {
+        orientation = "inherit";
+        modules = [ "battery" "tray" ];
+      };
+
+      "group/center" = {
+        orientation = "inherit";
+        modules = [ "clock" ];
+      };
+
+      "group/center-whole" = {
+        orientation = "inherit";
+        modules = [
+          "group/center-a"
+          "custom/transition-xy"
+          "group/center-b"
+          "custom/transition-yz"
+          "group/center"
+          "custom/transition-ab"
+          "group/center-y"
+          "custom/transition-bc"
+          "group/ransition-z"
+        ];
+      };
+      "group/center-a" = {
+        modules = [ ];
+        orientation = "inherit";
+      };
+      "group/center-b" = {
+        orientation = "inherit";
+        modules = [ ];
+      };
+      "group/center-y" = {
+        orientation = "inherit";
+        modules = [ ];
+      };
+      "group/center-z" = {
+        orientation = "inherit";
+        modules = [ ];
+      };
+
+      "hyprland/window" = {
+        format = "{title}";
+        seperate-outputs = false;
+      };
       "hyprland/workspaces" = {
         format = "{icon}";
         all-outputs = true;
@@ -115,6 +189,49 @@
       tray = {
         icon-size = 16;
         spacing = 0;
+      };
+
+      "custom/transition-x" = {
+        format = "";
+        tooltip = false;
+        exec = ''echo '{"class": "left-slant"}' '';
+        return-type = "json";
+        interval = "once";
+      };
+      "custom/transition-xy" = {
+        format = "";
+        tooltip = false;
+        exec = ''echo '{"class": "left-slant"}' '';
+        return-type = "json";
+        interval = "once";
+      };
+      "custom/transition-yz" = {
+        format = "";
+        tooltip = false;
+        exec = ''echo '{"class": "left-slant"}' '';
+        return-type = "json";
+        interval = "once";
+      };
+      "custom/transition-ab" = {
+        format = "";
+        tooltip = false;
+        exec = ''echo '{"class": "right-slant"}' '';
+        return-type = "json";
+        interval = "once";
+      };
+      "custom/transition-bc" = {
+        format = "";
+        tooltip = false;
+        exec = ''echo '{"class": "right-slant"}' '';
+        return-type = "json";
+        interval = "once";
+      };
+      "custom/transition-c" = {
+        format = "";
+        tooltip = false;
+        exec = ''echo '{"class": "right-slant"}' '';
+        return-type = "json";
+        interval = "once";
       };
     };
   };

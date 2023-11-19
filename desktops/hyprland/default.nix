@@ -1,5 +1,6 @@
-{ inputs, pkgs, vars, home-manager, hyprland, ... }: {
+{ inputs, pkgs, vars, home-manager, system, ... }: {
   programs.hyprland.enable = true;
+  programs.hyprland.package = inputs.hyprland.packages.${system}.hyprland;
   # TDOD: optiondepending on sys-name for desktop
   services.pipewire = {
     enable = true;
@@ -9,30 +10,38 @@
   services.dbus.enable = true;
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
+  security.polkit.enable = true;
   environment.systemPackages = with pkgs; [
     spotify
     nix-software-center
     discord
-    wezterm
+
+    hyprpaper
+    # swaybg
+    # swww
+    xwaylandvideobridge
+    blueberry
+    brightnessctl
+    dunst
+    grimblast
     kitty
+    networkmanagerapplet
+    nwg-look
+    polkit_gnome
     rofi-wayland
     rofimoji
-    waybar
-    wlogout
     swaylock-effects
-    wlroots
+    waybar
     wayland-protocols
-    wl-clipboard
-    xdg-utils
-    dunst
     wdisplays
-    grimblast
-    nwg-look
-    brightnessctl
+    wl-clipboard
+    wlogout
+    wlroots
+    xdg-utils
   ];
+
   fonts.packages = with pkgs; [
     (nerdfonts.override {
       fonts = [
@@ -56,5 +65,7 @@
   home-manager.users.${vars.username} = {
     programs.waybar.enable = true;
     programs.waybar.settings = (import ./waybar.nix).settings;
+    # programs.waybar.style = (import ./waybar.nix).style;
+    wayland.windowManager.hyprland.settings = (import ./hyprland.nix).settings;
   };
 }

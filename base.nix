@@ -63,6 +63,7 @@
     git
     neovim-nightly
     coreutils-full
+    gcc
 
     teams-for-linux
     vscode
