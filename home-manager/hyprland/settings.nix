@@ -281,7 +281,7 @@ in {
     ", XF86MonBrightnessDown,   exec, ${pkgs.brightnessctl}/bin/brightnessctl -c backlight set 5%- -n 1"
     ", XF86KbdBrightnessUp,     exec, ${pkgs.brightnessctl}/bin/brightnessctl -c leds set +50%"
     ", XF86KbdBrightnessDown,   exec, ${pkgs.brightnessctl}/bin/brightnessctl -c leds set 50%-"
-    ", XF86AudioRaiseVolume,    exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ +5%"
+    ", XF86AudioRaiseVolume,    exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
     ", XF86AudioLowerVolume,    exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
   ];
 
