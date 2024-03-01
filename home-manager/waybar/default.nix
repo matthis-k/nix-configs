@@ -66,8 +66,8 @@
         device = "intel_backlight";
         format = "{percent}% {icon}";
         format-icons = ["" "" "" "" "" "" "" "" "" "" "" "" "" "" ""];
-        on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl -c backlight set +1%";
-        on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl -c backlight set 1%-";
+        on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl -c backlight set +5% -n 1";
+        on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl -c backlight set 5%- -n 1";
       };
 
       battery = {
