@@ -106,10 +106,6 @@ window#waybar {
     color: @peach@;
 }
 
-#custom-notification {
-    padding-right: 0.1rem;
-}
-
 window#waybar.empty #window,
 window#waybar.empty #workspaces,
 window#waybar.empty #battery,

@@ -65,7 +65,7 @@
       backlight = {
         reverse-scrolling = 1;
         device = "intel_backlight";
-        format = "{percent}% {icon}";
+        format = "{icon} {percent}%";
         format-icons = ["" "" "" "" "" "" "" "" "" "" "" "" "" "" ""];
         on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl -c backlight set +5% -n 1";
         on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl -c backlight set 5%- -n 1";
@@ -95,14 +95,14 @@
         tooltip = false;
         format = "{icon}";
         format-icons = {
-          notification = "󰂚<span foreground='${p.peach}'><sup></sup></span>";
-          none = "󰂚<span foreground='${p.peach}'><sup> </sup></span>";
-          dnd-notification = "󰂛<span foreground='${p.peach}'><sup></sup></span>";
-          dnd-none = "󰂛<span foreground='${p.peach}'><sup> </sup></span>";
-          inhibited-notification = "󰂚<span foreground='${p.peach}'><sup></sup></span>";
-          inhibited-none = "󰂚<span foreground='${p.peach}'><sup> </sup></span>";
-          dnd-inhibited-notification = "󰂛<span foreground='${p.peach}'><sup></sup></span>";
-          dnd-inhibited-none = "󰂛<span foreground='${p.peach}'><sup> </sup></span>";
+          notification = "<span foreground='${p.red}'>󱅫</span>";
+          none = "<span foreground='${p.txt}'>󰂚</span>";
+          dnd-notification = "<span foreground='${p.red}'>󰂛</span>";
+          dnd-none = "<span foreground='${p.subtext0}'>󰂛</span>";
+          inhibited-notification = "<span foreground='${p.red}'>󱅫</span>";
+          inhibited-none = "<span foreground='${p.txt}'>󰂚</span>";
+          dnd-inhibited-notification = "<span foreground='${p.red}'>󰂛</span>";
+          dnd-inhibited-none = "<span foreground='${p.subtext0}'>󰂛</span>";
         };
         return-type = "json";
         exec = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
