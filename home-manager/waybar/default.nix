@@ -63,6 +63,7 @@
       };
 
       backlight = {
+        reverse-scrolling = 1;
         device = "intel_backlight";
         format = "{percent}% {icon}";
         format-icons = ["" "" "" "" "" "" "" "" "" "" "" "" "" "" ""];
