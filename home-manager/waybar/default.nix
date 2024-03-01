@@ -95,18 +95,18 @@
         tooltip = false;
         format = "{icon}";
         format-icons = {
-          notification = "<span foreground='${p.peach}'><sup></sup></span>";
-          none = "<span foreground='${p.peach}'><sup> </sup></span>";
-          dnd-notification = "<span foreground='${p.peach}'><sup></sup></span>";
-          dnd-none = "<span foreground='${p.peach}'><sup> </sup></span>";
-          inhibited-notification = "<span foreground='${p.peach}'><sup></sup></span>";
-          inhibited-none = "<span foreground='${p.peach}'><sup> </sup></span>";
-          dnd-inhibited-notification = "<span foreground='${p.peach}'><sup></sup></span>";
-          dnd-inhibited-none = "<span foreground='${p.peach}'><sup> </sup></span>";
+          notification = "󰂚<span foreground='${p.peach}'><sup></sup></span>";
+          none = "󰂚<span foreground='${p.peach}'><sup> </sup></span>";
+          dnd-notification = "󰂛<span foreground='${p.peach}'><sup></sup></span>";
+          dnd-none = "󰂛<span foreground='${p.peach}'><sup> </sup></span>";
+          inhibited-notification = "󰂚<span foreground='${p.peach}'><sup></sup></span>";
+          inhibited-none = "󰂚<span foreground='${p.peach}'><sup> </sup></span>";
+          dnd-inhibited-notification = "󰂛<span foreground='${p.peach}'><sup></sup></span>";
+          dnd-inhibited-none = "󰂛<span foreground='${p.peach}'><sup> </sup></span>";
         };
         return-type = "json";
         exec = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
-        on-click = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
+        on-click-release = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
         on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
         escape = true;
       };

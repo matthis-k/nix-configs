@@ -8,11 +8,11 @@ in {
   monitor = ", preferred, auto,1";
   exec = [
     "${pkgs.hyprland}/bin/hyprctl setcursor 'Catppuccin-Mocha-Blue-Cursors' 24"
-    "pkill -x ${pkgs.hyprpaper}/bin/hyprpaper; ${pkgs.hyprpaper}/bin/hyprpaper"
-    "pkill -x ${pkgs.waybar}/bin/waybar; ${pkgs.waybar}/bin/waybar"
-    "pkill -x ${pkgs.swaynotificationcenter}/bin/swaync; ${pkgs.swaynotificationcenter}/bin/swaync"
+    "${pkgs.hyprpaper}/bin/hyprpaper"
+    "pkill ${pkgs.waybar}/bin/waybar; ${pkgs.waybar}/bin/waybar"
   ];
   exec-once = [
+    "${pkgs.swaynotificationcenter}/bin/swaync"
     "${pkgs.blueberry}/bin/blueberry-tray"
     "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator"
   ];
