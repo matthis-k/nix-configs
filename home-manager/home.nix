@@ -27,6 +27,7 @@
       inputs.nur.overlay
       inputs.neovim-nightly-overlay.overlay
       inputs.rust-overlay.overlays.default
+      inputs.nix-software-center.overlay
     ];
     config = {
       allowUnfree = true;
@@ -35,6 +36,7 @@
   };
 
   home.packages = with pkgs; [
+    nix-software-center
     libreoffice
   ];
 

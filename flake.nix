@@ -11,6 +11,7 @@
     neovim-nightly-overlay.url = github:nix-community/neovim-nightly-overlay;
 
     nix-software-center.url = github:vlinkz/nix-software-center;
+    nix-software-center.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     hyprland.url = github:hyprwm/Hyprland;
 
