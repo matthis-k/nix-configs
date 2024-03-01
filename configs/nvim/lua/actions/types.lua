@@ -1,0 +1,1 @@
+---@alias Action fun()|string|nil

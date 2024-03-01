@@ -1,0 +1,223 @@
+$base: #1e1e2e;
+$text: #cdd6f4;
+$pink: #f5c2e7;
+$mauve: #cba6f7;
+$red: #f38ba8;
+$maroon: #eba0ac;
+$peach: #fab387;
+$yellow: #f9e2af;
+$green: #a6e3a1;
+$teal: #94e2d5;
+$sky: #89dceb;
+$sapphire: #74c7ec;
+$blue: #89b4fa;
+$lavender: #b4befe;
+$text: #cdd6f4;
+$subtext1: #bac2de;
+$subtext0: #a6adc8;
+$overlay2: #9399b2;
+$overlay1: #7f849c;
+$overlay0: #6c7086;
+$surface2: #585b70;
+$surface1: #45475a;
+$surface0: #313244;
+$base: #1e1e2e;
+$mantle: #181825;
+$crust: #11111b;
+
+window.bar {
+  background-color: $crust;
+  color: $text;
+  padding: unset;
+  margin: unset;
+
+  label {
+    font-weight: bold;
+  }
+
+  button {
+    background-color: transparent;
+    padding: unset;
+
+    :active {
+      background-color: $overlay1;
+    }
+  }
+
+  .module-lvl1 {
+    background-color: $base;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    border-radius: 2rem;
+    margin: 4px;
+
+    .module-lvl2 {
+      background-color: $surface1;
+      border-radius: 3rem;
+      padding-left: 0.3rem;
+      padding-right: 0.3rem;
+      margin: 2px;
+    }
+
+    button {
+      label {
+        padding: 0rem 0.5rem;
+      }
+
+      border-radius: 100%;
+
+      &:hover {
+        background-color: $surface2;
+      }
+    }
+  }
+
+  .workspaces {
+    .workspace {
+      &:not(.empty) {
+        label {
+          color: $text;
+          margin-left: 0.25rem;
+          padding-right: 0.5rem;
+        }
+      }
+
+
+
+      border-left: 3px solid $surface1;
+      border-right: 3px solid $surface1;
+
+      .client {
+        border-radius: 100%;
+        border-left: 3px solid $surface1;
+        border-right: 3px solid $surface1;
+      }
+
+      &.empty {
+        label {
+          color: $subtext0;
+        }
+      }
+
+      &.focused {
+        label {
+          color: $blue;
+        }
+
+        &.empty {
+          border-color: $blue
+        }
+
+        .client {
+          &.focused {
+            border-color: $blue;
+          }
+        }
+      }
+
+    }
+  }
+
+  .status {
+    .applets {
+      .applet {
+        border-radius: 1rem;
+        padding: 0rem 0.2rem;
+        min-width: 1rem;
+        min-height: 1rem;
+      }
+
+      padding: 0rem 1rem;
+
+
+      .power-profiles {
+        &.power-saver {
+          color: $green;
+        }
+
+        &.performance {
+          color: $red;
+        }
+      }
+
+      .battery {
+
+        levelbar {
+          trough {
+            margin: 0rem 0.5rem;
+            background-color: $surface2;
+            min-height: 0.4rem;
+
+            block.filled {
+              border-radius: 1rem;
+              background-color: $text;
+            }
+          }
+        }
+
+        &.critical {
+          color: $red;
+
+          levelbar trough block.filled {
+            background-color: $red;
+          }
+        }
+
+        &.low {
+          color: $mauve;
+
+          levelbar trough block.filled {
+            background-color: $mauve;
+          }
+        }
+
+        &.charging,
+        &.high {
+          color: $green;
+
+          levelbar trough block.filled {
+            background-color: $green;
+          }
+        }
+      }
+
+      .audio {
+        scale {
+          min-height: 1rem;
+          padding: 0rem 0.5rem;
+          background-color: transparent;
+          color: transparent;
+
+          trough {
+            margin: unset;
+            background-color: $surface2;
+            border-radius: 1rem;
+            min-height: 0.4rem;
+
+            highlight {
+              border-radius: 1rem;
+              background-color: $blue;
+              background-image: none;
+            }
+          }
+
+          slider {
+            all: unset;
+            min-height: 0.5rem;
+            min-width: 0.5rem;
+            background-color: $text;
+            border-radius: 1rem;
+          }
+        }
+
+        &.muted {
+          color: $red;
+
+          scale trough highlight {
+            background-color: $red;
+          }
+        }
+      }
+    }
+  }
+}
