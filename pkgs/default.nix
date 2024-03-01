@@ -9,7 +9,7 @@
   in {
     pkg = pkgs.writeScriptBin "launchpad" ''
       #!${pkgs.stdenv.shell}
-      pkill rofi || ${pkgs.rofi}/bin/rofi -config ${patched-config} -theme ${patched-theme} -show drun
+      pkill -x ${pkgs.rofi-unwrapped}/bin/rofi || ${pkgs.rofi}/bin/rofi -config ${patched-config} -theme ${patched-theme} -show drun
     '';
   };
 in {
