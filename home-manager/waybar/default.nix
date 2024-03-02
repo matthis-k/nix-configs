@@ -108,6 +108,7 @@
         exec = "${pkgs.swaynotificationcenter}/bin/swaync-client -swb";
         on-click-release = "${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw";
         on-click-right = "${pkgs.swaynotificationcenter}/bin/swaync-client -d -sw";
+        on-click-middle = "${pkgs.swaynotificationcenter}/bin/swaync-client -C";
         escape = true;
       };
     };
