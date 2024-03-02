@@ -3,7 +3,9 @@
   pkgs,
   color,
   ...
-}: {
+}: let
+  p = builtins.mapAttrs (name: col: (builtins.substring 1 (builtins.stringLength col) col)) color.palette;
+in {
   programs.hyprlock = {
     enable = true;
 
@@ -37,9 +39,9 @@
         dots_size = 0.33;
         dots_spacing = 0.15;
         dots_center = true;
-        outer_color = "rgb(151515)";
-        inner_color = "rgb(200,200,200)";
-        font_color = "rgb(10,10,10)";
+        outer_color = "rgb(${p.txt})";
+        inner_color = "rgb(${p.base})";
+        font_color = "rgb(${p.base})";
         fade_on_empty = true;
         placeholder_text = "<i>Input Password...</i>";
         hide_input = false;
@@ -55,7 +57,7 @@
       {
         monitor = "";
         text = "<b>$TIME</b>";
-        color = "rgb(200, 200, 200)";
+        color = "rgb(${p.yellow})";
         font_size = 50;
         font_family = "Hack Nerd Font Mono";
         position = {
@@ -68,7 +70,7 @@
       {
         monitor = "";
         text = "Hi there, $USER";
-        color = "rgb(200, 200, 200)";
+        color = "rgb(${p.txt})";
         font_size = 25;
         font_family = "Hack Nerd Font Mono";
         position = {
