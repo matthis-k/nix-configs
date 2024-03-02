@@ -7,6 +7,7 @@
   imports = [
     ./hyprlock.nix
     ./hyprland.nix
+    ./swaync
   ];
 
   programs.waybar.enable = true;
@@ -41,7 +42,6 @@
     polkit_gnome
     spotify
     swappy
-    swaynotificationcenter
     tesseract
     waybar
     wayland-protocols

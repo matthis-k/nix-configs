@@ -1,0 +1,294 @@
+*{
+  font-family: "Hack Nerd Font Mono";
+  color: @txt@;
+  border-radius: 0px;
+  font-size: 24px;
+}
+
+.notification-row {
+  outline: none;
+}
+
+.notification {
+  font-size: 0.5rem;
+  border: 1px solid @surface0@;
+  margin: 6px 12px;
+  box-shadow: none;
+  padding: 0;
+}
+
+.critical {
+  border: 1px solid @red@;
+}
+
+.notification-row:focus .notification {
+    border-color: @blue@;
+}
+
+.notification-row {
+    background-color: @crust@;
+}
+
+/* Uncomment to enable specific urgency colors */
+/* .low {
+  background: yellow;
+}
+
+.normal {
+  background: green;
+} */
+
+
+
+.notification-content {
+  background: transparent;
+  padding: 6px;
+}
+
+.close-button {
+  font-size: 0.75rem;
+  background: @surface1@;
+  color: @crust@;
+  text-shadow: none;
+  padding: 0;
+  border-radius: 100%;
+  margin-top: 10px;
+  margin-right: 16px;
+  box-shadow: none;
+  border: none;
+  min-width: 1rem;
+  min-height: 1rem;
+}
+
+.close-button:hover {
+  box-shadow: none;
+  background: @surface2@;
+  transition: all 0.15s ease-in-out;
+  border: none;
+}
+
+.notification-default-action,
+.notification-action {
+  font-size: 0.66rem;
+  padding: 4px;
+  margin: 0;
+  box-shadow: none;
+  background: @surface0@;
+  border: 1px solid @surface1@;
+  color: white;
+}
+
+.notification-default-action:hover,
+.notification-action:hover {
+  -gtk-icon-effect: none;
+  background: @surface0@;
+  border: 1px solid @surface1@;
+}
+
+
+/* When alternative actions are visible */
+.notification-default-action:not(:only-child) {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.notification-action {
+  border-top: none;
+  border-right: none;
+}
+
+/* add bottom border radius to eliminate clipping */
+.notification-action:first-child {
+  border-bottom-left-radius: 4px;
+}
+
+.notification-action:last-child {
+  border-bottom-right-radius: 4px;
+  border-right: 1px solid @surface1@;
+}
+
+.image {}
+
+.body-image {
+  margin-top: 6px;
+  background-color: @txt@;
+}
+
+.summary {
+  font-size: 0.55rem;
+  font-weight: bold;
+  background: transparent;
+  color: @txt@;
+  text-shadow: none;
+}
+
+.time {
+  font-size: 0.5rem;
+  font-weight: bold;
+  background: transparent;
+  color: @txt@;
+  text-shadow: none;
+  margin-right: 18px;
+}
+
+.body {
+  font-size: 0.5rem;
+  font-weight: normal;
+  background: transparent;
+  color: @txt@;
+  text-shadow: none;
+}
+
+/* The "Notifications" and "Do Not Disturb" text widget */
+.top-action-title {
+  color: @txt@;
+  text-shadow: none;
+}
+
+.control-center {
+  background-color: @crust@;
+  border: 1px solid @surface0@;
+}
+
+.control-center-list {
+  background: transparent;
+}
+
+.floating-notifications {
+  background: transparent;
+}
+
+/* Window behind control center and on all other monitors */
+.blank-window {
+  background: transparent;
+}
+
+/*** Widgets ***/
+
+/* Title widget */
+.widget-title {
+  background-color: transparent;
+}
+
+.widget-title button{
+  border: none;
+  background: @surface0@;
+}
+
+.widget-title>button>label{
+  color: @red@;
+}
+
+.widget-title>button:hover {
+  background: @surface1@;
+}
+
+/* DND widget */
+.widget-dnd {
+  margin: 8px;
+}
+
+/* DND widget */
+.widget-dnd>label {
+  font-size: 1rem;
+}
+
+.widget-dnd>switch {
+  background: @surface0@;
+  border: 1px solid @surface1@;
+  box-shadow: none;
+}
+
+.widget-dnd>switch:checked {
+  color: @crust@;
+  background: @blue@;
+}
+
+.widget-dnd>switch slider {
+  background: @surface2@;
+}
+
+/* Label widget */
+.widget-label {
+  font-size: 1.2rem;
+  margin: 4px 8px 8px;
+}
+.widget-label>label{
+  margin: 4px 8px 8px;
+}
+
+/* Mpris widget */
+.widget-mpris {
+  background-color: @base@;
+  margin: 8px;
+}
+
+.widget-mpris-player {
+  padding: 8px;
+  margin: 8px;
+}
+
+.widget-mpris-title {
+  font-weight: bold;
+}
+
+.widget-mpris-subtitle {
+  font-size: 1rem;
+}
+
+/* Volume and Brightness Widget*/
+
+.widget-volume {
+  background-color: @crust@;
+  padding: 4px 4px 4px 20px;
+  margin: 0px 8px 8px 8px;
+}
+
+.widget-backlight {
+  background-color: @crust@;
+  padding: 8px 8px 4px 8px;
+  margin: 8px 8px 0px 8px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.KB {
+  padding: 4px 8px 4px 8px;
+  margin: 0px 8px 0px 8px;
+}
+
+.widget-menubar>box{
+  padding: 8px 1rem 4px 1rem;
+  margin: 0px 8px;
+  background-color: @crust@;
+}
+
+.widget-buttons-grid {
+  padding: 0px 8px 8px;
+  margin: 0px 8px 8px;
+  background-color: @crust@;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button{
+  background: @surface0@;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button:hover {
+  background: @surface1@;
+}
+
+
+.screenshot-buttons>button,
+.powermode-buttons>button,
+.power-buttons>button{
+  background: transparent;
+  padding: 2px 0px;
+  margin: 5px 70px 3px;
+  border: 1px solid @surface0@;
+}
+
+.screenshot-buttons>button:hover,
+.powermode-buttons>button:hover,
+.power-buttons>button:hover{
+  background: @surface0@;
+}
