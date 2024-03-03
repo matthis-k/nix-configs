@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  color,
+  ...
+}: {
   home.packages = with pkgs; [
     eza
     bat
@@ -17,11 +21,12 @@
   programs.fish.enable = true;
   programs.fish.interactiveShellInit = ''
     set fish_greeting
+    fish_config theme choose "Catpuccin-Mocha"
   '';
-  programs.broot.enable = true;
+  xdg.configFile."fish/themes/Catpuccin-Mocha.theme" = {source = color.files pkgs ./Catppuccin-Mocha.theme;};
+
   programs.navi.enable = true;
   programs.starship.enable = true;
-  programs.thefuck.enable = true;
   programs.yazi.enable = true;
   programs.zoxide.enable = true;
   programs.zellij.enable = true;
