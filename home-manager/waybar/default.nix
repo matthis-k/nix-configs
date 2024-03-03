@@ -10,11 +10,11 @@
       layer = "top";
       position = "top";
       modules-left = ["hyprland/workspaces" "wlr/taskbar" "hyprland/window"];
-      modules-center = ["clock" "custom/notification"];
-      modules-right = ["pulseaudio" "backlight" "battery" "tray"];
+      modules-center = ["clock"];
+      modules-right = ["pulseaudio" "backlight" "battery" "tray" "custom/notification"];
       "hyprland/window" = {
         format = "{initialClass}";
-        seperate-outputs = false;
+        separate-outputs = true;
       };
       "hyprland/workspaces" = {
         format = "{name}";

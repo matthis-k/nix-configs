@@ -6,6 +6,7 @@
 }: {
   home.packages = with pkgs; [
     swaynotificationcenter
+    power-profiles-daemon
   ];
 
   xdg.configFile."swaync/style.css".source = color.files pkgs ./style.css;
@@ -56,7 +57,7 @@
         buttons-grid = {
           actions = [
             {
-              command = "${pkgs.netwokmanager}/bin/nm-connection-editor";
+              command = "${pkgs.networkmanager}/bin/nm-connection-editor";
               label = "";
             }
             {
@@ -86,7 +87,7 @@
                 label = "   Reboot";
               }
               {
-                command = "${pkgs.hyprlock}/bin/hyprlock";
+                command = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock";
                 label = "   Lock";
               }
               {
@@ -104,15 +105,15 @@
           "menu#powermode-buttons" = {
             actions = [
               {
-                command = "${pkgs.power-profile-daemon}/bin/powerprofilesctl set performance";
+                command = "${pkgs.power-profiles-daemon}/bin/powerprofilesctl set performance";
                 label = "Performance";
               }
               {
-                command = "${pkgs.power-profile-daemon}/bin/powerprofilesctl set balanced";
+                command = "${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced";
                 label = "Balanced";
               }
               {
-                command = "${pkgs.power-profile-daemon}/bin/powerprofilesctl set power-saver";
+                command = "${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver";
                 label = "Power-saver";
               }
             ];
