@@ -1,10 +1,10 @@
-*:not(menu):not(arrow):not(menuitem) {
+*:not(menu):not(arrow):not(menuitem):not(tooltip) {
     all: unset;
 }
 
 * {
     border-radius: 0rem;
-    font-family: Hack Nerd Font;
+    font-family: "Hack Nerd Font Mono";
     font-size: 16px;
     color: @txt@;
 }
@@ -21,8 +21,8 @@ label {
 }
 
 tooltip {
-    background: @base@;
-    border: 1px solid @blue@;
+  background: @base@;
+  border: 1px solid @surface0@;
 }
 
 window#waybar {
