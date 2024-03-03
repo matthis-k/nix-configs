@@ -13,6 +13,7 @@
       PasswordAuthentication = false;
     };
   };
+  services.power-profiles-daemon.enable = true;
   services.dbus.enable = true;
   services.pipewire = {
     enable = true;

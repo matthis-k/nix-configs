@@ -12,10 +12,11 @@
   xdg.configFile."swaync/config.json".text =
     builtins.toJSON
     {
-      control-center-margin-bottom = 2;
+      control-center-margin-bottom = 0;
       control-center-margin-left = 0;
-      control-center-margin-right = 1;
-      control-center-margin-top = 2;
+      control-center-margin-right = 0;
+      control-center-margin-top = 0;
+      layer = "top";
       control-center-width = 380;
       fit-to-screen = true;
       hide-on-action = true;
@@ -28,7 +29,7 @@
       notification-visibility = {
         mute-spotify = {
           app-name = "Spotify";
-          state = "muted";
+          state = "ignored";
           urgency = "Low";
         };
       };
@@ -42,27 +43,32 @@
       timeout-low = 4;
       transition-time = 100;
       widget-config = {
+        "backlight#KB" = {
+          label = "";
+          device = "dell::kbd_backlight";
+          subsystem = "leds";
+        };
         backlight = {
           device = "intel_backlight";
-          label = "󰥻";
+          label = "󰛨";
           min = 1;
         };
         buttons-grid = {
           actions = [
             {
-              command = "nm-connection-editor";
+              command = "${pkgs.netwokmanager}/bin/nm-connection-editor";
               label = "";
             }
             {
-              command = "blueberry";
+              command = "${pkgs.blueberry}/bin/blueberry";
               label = "󰂯";
             }
             {
-              command = "spotify";
+              command = "${pkgs.spotify}/bin/spotify";
               label = "󰓇";
             }
             {
-              command = "firefox";
+              command = "${pkgs.firefox}/bin/firefox";
               label = "";
             }
           ];
@@ -80,7 +86,7 @@
                 label = "   Reboot";
               }
               {
-                command = "hyprlock";
+                command = "${pkgs.hyprlock}/bin/hyprlock";
                 label = "   Lock";
               }
               {
@@ -98,15 +104,15 @@
           "menu#powermode-buttons" = {
             actions = [
               {
-                command = "powerprofilesctl set performance";
+                command = "${pkgs.power-profile-daemon}/bin/powerprofilesctl set performance";
                 label = "Performance";
               }
               {
-                command = "powerprofilesctl set balanced";
+                command = "${pkgs.power-profile-daemon}/bin/powerprofilesctl set balanced";
                 label = "Balanced";
               }
               {
-                command = "powerprofilesctl set power-saver";
+                command = "${pkgs.power-profile-daemon}/bin/powerprofilesctl set power-saver";
                 label = "Power-saver";
               }
             ];
@@ -116,11 +122,11 @@
           "menu#screenshot-buttons" = {
             actions = [
               {
-                command = "swaync-client -cp && sleep 1 && hyprshot -m output";
+                command = "${pkgs.swaynotificationcenter}/bin/swaync-client -cp && sleep 1 && ${pkgs.grimblast}/bin/grimblast copy screen";
                 label = "Entire screen";
               }
               {
-                command = "swaync-client -cp && sleep 1 && hyprshot -m region";
+                command = "${pkgs.swaynotificationcenter}/bin/swaync-client -cp && sleep 1 && ${pkgs.grimblast}/bin/grimblast copy screen";
                 label = "Select a region";
               }
             ];
@@ -128,14 +134,20 @@
             position = "left";
           };
         };
-        mpris = {image-size = 96;};
+        mpris = {image-size = 32;};
         title = {
-          button-text = "󰐓";
+          button-text = "Clear";
           clear-all-button = true;
           text = "Notifications";
         };
-        volume = {label = "";};
+        volume = {
+          label = "";
+          show-per-app = true;
+          expand-button-label = "󰞖";
+          collapse-button-label = "󰞕";
+          empty-list-label = "No audio playing";
+        };
       };
-      widgets = ["menubar" "label" "buttons-grid" "volume" "mpris" "title" "dnd" "notifications"];
+      widgets = ["label" "menubar" "buttons-grid" "backlight" "backlight#KB" "volume" "mpris" "title" "dnd" "notifications"];
     };
 }
