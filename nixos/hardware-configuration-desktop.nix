@@ -5,6 +5,8 @@
   modulesPath,
   ...
 }: {
+  networking.hostName = "matthisk-laptop";
+
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];

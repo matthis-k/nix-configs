@@ -53,6 +53,13 @@
         specialArgs = {inherit inputs outputs color;};
         modules = [
           ./nixos/configuration.nix
+          ./nixos/hardware-configuration-laptop.nix
+        ];
+      };
+      desktop = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs color;};
+        modules = [
+          ./nixos/configuration.nix
         ];
       };
     };
@@ -63,6 +70,14 @@
         extraSpecialArgs = {inherit inputs outputs color;};
         modules = [
           ./home-manager/home.nix
+        ];
+      };
+      "matthisk@desktop" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs color;};
+        modules = [
+          ./home-manager/home.nix
+          ./nixos/hardware-configuration-desktop.nix
         ];
       };
     };

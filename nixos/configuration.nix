@@ -13,7 +13,6 @@
     inputs.home-manager.nixosModules.home-manager
     ./bootup.nix
     ./gdm.nix
-    ./hardware-configuration.nix
     ./locales.nix
     ./nix-settings.nix
     ./services.nix
@@ -78,8 +77,6 @@
   virtualisation.virtualbox.guest.x11 = true;
 
   programs.nix-ld.enable = true;
-
-  networking.hostName = "matthisk-laptop";
 
   users.users = {
     matthisk = {
