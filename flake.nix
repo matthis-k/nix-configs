@@ -13,6 +13,9 @@
     nix-software-center.url = github:vlinkz/nix-software-center;
     nix-software-center.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
+    waybar.url = github:Alexays/Waybar;
+    waybar.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
     hyprland.url = github:hyprwm/Hyprland;
 
     hycov.url = github:DreamMaoMao/hycov;
@@ -50,16 +53,25 @@
     homeManagerModules = import ./modules/home-manager color;
     nixosConfigurations = {
       laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs color;};
+        specialArgs = {
+          inherit inputs outputs color;
+          host = "laptop";
+        };
         modules = [
+          inputs.home-manager.nixosModules.home-manager
           ./nixos/configuration.nix
           ./nixos/hardware-configuration-laptop.nix
         ];
       };
       desktop = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs color;};
+        specialArgs = {
+          inherit inputs outputs color;
+          host = "desktop";
+        };
         modules = [
+          inputs.home-manager.nixosModules.home-manager
           ./nixos/configuration.nix
+          ./nixos/hardware-configuration-desktop.nix
         ];
       };
     };
@@ -67,17 +79,22 @@
     homeConfigurations = {
       "matthisk@laptop" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs color;};
+        extraSpecialArgs = {
+          inherit inputs outputs color;
+          host = "laptop";
+        };
         modules = [
           ./home-manager/home.nix
         ];
       };
       "matthisk@desktop" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs color;};
+        extraSpecialArgs = {
+          inherit inputs outputs color;
+          host = "desktop";
+        };
         modules = [
           ./home-manager/home.nix
-          ./nixos/hardware-configuration-desktop.nix
         ];
       };
     };

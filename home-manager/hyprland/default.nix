@@ -17,31 +17,40 @@
 
   xdg.configFile."wallpaper.png".source = ./wallpaper.png;
 
-  home.packages = with pkgs; [
-    blueberry
-    brightnessctl
-    discord
-    grimblast
-    hyprpaper
-    hyprpicker
-    kitty
-    nix-software-center
-    launchpad
-    libdrm
-    libnotify
-    networkmanagerapplet
-    pavucontrol
-    playerctl
-    polkit_gnome
-    spotify
-    swaybg
-    swappy
-    tesseract
-    waybar
-    wayland-protocols
-    wl-clipboard
-    wlogout
-    wlroots
-    xdg-utils
-  ];
+  home.packages = with pkgs;
+    [
+      blueberry
+      brightnessctl
+      discord
+      libsForQt5.qt5ct
+      libsForQt5.qt5.qtwayland
+      libsForQt5.qt5.qtwayland
+      qt6.qtwayland
+      grimblast
+      hyprpaper
+      hyprpicker
+      kitty
+      nix-software-center
+      launchpad
+      libdrm
+      libnotify
+      networkmanagerapplet
+      pavucontrol
+      playerctl
+      polkit_gnome
+      spotify
+      swaybg
+      swappy
+      tesseract
+      wayland-protocols
+      wl-clipboard
+      wlogout
+      wlroots
+      xdg-utils
+    ]
+    ++ (
+      if host == "desktop"
+      then with pkgs; [libva]
+      else []
+    );
 }

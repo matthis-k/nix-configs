@@ -2,6 +2,7 @@
   pkgs,
   color,
   inputs,
+  host,
   ...
 }: let
   p = builtins.mapAttrs (name: col: (builtins.substring 1 (builtins.stringLength col) col)) color.palette;
@@ -12,7 +13,25 @@ in {
     hyprlandPlugin.hycov
   ];
   wayland.windowManager.hyprland.settings = {
-    monitor = ", preferred, auto,1";
+    env =
+      if host == "desktop"
+      then [
+        "LIBVA_DRIVER_NAME,nvidia"
+        "XDG_SESSION_TYPE,wayland"
+        "GBM_BACKEND,nvidia-drm"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "WLR_NO_HARDWARE_CURSORS,1"
+      ]
+      else [];
+    monitor =
+      if host == "laptop"
+      then ["eDP-1,1920x1080,0x0,1"]
+      else if host == "desktop"
+      then [
+        "DP-1,1920x1080,1920x0,1"
+        "HDMI-A-1,1920x1080,0x0,1"
+      ]
+      else ",preferred,auto,1";
     exec = [
       "${pkgs.hyprland}/bin/hyprctl setcursor 'Catppuccin-Mocha-Blue-Cursors' 24"
       "${pkgs.busybox}/bin/pkill waybar; ${pkgs.waybar}/bin/waybar"
@@ -24,6 +43,7 @@ in {
       "${pkgs.blueberry}/bin/blueberry-tray"
       "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator"
     ];
+
     general = {
       "col.active_border" = "rgba(${p.green}ff)";
       "col.inactive_border" = "rgba(${p.surface0}ff)";
@@ -252,7 +272,7 @@ in {
       hycov = {
         overview_gappo = 10;
         overview_gappi = 10;
-        enable_hotarea = false;
+        enable_hotarea = 0;
         hotarea_monitor = "all";
         hotarea_pos = 1;
         hotarea_size = 10;
@@ -273,15 +293,21 @@ in {
 
     blurls = [" waybar "];
 
-    bindl = [
-      ", switch:on:lid, dpms, on eDP-1"
-      ", switch:off:lid, dpms, off eDP-1"
-
-      ", XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
-      ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
-      ", XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
-      ", XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop"
-    ];
+    bindl =
+      [
+        ", XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
+        ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
+        ", XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
+        ", XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop"
+      ]
+      ++ (
+        if host == "laptop"
+        then [
+          ", switch:on:lid, dpms, on eDP-1"
+          ", switch:off:lid, dpms, off eDP-1"
+        ]
+        else []
+      );
 
     bindle = [
       ", XF86MonBrightnessUp,     exec, ${pkgs.brightnessctl}/bin/brightnessctl -c backlight set +5% -n 1"

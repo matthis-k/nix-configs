@@ -1,12 +1,13 @@
 {
   pkgs,
   color,
+  inputs,
+  host,
   ...
 }: {
   programs.waybar.settings = let
     p = color.palette;
-  in {
-    mainBar = {
+    mainSettings = {
       layer = "top";
       position = "top";
       modules-left = ["hyprland/workspaces" "wlr/taskbar" "hyprland/window"];
@@ -20,16 +21,30 @@
         format = "{name}";
         all-outputs = true;
         show-special = true;
-        persistent-workspaces = {
-          "1" = ["eDP-1"];
-          "2" = ["eDP-1"];
-          "3" = ["eDP-1"];
-          "4" = ["eDP-1"];
-          "5" = ["eDP-1"];
-          "*" = 5;
-        };
+        persistent-workspaces =
+          if host == "laptop"
+          then {
+            "1" = "eDP-1";
+            "2" = "eDP-1";
+            "3" = "eDP-1";
+            "4" = "eDP-1";
+            "5" = "eDP-1";
+          }
+          else if host == "desktop"
+          then {
+            "1" = "HMDI-A-1";
+            "2" = "HMDI-A-1";
+            "3" = "HMDI-A-1";
+            "4" = "HMDI-A-1";
+            "5" = "HMDI-A-1";
+            "6" = "DP-1";
+            "7" = "DP-1";
+            "8" = "DP-1";
+            "9" = "DP-1";
+            "10" = "DP-1";
+          }
+          else {};
       };
-
       "wlr/taskbar" = {
         format = "{icon}";
         icon-size = 14;
@@ -125,6 +140,18 @@
         escape = true;
       };
     };
-  };
+  in
+    if host == "laptop"
+    then [
+      (mainSettings // {output = "eDP-1";})
+    ]
+    else if host == "desktop"
+    then [
+      (mainSettings // {output = "HDMI-A-1";})
+      (mainSettings // {output = "DP-1";})
+    ]
+    else [
+      mainSettings
+    ];
   programs.waybar.style = color.files pkgs ./style.css;
 }

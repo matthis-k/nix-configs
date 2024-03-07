@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  host,
+  ...
+}: {
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
   boot.loader.grub.useOSProber = true;
@@ -6,7 +10,13 @@
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.gfxmodeEfi = "1920x1200";
   boot.loader.grub.gfxmodeBios = "1920x1200";
-  boot.kernelParams = ["quiet" "udev.log_level=3"];
+  boot.kernelParams =
+    ["quiet" "udev.log_level=3"]
+    ++ (
+      if host == "desktop"
+      then ["nvidia_drm.modeset=1"]
+      else []
+    );
   boot.initrd.systemd.enable = true;
   boot.plymouth = {
     enable = true;
