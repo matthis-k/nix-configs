@@ -3,6 +3,12 @@
   config,
   ...
 }: {
+  home.pointerCursor = {
+    gtk.enable = true;
+    name = "Catppuccin-Mocha-Blue-Cursors";
+    package = pkgs.catppuccin-cursors.mochaBlue;
+    size = 24;
+  };
   gtk.enable = true;
   gtk.theme = {
     name = "Catppuccin-Mocha-Standard-Blue-Dark";

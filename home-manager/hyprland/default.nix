@@ -17,13 +17,6 @@
 
   xdg.configFile."wallpaper.png".source = ./wallpaper.png;
 
-  xdg.configFile."hypr/hyprpaper.conf".text = ''
-    preload = /home/matthisk/.config/wallpaper.jpg
-    wallpaper = ,/home/matthisk/.config/wallpaper.jpg
-    unload = /home/matthisk/.config/wallpaper.jpg
-    splash = false
-  '';
-
   home.packages = with pkgs; [
     blueberry
     brightnessctl
@@ -31,8 +24,8 @@
     grimblast
     hyprpaper
     hyprpicker
-    inputs.nix-software-center.packages.${pkgs.system}.nix-software-center
     kitty
+    nix-software-center
     launchpad
     libdrm
     libnotify
@@ -41,6 +34,7 @@
     playerctl
     polkit_gnome
     spotify
+    swaybg
     swappy
     tesseract
     waybar

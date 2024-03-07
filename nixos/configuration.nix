@@ -61,6 +61,7 @@
     ];
     config = {
       allowUnfree = true;
+      allowUnfreePredicate = _: true;
       permittedInsecurePackages = [
         "electron-24.8.6"
       ];

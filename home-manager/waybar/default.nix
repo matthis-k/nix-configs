@@ -11,10 +11,10 @@
       position = "top";
       modules-left = ["hyprland/workspaces" "wlr/taskbar" "hyprland/window"];
       modules-center = ["clock"];
-      modules-right = ["pulseaudio" "backlight" "battery" "tray" "custom/notification"];
+      modules-right = ["pulseaudio" "backlight" "battery" "tray" "power-profiles-daemon" "custom/notification"];
       "hyprland/window" = {
         format = "{initialClass}";
-        separate-outputs = true;
+        seperate-outputs = true;
       };
       "hyprland/workspaces" = {
         format = "{name}";
@@ -26,6 +26,7 @@
           "3" = ["eDP-1"];
           "4" = ["eDP-1"];
           "5" = ["eDP-1"];
+          "*" = 5;
         };
       };
 
@@ -89,6 +90,18 @@
       tray = {
         icon-size = 16;
         spacing = 4;
+      };
+
+      power-profiles-daemon = {
+        format = "{icon}";
+        tooltip-format = "Power profile: {profile}\nDriver: {driver}";
+        tooltip = true;
+        format-icons = {
+          default = "󰓅";
+          performance = "󰓅";
+          balanced = "󰾅";
+          power-saver = "󰾆";
+        };
       };
 
       "custom/notification" = {

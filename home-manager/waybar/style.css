@@ -27,7 +27,6 @@ tooltip {
 
 window#waybar {
     background-color: @base@;
-    border-bottom: 1px solid @surface1@
 }
 
 .modules-left,  .modules-right, .modules-center {
@@ -40,7 +39,7 @@ window#waybar {
     margin-right: -0.4rem;
 }
 
-#window, #workspaces, #battery, #clock, #taskbar, #pulseaudio, #tray, #backlight,  #custom-notification {
+#window, #workspaces, #battery, #clock, #taskbar, #pulseaudio, #tray, #backlight,  #custom-notification, #power-profiles-daemon {
     font-size: 16px;
     background-color: @surface0@;
     margin: 0rem 0.4rem;
@@ -113,6 +112,18 @@ window#waybar {
     color: @peach@;
 }
 
+#power-profiles-daemon {
+    color: @txt@;
+}
+
+#power-profiles-daemon.power-saver {
+    color: @green@;
+}
+
+#power-profiles-daemon.performance {
+    color: @peach@;
+}
+
 window#waybar.empty #window,
 window#waybar.empty #workspaces,
 window#waybar.empty #battery,
@@ -121,6 +132,7 @@ window#waybar.empty #taskbar,
 window#waybar.empty #pulseaudio,
 window#waybar.empty #tray,
 window#waybar.empty #backlight,
+window#waybar.empty #power-profiles-daemon,
 window#waybar.empty #custom-notification {
     background-color: transparent;
 }

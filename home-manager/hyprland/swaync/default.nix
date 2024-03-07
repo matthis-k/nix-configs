@@ -87,7 +87,7 @@
                 label = "   Reboot";
               }
               {
-                command = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock";
+                command = "${pkgs.hyprlock}/bin/hyprlock";
                 label = "   Lock";
               }
               {

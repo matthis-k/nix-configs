@@ -16,6 +16,10 @@
         patches = oldAttrs.patches or [] ++ [./blueberry/blueberry-tray-fix.patch];
         buildInputs = oldAttrs.buildInputs ++ [prev.libappindicator-gtk3];
       });
+    waybar = inputs.waybar.packages.${prev.system}.default;
+    hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
+    hyprlandPlugin.hycov = inputs.hycov.packages.${prev.system}.hycov;
+    hyprlock = inputs.hyprlock.packages.${prev.system}.hyprlock;
   };
 
   unstable-packages = final: _prev: {

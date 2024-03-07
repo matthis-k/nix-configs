@@ -7,17 +7,17 @@
   p = builtins.mapAttrs (name: col: (builtins.substring 1 (builtins.stringLength col) col)) color.palette;
 in {
   wayland.windowManager.hyprland.enable = true;
-  wayland.windowManager.hyprland.package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  wayland.windowManager.hyprland.package = pkgs.hyprland;
   wayland.windowManager.hyprland.plugins = with pkgs; [
-    inputs.hycov.packages.${pkgs.system}.hycov
+    hyprlandPlugin.hycov
   ];
   wayland.windowManager.hyprland.settings = {
     monitor = ", preferred, auto,1";
     exec = [
       "${pkgs.hyprland}/bin/hyprctl setcursor 'Catppuccin-Mocha-Blue-Cursors' 24"
-      "${pkgs.hyprpaper}/bin/hyprpaper"
-      "${pkgs.busybox}/bin/pkill ${pkgs.waybar}/bin/waybar; ${pkgs.waybar}/bin/waybar"
+      "${pkgs.busybox}/bin/pkill waybar; ${pkgs.waybar}/bin/waybar"
       "${pkgs.busybox}/bin/pkill ${pkgs.swaynotificationcenter}/bin/swaync; ${pkgs.swaynotificationcenter}/bin/swaync"
+      "${pkgs.busybox}/bin/pkill ${pkgs.swaybg}/bin/swaybg; ${pkgs.swaybg}/bin/swaybg -i ~/.config/wallpaper.png"
     ];
     exec-once = [
       "${pkgs.swaynotificationcenter}/bin/swaync"
