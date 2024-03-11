@@ -14,6 +14,7 @@
     ./hyprland
     ./nvim
     ./theme.nix
+    ./spicetify.nix
     ./waybar
     ./kitty
   ];

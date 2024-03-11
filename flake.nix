@@ -26,6 +26,8 @@
 
     rust-overlay.url = github:oxalica/rust-overlay;
 
+    spicetify.url = github:the-argus/spicetify-nix;
+
     nur.url = github:nix-community/NUR;
   };
 

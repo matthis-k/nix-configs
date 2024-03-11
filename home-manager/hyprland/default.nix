@@ -38,7 +38,6 @@
       pavucontrol
       playerctl
       polkit_gnome
-      spotify
       swaybg
       swappy
       tesseract
