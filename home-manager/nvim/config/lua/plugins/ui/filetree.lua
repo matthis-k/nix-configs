@@ -1,6 +1,9 @@
 local visuals = require("core.visuals")
+
 return {
     "nvim-neo-tree/neo-tree.nvim",
+    event = { "BufEnter" },
+    cmd = { "Neotree" },
     keys = {
         { "<leader>e", "<cmd>Neotree filesystem toggle right<cr>", desc = "File Explorer" },
     },
@@ -8,6 +11,7 @@ return {
         source_selector = {
             winbar = true,
             tabs_layout = "equal",
+            content_layout = "center",
             sources = {
                 { source = "filesystem", display_name = visuals.icons.filesystem.folder .. " Files" },
                 { source = "git_status", display_name = visuals.icons.git.branch .. " Git" },
@@ -92,11 +96,11 @@ return {
                 [">"] = "next_source",
             },
         },
-        follow_current_file = true,
-        group_empty_dirs = false,
-        hijack_netrw_behavior = "open_default",
-        use_libuv_file_watcher = true,
         filesystem = {
+            group_empty_dirs = false,
+            follow_current_file = { enabled = true, },
+            use_libuv_file_watcher = true,
+            hijack_netrw_behavior = "open_current",
             window = {
                 mappings = {
                     ["<bs>"] = "navigate_up",
