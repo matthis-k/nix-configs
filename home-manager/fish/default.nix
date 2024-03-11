@@ -22,6 +22,10 @@
   programs.fish.interactiveShellInit = ''
     set fish_greeting
     fish_config theme choose "Catpuccin-Mocha"
+    eval (ssh-agent -c) > /dev/null
+    for ssh_key in (fd --base-directory ~/.ssh/ "id_*" -E "id_*.pub" -a)
+        ssh-add $ssh_key &> /dev/null
+    end
   '';
   xdg.configFile."fish/themes/Catpuccin-Mocha.theme" = {source = color.files pkgs ./Catppuccin-Mocha.theme;};
 
