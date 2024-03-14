@@ -7,6 +7,7 @@
 }: {
   programs.waybar.settings = let
     p = color.palette;
+  in {
     mainSettings = {
       layer = "top";
       position = "top";
@@ -15,7 +16,7 @@
       modules-right = ["pulseaudio" "backlight" "battery" "tray" "power-profiles-daemon" "custom/notification"];
       "hyprland/window" = {
         format = "{initialClass}";
-        seperate-outputs = true;
+        separate-outputs = true;
       };
       "hyprland/workspaces" = {
         format = "{name}";
@@ -140,18 +141,6 @@
         escape = true;
       };
     };
-  in
-    if host == "laptop"
-    then [
-      (mainSettings // {output = "eDP-1";})
-    ]
-    else if host == "desktop"
-    then [
-      (mainSettings // {output = "HDMI-A-1";})
-      (mainSettings // {output = "DP-1";})
-    ]
-    else [
-      mainSettings
-    ];
+  };
   programs.waybar.style = color.files pkgs ./style.css;
 }
