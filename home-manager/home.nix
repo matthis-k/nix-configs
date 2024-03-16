@@ -39,6 +39,11 @@
     nix-software-center
     libreoffice
     steam
+    nix-output-monitor
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "nix-2.16.2"
   ];
 
   home = rec {

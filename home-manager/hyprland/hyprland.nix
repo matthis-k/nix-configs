@@ -10,7 +10,7 @@ in {
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.package = pkgs.hyprland;
   wayland.windowManager.hyprland.plugins = with pkgs; [
-    hyprlandPlugin.hycov
+    # hyprlandPlugin.hycov
   ];
   wayland.windowManager.hyprland.settings = {
     env =
@@ -269,26 +269,6 @@ in {
     };
 
     plugin = {
-      hycov = {
-        overview_gappo = 10;
-        overview_gappi = 10;
-        enable_hotarea = 0;
-        hotarea_monitor = "all";
-        hotarea_pos = 1;
-        hotarea_size = 10;
-        swipe_fingers = 4;
-        move_focus_distance = 100;
-        enable_gesture = 1;
-        auto_exit = 1;
-        auto_fullscreen = 0;
-        only_active_workspace = 0;
-        only_active_monitor = 0;
-        enable_alt_release_exit = 1;
-        alt_replace_key = "Alt_L";
-        alt_toggle_auto_next = 1;
-        click_in_cursor = 1;
-        hight_of_titlebar = 0;
-      };
     };
 
     blurls = [" waybar "];
@@ -323,7 +303,6 @@ in {
       "alt control, w, exec, ${pkgs.firefox}/bin/firefox"
       "alt, h, changegroupactive, f"
       "alt, l, changegroupactive, b"
-      "alt, tab, hycov:toggleoverview"
       "super shift, 0, movetoworkspace, 10"
       "super shift, 1, movetoworkspace, 1"
       "super shift, 2, movetoworkspace, 2"

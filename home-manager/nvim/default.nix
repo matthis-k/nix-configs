@@ -20,6 +20,7 @@
       libclang
       lua-language-server
       nixd
+      ollama
       ripgrep
       rust-bin.beta.latest.default
       shellcheck

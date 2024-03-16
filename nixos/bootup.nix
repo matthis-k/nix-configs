@@ -8,10 +8,10 @@
   boot.loader.grub.useOSProber = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.efiSupport = true;
-  boot.loader.grub.gfxmodeEfi = "1920x1200";
-  boot.loader.grub.gfxmodeBios = "1920x1200";
+  boot.loader.grub.gfxmodeEfi = "1920x1020";
+  boot.loader.grub.gfxmodeBios = "1920x1020";
   boot.kernelParams =
-    ["quiet" "udev.log_level=3"]
+    ["splash" "quiet" "udev.log_level=3"]
     ++ (
       if host == "desktop"
       then ["nvidia_drm.modeset=1"]
