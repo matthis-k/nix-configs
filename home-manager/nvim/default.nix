@@ -13,6 +13,7 @@
     extraPackages = with pkgs; [
       alejandra
       bottom
+      cargo
       curl
       fd
       imagemagick
