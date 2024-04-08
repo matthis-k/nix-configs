@@ -71,11 +71,9 @@
   users.defaultUserShell = pkgs.fish;
   programs.fish.enable = true;
 
-  users.extraGroups.vboxusers.members = ["matthisk"];
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
-  virtualisation.virtualbox.guest.enable = true;
-  virtualisation.virtualbox.guest.x11 = true;
+  users.extraGroups.libvirtd.members = ["matthisk"];
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
   programs.nix-ld.enable = true;
 
