@@ -72,7 +72,9 @@
   programs.fish.enable = true;
 
   users.extraGroups.libvirtd.members = ["matthisk"];
+  users.extraGroups.docker.members = ["matthisk"];
   virtualisation.libvirtd.enable = true;
+  virtualisation.docker.enable = true;
   programs.virt-manager.enable = true;
 
   programs.nix-ld.enable = true;

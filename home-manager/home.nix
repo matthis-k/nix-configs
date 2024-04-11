@@ -40,6 +40,8 @@
     libreoffice
     steam
     nix-output-monitor
+    docker
+    vscode-fhs
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
