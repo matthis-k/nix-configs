@@ -13,7 +13,6 @@
     extraPackages = with pkgs; [
       alejandra
       bottom
-      cargo
       curl
       fd
       imagemagick
@@ -23,7 +22,10 @@
       nixd
       ollama
       ripgrep
-      rust-bin.beta.latest.default
+      (rust-bin.beta.latest.default.override
+        {
+          extensions = ["rust-src"];
+        })
       shellcheck
       shellharden
       shfmt

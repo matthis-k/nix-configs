@@ -6,10 +6,11 @@
   launchpad = let
     patched-config = color.files pkgs ./launchpad/config.rasi;
     patched-theme = color.files pkgs ./launchpad/theme.rasi;
-  in {
+    lockfile = "/tmp/launchpad.lock";
+  in rec {
     pkg = pkgs.writeScriptBin "launchpad" ''
       #!${pkgs.stdenv.shell}
-      pkill -x ${pkgs.rofi-unwrapped}/bin/rofi || ${pkgs.rofi}/bin/rofi -config ${patched-config} -theme ${patched-theme} -show drun
+      ${pkgs.rofi-wayland}/bin/rofi -config ${patched-config} -theme ${patched-theme} -show drun
     '';
   };
 in {

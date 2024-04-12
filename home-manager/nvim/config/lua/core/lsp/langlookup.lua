@@ -15,12 +15,12 @@ function M.merge_field(field_name)
         local t = type(lang[field_name])
         if t == "string" then
             vim.list_extend(r, { lang[field_name] })
-        elseif vim.tbl_isarray(lang[field_name]) then
+        elseif vim.isarray(lang[field_name]) then
             vim.list_extend(r, lang[field_name])
         elseif t == "table" then
             for k, v in pairs(lang[field_name]) do
                 if not r[k] then r[k] = {} end
-                if not vim.tbl_isarray(v) then
+                if not vim.isarray(v) then
                     vim.list_extend(r[k], { v })
                 else
                     vim.list_extend(r[k], v)

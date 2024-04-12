@@ -16,13 +16,16 @@
     waybar.url = github:Alexays/Waybar;
     waybar.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
-    hyprland.url = github:hyprwm/Hyprland;
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     hycov.url = github:DreamMaoMao/hycov;
     hycov.inputs.hyprland.follows = "hyprland";
 
     hyprlock.url = github:hyprwm/hyprlock;
     hyprlock.inputs.nixpkgs.follows = "nixpkgs";
+
+    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
+    hyprland-plugins.inputs.hyprland.follows = "hyprland";
 
     rust-overlay.url = github:oxalica/rust-overlay;
 

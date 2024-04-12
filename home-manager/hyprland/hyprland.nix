@@ -10,8 +10,24 @@ in {
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.package = pkgs.hyprland;
   wayland.windowManager.hyprland.plugins = with pkgs; [
-    # hyprlandPlugin.hycov
+    # hyprlandPlugin.hyprexpo
   ];
+  wayland.windowManager.hyprland.extraConfig = let
+    p = builtins.mapAttrs (name: col: (builtins.substring 1 (builtins.stringLength col) col)) color.palette;
+  in ''
+    plugin {
+        hyprexpo {
+            columns = 3
+            gap_size = 5
+            bg_col = rgb(111111)
+            workspace_method = center current # [center/first] [workspace] e.g. first 1 or center m+1
+
+            enable_gesture = true # laptop touchpad, 4 fingers
+            gesture_distance = 300 # how far is the "max"
+            gesture_positive = true # positive = swipe down. Negative = swipe up.
+        }
+    }
+  '';
   wayland.windowManager.hyprland.settings = {
     env =
       if host == "desktop"
@@ -156,6 +172,7 @@ in {
       workspace_swipe = true;
       workspace_swipe_fingers = 3;
       workspace_swipe_distance = 300;
+      workspace_swipe_touch = true;
       workspace_swipe_invert = true;
       workspace_swipe_min_speed_to_force = 30;
       workspace_swipe_cancel_ratio = 0.5;
@@ -163,7 +180,6 @@ in {
       workspace_swipe_direction_lock = true;
       workspace_swipe_direction_lock_threshold = 10;
       workspace_swipe_forever = false;
-      workspace_swipe_numbered = false;
       workspace_swipe_use_r = false;
     };
 
@@ -268,9 +284,6 @@ in {
       drop_at_cursor = true;
     };
 
-    plugin = {
-    };
-
     blurls = [" waybar "];
 
     bindl =
@@ -344,6 +357,7 @@ in {
       "super, return, exec, ${pkgs.kitty}/bin/kitty"
       "super, space, togglefloating"
       "super, x, exec, ${pkgs.wlogout}/bin/wlogout -p layer-shell"
+      # "super, tab, hyprexpo:expo"
     ];
 
     bindm = [
@@ -352,6 +366,7 @@ in {
     ];
     windowrule = [
       "noanim, Rofi"
+      "float, Rofi"
       "fakefullscreen, Rofi"
       "float, pavucontrol"
       "float, nm-connection-editor"

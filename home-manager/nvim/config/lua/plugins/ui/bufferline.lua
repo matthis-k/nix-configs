@@ -2,6 +2,7 @@ return {
     {
         "akinsho/bufferline.nvim",
         event = { "BufReadPre", "BufNewFile" },
+        commit = "73540cb95f8d95aa1af3ed57713c6720c78af915",
         keys = {
             { "<leader>bp", "<cmd>BufferLineTogglePin<cr>",            desc = "Toggle pin" },
             { "<leader>bP", "<cmd>BufferLineGroupClose ungrouped<cr>", desc = "Delete non-pinned buffers" },

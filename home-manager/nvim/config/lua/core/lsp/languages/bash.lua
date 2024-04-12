@@ -2,7 +2,7 @@ return {
     filetype = { "bash", "sh" },
     lspconfig = { name = "bashls" },
     treesitter = { "bash" },
-    null_ls = { code_actions = { "shellcheck" }, diagnostics = { "shellcheck" }, formatting = { "shfmt", "shellharden" } },
+    null_ls = { formatting = { "shfmt", "shellharden" } },
     custom_keys = {
         {
             mode = "n",

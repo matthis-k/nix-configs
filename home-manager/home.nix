@@ -17,6 +17,7 @@
     ./spicetify.nix
     ./waybar
     ./kitty
+    ./rust.nix
   ];
 
   nixpkgs = {

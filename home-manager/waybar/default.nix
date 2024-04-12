@@ -9,7 +9,7 @@
     p = color.palette;
   in {
     mainSettings = {
-      layer = "top";
+      layer = "bottom";
       position = "top";
       modules-left = ["hyprland/workspaces" "wlr/taskbar" "hyprland/window"];
       modules-center = ["clock"];
