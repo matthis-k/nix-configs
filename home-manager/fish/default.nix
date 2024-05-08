@@ -1,6 +1,8 @@
 {
   pkgs,
   color,
+  config,
+  host,
   ...
 }: {
   home.packages = with pkgs; [
@@ -27,9 +29,22 @@
         ssh-add $ssh_key &> /dev/null
     end
   '';
+  programs.fish.shellAliases = {
+    lg = "lazygit";
+  };
+
+  home.sessionVariables = {
+    SYS_FLAKE = "$HOME/nix-configs/";
+    SYS_FLAKE_HOST = "${host}";
+  };
+
+  programs.fish.functions = {
+    rebuild-system = ''sudo nixos-rebuild switch --flake "$SYS_FLAKE#$SYS_FLAKE_HOST"'';
+    rebuild-home = ''home-manager switch --flake "$SYS_FLAKE#$USER@$SYS_FLAKE_HOST"'';
+  };
+
   xdg.configFile."fish/themes/Catpuccin-Mocha.theme" = {source = color.files pkgs ./Catppuccin-Mocha.theme;};
 
-  programs.navi.enable = true;
   programs.starship.enable = true;
   programs.yazi.enable = true;
   programs.zoxide.enable = true;
