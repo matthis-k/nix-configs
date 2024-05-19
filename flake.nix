@@ -18,8 +18,8 @@
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
-    hycov.url = github:DreamMaoMao/hycov;
-    hycov.inputs.hyprland.follows = "hyprland";
+    Hyprspace.url = "github:KZDKM/Hyprspace";
+    Hyprspace.inputs.hyprland.follows = "hyprland";
 
     hyprlock.url = github:hyprwm/hyprlock;
     hyprlock.inputs.nixpkgs.follows = "nixpkgs";

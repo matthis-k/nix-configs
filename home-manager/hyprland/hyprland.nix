@@ -10,24 +10,55 @@ in {
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.package = pkgs.hyprland;
   wayland.windowManager.hyprland.plugins = with pkgs; [
-    # hyprlandPlugin.hyprexpo
+    # hyprlandPlugin.hyprspace
   ];
-  wayland.windowManager.hyprland.extraConfig = let
+  /*
+     wayland.windowManager.hyprland.extraConfig = let
     p = builtins.mapAttrs (name: col: (builtins.substring 1 (builtins.stringLength col) col)) color.palette;
   in ''
     plugin {
-        hyprexpo {
-            columns = 3
-            gap_size = 5
-            bg_col = rgb(111111)
-            workspace_method = center current # [center/first] [workspace] e.g. first 1 or center m+1
+        overview {
+            panelColor = rgba(${p.crust}00)
+            panelBorderColor= rgba(${p.crust}00)
+            workspaceActiveBackground= rgba(${p.crust}40)
+            workspaceInactiveBackground= rgba(${p.crust}80)
+            workspaceActiveBorder= rgba(${p.green}ff)
+            workspaceInactiveBorder= rgba(${p.surface0}00)
+            dragAlpha = 0.2
 
-            enable_gesture = true # laptop touchpad, 4 fingers
-            gesture_distance = 300 # how far is the "max"
-            gesture_positive = true # positive = swipe down. Negative = swipe up.
+            panelHeight = 250
+            panelBorderWidth = 2
+            onBottom = false
+            workspaceMargin = 12
+            reservedArea = 0
+            workspaceBorderSize = 1
+            centerAligned = true
+            hideBackgroundLayers = false
+            hideTopLayers = false
+            hideOverlayLayers = false
+            hideRealLayers = true
+            drawActiveWorkspace = true
+            overrideGaps = true
+            gapsIn = 20
+            gapsOut = 60
+            affectStrut = true
+
+            overrideAnimSpeed = 0
+
+            autoDrag = true
+            autoScroll = true
+            exitOnClick = true
+            switchOnDrop = false
+            exitOnSwitch = false
+            showNewWorkspace = true
+            showEmptyWorkspace = true
+            showSpecialWorkspace = false
+            disableGestures = false
+            reverseSwipe = false
         }
     }
   '';
+  */
   wayland.windowManager.hyprland.settings = {
     env =
       if host == "desktop"
@@ -70,9 +101,7 @@ in {
       gaps_in = 0;
       gaps_out = 0;
       gaps_workspaces = 0;
-      cursor_inactive_timeout = 20;
       layout = "dwindle";
-      no_cursor_warps = false;
       no_focus_fallback = false;
       resize_on_border = false;
       extend_border_grab_area = 15;
@@ -225,12 +254,9 @@ in {
       swallow_exception_regex = "";
       focus_on_activate = false;
       no_direct_scanout = true;
-      hide_cursor_on_touch = true;
       mouse_move_focuses_monitor = true;
       render_ahead_of_time = false;
       render_ahead_safezone = 1;
-      cursor_zoom_factor = 1;
-      cursor_zoom_rigid = false;
       allow_session_lock_restore = false;
       close_special_on_empty = true;
       new_window_takes_over_fullscreen = 0;
@@ -357,7 +383,7 @@ in {
       "super, return, exec, ${pkgs.kitty}/bin/kitty"
       "super, space, togglefloating"
       "super, x, exec, ${pkgs.wlogout}/bin/wlogout -p layer-shell"
-      # "super, tab, hyprexpo:expo"
+      # "super, tab, overview:toggle"
     ];
 
     bindm = [
