@@ -29,9 +29,9 @@ return {
                 sorting_strategy = "ascending",
                 winblend = 0,
                 borderchars = {
-                    prompt = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼", },
-                    results = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼", },
-                    preview = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼", },
+                    prompt = require("core.visuals").border_telescope,
+                    results = require("core.visuals").border_telescope,
+                    preview = require("core.visuals").border_telescope,
                 },
             },
             extensions = {

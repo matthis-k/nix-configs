@@ -38,7 +38,7 @@ return {
             },
             multiline = true,
             indent_lines = true,
-            win_config = { border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏", } },
+            win_config = { border = require("core.visuals").border },
             auto_open = false,
             auto_close = false,
             auto_preview = true,

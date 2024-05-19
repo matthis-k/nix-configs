@@ -46,7 +46,7 @@ return {
             element_mappings = {},
             expand_lines = true,
             floating = {
-                border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏", },
+                border = require("core.visuals").border,
                 mappings = {
                     close = { "q", "<Esc>" },
                 },

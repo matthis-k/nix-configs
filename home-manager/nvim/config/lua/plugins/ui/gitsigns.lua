@@ -47,7 +47,7 @@ return {
             status_formatter = nil,
             max_file_length = 40000,
             preview_config = {
-                border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏", },
+                border = require("core.visuals").border,
                 style = "minimal",
                 relative = "cursor",
                 row = 0,

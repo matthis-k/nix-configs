@@ -17,7 +17,7 @@ return {
             register = "+",
             color_preview = "█ %s",
             default_format = "hex",
-            border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏", },
+            border = require("core.visuals").border,
             mappings = {
                 increment = "l",
                 decrement = "h",

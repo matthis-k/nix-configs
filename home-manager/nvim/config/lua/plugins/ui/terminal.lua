@@ -73,7 +73,7 @@ return {
             shell = vim.o.shell,
             auto_scroll = true,
             float_opts = {
-                border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏", },
+                border = require("core.visuals").border,
                 winblend = 3,
             },
             winbar = {

@@ -14,7 +14,7 @@ return {
                 scroll_up = "<c-u>",
             },
             window = {
-                border = "single",
+                border = require("core.visuals").border,
                 position = "bottom",
                 margin = { 0, 0, 0, 0 },
                 padding = { 1, 2, 1, 2 },

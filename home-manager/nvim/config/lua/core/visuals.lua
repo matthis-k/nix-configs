@@ -1,6 +1,9 @@
-local M = {}
+local M            = {}
 
-M.icons = {
+M.border           = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏", }
+M.border_telescope = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼", }
+
+M.icons            = {
     diagnostics = {
         Error = " ",
         Warn = " ",

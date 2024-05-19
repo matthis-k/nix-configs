@@ -23,7 +23,7 @@ return {
             views = {
                 cmdline_popup = {
                     border = {
-                        style = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏", },
+                        style = require("core.visuals").border,
                     },
                 },
                 notify = {
@@ -111,7 +111,7 @@ return {
             end,
             on_open = function(win)
                 local config = vim.api.nvim_win_get_config(win)
-                config.border = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏", }
+                config.border = require("core.visuals").border
                 vim.api.nvim_win_set_config(win, config)
             end
         },
@@ -141,9 +141,9 @@ return {
                         selection_caret = "",
                         sorting_strategy = "ascending",
                         borderchars = {
-                            prompt = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼", },
-                            results = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼", },
-                            preview = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼", },
+                            prompt = require("core.visuals").border_telescope,
+                            results = require("core.visuals").border_telescope,
+                            preview = require("core.visuals").border_telescope,
                         },
                     },
                     get_config = function(opts)

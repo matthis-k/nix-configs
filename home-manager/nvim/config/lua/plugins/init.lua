@@ -29,7 +29,7 @@ local opts = {
     ui = {
         size = { width = 0.8, height = 0.8 },
         wrap = true,
-        border = "single",
+        border = require("core.visuals").border,
         icons = {
             cmd = " ",
             config = "",
