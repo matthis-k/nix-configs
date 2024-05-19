@@ -12,9 +12,10 @@ function M.setup()
 
     M.on_attach("InlayHints", function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if not client then return end
         local supports_inlay_hint = client.supports_method("textDocument/inlayHint")
         if supports_inlay_hint then
-            vim.lsp.inlay_hint.enable(0, inlay_hints)
+            vim.lsp.inlay_hint.enable(inlay_hints)
         end
     end)
 
@@ -35,10 +36,7 @@ function M.toggle_inlay_hints()
     for _, client in ipairs(clients) do
         local supports_inlay_hint = client.supports_method("textDocument/inlayHint")
         if supports_inlay_hint then
-            local buffers = vim.lsp.get_buffers_by_client_id(client.id or 0)
-            for _, buf in ipairs(buffers) do
-                vim.lsp.inlay_hint.enable(buf, inlay_hints)
-            end
+            vim.lsp.inlay_hint.enable(inlay_hints)
         end
     end
 end
