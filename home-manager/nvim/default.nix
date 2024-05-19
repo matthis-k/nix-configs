@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   programs.neovim = {
     defaultEditor = true;
     package = pkgs.neovim-nightly;
@@ -22,6 +27,7 @@
       nixd
       ollama
       ripgrep
+      rust-analyzer
       (rust-bin.beta.latest.default.override
         {
           extensions = ["rust-src"];
@@ -35,5 +41,10 @@
     ];
   };
 
-  xdg.configFile."nvim" = {source = ./config;};
+  home.activation.linkNeovimConfig =
+    lib.hm.dag.entryAfter ["writeBoundary"]
+    ''
+      rm -rf ${config.home.homeDirectory}/.config/nvim
+      ln -s ${config.home.homeDirectory}/nix-configs/home-manager/nvim/config/ ${config.home.homeDirectory}/.config/nvim
+    '';
 }
