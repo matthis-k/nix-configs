@@ -122,7 +122,7 @@ in {
       "col.shadow_inactive" = "rgba(${p.crust}ff)";
       shadow_offset = "2, 2";
       shadow_scale = 1.0;
-      dim_inactive = true;
+      dim_inactive = false;
       dim_strength = 0.3;
       dim_special = 0.2;
       dim_around = 0.4;

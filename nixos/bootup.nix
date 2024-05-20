@@ -10,13 +10,8 @@
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.gfxmodeEfi = "1920x1020";
   boot.loader.grub.gfxmodeBios = "1920x1020";
-  boot.kernelParams =
-    ["splash" "quiet" "udev.log_level=3"]
-    ++ (
-      if host == "desktop"
-      then ["nvidia_drm.modeset=1"]
-      else []
-    );
+  boot.kernelParams = ["splash" "quiet" "udev.log_level=3"];
+  hardware.nvidia.modesetting.enable = host == "desktop";
   boot.initrd.systemd.enable = true;
   boot.plymouth = {
     enable = true;
