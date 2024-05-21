@@ -199,20 +199,6 @@ return {
     { "nvim-tree/nvim-web-devicons", lazy = true },
     { "MunifTanjim/nui.nvim",        lazy = true },
     {
-        "xiyaowong/link-visitor.nvim",
-        lazy = true,
-        keys = {
-            {
-                "gL",
-                function()
-                    require("link-visitor").link_under_cursor()
-                end,
-                desc = "Open Link",
-            },
-        },
-        config = true,
-    },
-    {
         "numToStr/Comment.nvim",
         event = { "BufReadPre", "BufNewFile" },
         config = true,
@@ -255,8 +241,6 @@ return {
                 width = 120,
                 height = 1,
                 options = {
-                    signcolumn = "no", -- disable signcolumn
-                    foldcolumn = "0",  -- disable fold column
                 },
             },
             plugins = {
@@ -267,7 +251,7 @@ return {
                     laststatus = 0,
                 },
                 twilight = { enabled = true },
-                gitsigns = { enabled = false },
+                gitsigns = { enabled = true },
                 tmux = { enabled = false },
                 kitty = {
                     enabled = false,
@@ -323,9 +307,9 @@ return {
     },
     {
         'declancm/maximize.nvim',
-        keys = { { "<leader>wm", function()
-            require("maximize").toggle()
-        end } },
+        keys = {
+            { "<leader>wm", function() require("maximize").toggle() end, desc = "Maximize" },
+        },
         opts = { default_keymaps = false },
     },
 }

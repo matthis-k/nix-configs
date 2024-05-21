@@ -68,6 +68,7 @@ return {
                 ["<leader><tab>"] = { name = "tabs" },
                 ["<leader>a"] = { name = "actions" },
                 ["<leader>b"] = { name = "buffers" },
+                ["<leader>c"] = { name = "ChatGPT" },
                 ["<leader>d"] = { name = "debug" },
                 ["<leader>g"] = { name = "git" },
                 ["<leader>l"] = { name = "lsp" },

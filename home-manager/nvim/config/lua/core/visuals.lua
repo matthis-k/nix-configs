@@ -6,9 +6,13 @@ M.border_telescope = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼
 M.icons            = {
     diagnostics = {
         Error = " ",
+        [vim.diagnostic.severity.ERROR] = " ",
         Warn = " ",
+        [vim.diagnostic.severity.WARN] = " ",
         Hint = " ",
+        [vim.diagnostic.severity.HINT] = " ",
         Info = " ",
+        [vim.diagnostic.severity.INFO] = " ",
     },
     git = {
         added = " ",

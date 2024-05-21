@@ -10,6 +10,14 @@ function M.setup()
     keyutil.lsp_attach_keymaps(lsp_keymaps.on_attach)
     keyutil.set_global_keymaps(lsp_keymaps.global)
 
+    vim.diagnostic.config({
+        virtual_text = {
+            prefix = function(_, i, _)
+                return require("core.visuals").icons.diagnostics[i]
+            end
+        }
+    })
+
     M.on_attach("InlayHints", function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         if not client then return end
