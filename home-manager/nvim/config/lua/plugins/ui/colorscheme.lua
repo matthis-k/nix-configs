@@ -143,10 +143,11 @@ return {
             Green = { fg = p.green },
 
             AlphaNeovimLogoBlue = { fg = p.blue },
-            AlphaNeovimLogoBlue = { fg = p.blue },
             AlphaNeovimLogoGreenFBlueB = { fg = p.green, bg = p.blue },
             AlphaNeovimLogoGreen = { fg = p.green },
             AlphaFooter = { fg = p.blue },
+
+            WhichKeyBorder = { fg = p.blue, bg = p.mantle },
         }
         require("catppuccin").setup(opts)
 
