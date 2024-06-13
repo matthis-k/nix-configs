@@ -16,6 +16,7 @@
   services.power-profiles-daemon.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.dbus.enable = true;
+  security.pam.services.hyprlock = {};
   services.pipewire = {
     enable = true;
     alsa.enable = true;

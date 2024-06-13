@@ -8,7 +8,6 @@
 }: {
   imports = [
     inputs.hyprland.homeManagerModules.default
-    inputs.hyprlock.homeManagerModules.default
     ./fish
     ./firefox.nix
     ./hyprland
@@ -28,7 +27,6 @@
 
       inputs.nur.overlay
       inputs.nix-software-center.overlay
-      inputs.neovim-nightly-overlay.overlay
       inputs.rust-overlay.overlays.default
     ];
     config = {
@@ -61,5 +59,5 @@
 
   systemd.user.startServices = "sd-switch";
 
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.05";
 }

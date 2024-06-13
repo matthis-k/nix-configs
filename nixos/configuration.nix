@@ -39,6 +39,10 @@
     })
     font-awesome
   ];
+
+  hardware.opengl.driSupport32Bit = true;
+  hardware.pulseaudio.support32Bit = true;
+
   environment.systemPackages = with pkgs; [
     autoconf
     automake
@@ -89,5 +93,5 @@
     };
   };
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
 }

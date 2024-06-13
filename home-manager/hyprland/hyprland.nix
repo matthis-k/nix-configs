@@ -10,10 +10,10 @@ in {
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.package = pkgs.hyprland;
   wayland.windowManager.hyprland.plugins = with pkgs; [
-    # hyprlandPlugin.hyprspace
+    hyprlandPlugin.hyprspace
   ];
-  /*
-     wayland.windowManager.hyprland.extraConfig = let
+
+  wayland.windowManager.hyprland.extraConfig = let
     p = builtins.mapAttrs (name: col: (builtins.substring 1 (builtins.stringLength col) col)) color.palette;
   in ''
     plugin {
@@ -58,7 +58,7 @@ in {
         }
     }
   '';
-  */
+
   wayland.windowManager.hyprland.settings = {
     env =
       if host == "desktop"
@@ -300,7 +300,6 @@ in {
       allow_small_split = false;
       special_scale_factor = 1.0;
       mfact = 1.0;
-      new_is_master = true;
       new_on_top = false;
       no_gaps_when_only = 1;
       orientation = "left";
@@ -340,8 +339,6 @@ in {
 
     bind = [
       "alt control, w, exec, ${pkgs.firefox}/bin/firefox"
-      "alt, h, changegroupactive, f"
-      "alt, l, changegroupactive, b"
       "super shift, 0, movetoworkspace, 10"
       "super shift, 1, movetoworkspace, 1"
       "super shift, 2, movetoworkspace, 2"
@@ -383,7 +380,7 @@ in {
       "super, return, exec, ${pkgs.kitty}/bin/kitty"
       "super, space, togglefloating"
       "super, x, exec, ${pkgs.wlogout}/bin/wlogout -p layer-shell"
-      # "super, tab, overview:toggle"
+      "super, tab, overview:toggle"
     ];
 
     bindm = [

@@ -3,7 +3,7 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
   programs.hyprland.enable = true;
-  services.xserver.displayManager.defaultSession = "hyprland";
+  services.displayManager.defaultSession = "hyprland";
 
   services.fprintd.enable = true;
   services.fprintd.tod.enable = true;

@@ -2,13 +2,11 @@
   description = "Hyprland in catppuccin mocha";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-23.11;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-24.05;
     nixpkgs-unstable.url = github:nixos/nixpkgs/nixos-unstable;
 
-    home-manager.url = github:nix-community/home-manager/release-23.11;
+    home-manager.url = github:nix-community/home-manager/release-24.05;
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    neovim-nightly-overlay.url = github:nix-community/neovim-nightly-overlay;
 
     nix-software-center.url = github:vlinkz/nix-software-center;
     nix-software-center.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -20,9 +18,6 @@
 
     Hyprspace.url = "github:KZDKM/Hyprspace";
     Hyprspace.inputs.hyprland.follows = "hyprland";
-
-    hyprlock.url = github:hyprwm/hyprlock;
-    hyprlock.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
     hyprland-plugins.inputs.hyprland.follows = "hyprland";

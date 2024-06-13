@@ -5,8 +5,8 @@
   ...
 }: {
   programs.neovim = {
+    package = pkgs.unstable.neovim-unwrapped;
     defaultEditor = true;
-    package = pkgs.neovim-nightly;
     enable = true;
     withRuby = true;
     withPython3 = true;
@@ -28,10 +28,9 @@
       ollama
       ripgrep
       rust-analyzer
-      (rust-bin.beta.latest.default.override
-        {
-          extensions = ["rust-src"];
-        })
+      (rust-bin.beta.latest.default.override {
+        extensions = ["rust-src"];
+      })
       shellcheck
       shellharden
       shfmt
