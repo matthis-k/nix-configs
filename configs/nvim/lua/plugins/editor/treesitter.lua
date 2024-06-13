@@ -3,7 +3,7 @@ return {
         "nvim-treesitter/nvim-treesitter",
         version = false,
         build = ":TSUpdate",
-        event = { "BufReadPost", "BufNewFile" },
+        lazy = false,
         opts = {
             ensure_installed = require("core.lsp.langlookup").merge_field("treesitter"),
             highlight = {
@@ -16,10 +16,13 @@ return {
                 end,
             },
         },
+        config = function(_, opts)
+            require("nvim-treesitter.configs").setup(opts)
+        end
     },
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
-        event = { "BufReadPost", "BufNewFile" },
+        lazy = false,
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
         },
@@ -38,18 +41,27 @@ return {
                     enable = true,
                     lookahead = true,
                     keymaps = {
-                        ["aa"] = { query = "@attribute.outer", desc = "Select attribute" },
-                        ["ia"] = { query = "@attribute.outer", desc = "Select inner attribute" },
-                        ["ab"] = { query = "@conditional.outer", desc = "Select conditional" },
-                        ["ib"] = { query = "@conditional.outer", desc = "Select inner conditional" },
+                        ["aA"] = { query = "@attribute.outer", desc = "Select attribute" },
+                        ["iA"] = { query = "@attribute.outer", desc = "Select inner attribute" },
+                        ["aB"] = { query = "@conditional.outer", desc = "Select conditional" },
+                        ["iB"] = { query = "@conditional.inner", desc = "Select inner conditional" },
+                        ["aC"] = { query = "@comment.outer", desc = "Select comment" },
+                        ["iC"] = { query = "@comment.inner", desc = "Select inner comment" },
+                        ["aL"] = { query = "@loop.outer", desc = "Select loop" },
+                        ["iL"] = { query = "@loop.inner", desc = "Select inner loop" },
                         ["af"] = { query = "@function.outer", desc = "Select function" },
                         ["if"] = { query = "@function.inner", desc = "Select inner function" },
+                        ["ar"] = { query = "@return.outer", desc = "Select return" },
+                        ["ir"] = { query = "@return.inner", desc = "Select inner return" },
+                        ["iS"] = { query = "@statement.outer", desc = "Select statement" },
                         ["ac"] = { query = "@class.outer", desc = "Selet class" },
                         ["ic"] = { query = "@class.inner", desc = "Select inner class" },
-                        ["Al"] = { query = "@assignment.lhs", desc = "Select Assignment lhs" },
-                        ["Ar"] = { query = "@assignment.rhs", desc = "Select Assignment rhs" },
-                        ["Aa"] = { query = "@assignment.outer", desc = "Select Assignment outer" },
-                        ["Ai"] = { query = "@assignment.inner", desc = "Select Assignment inner" },
+                        ["aP"] = { query = "@parameter.outer", desc = "Selet parameter" },
+                        ["iP"] = { query = "@parameter.inner", desc = "Select inner parameter" },
+                        ["ah"] = { query = "@assignment.lhs", desc = "Select Assignment lhs" },
+                        ["al"] = { query = "@assignment.rhs", desc = "Select Assignment rhs" },
+                        ["aa"] = { query = "@assignment.outer", desc = "Select Assignment outer" },
+                        ["ai"] = { query = "@assignment.inner", desc = "Select Assignment inner" },
                         ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
                     },
                     selection_modes = {

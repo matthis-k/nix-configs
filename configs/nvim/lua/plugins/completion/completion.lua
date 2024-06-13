@@ -2,7 +2,7 @@ return {
     {
         "hrsh7th/nvim-cmp",
         version = false, -- last release is way too old
-        event = "InsertEnter",
+        event = { "InsertEnter", "CmdLineEnter" },
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
@@ -23,6 +23,7 @@ return {
         },
         opts = function()
             local cmp = require("cmp")
+            local luasnip = require("luasnip")
             return {
                 completion = {
                     winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
@@ -35,16 +36,34 @@ return {
                     end,
                 },
                 mapping = {
-                    ["<c-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Replace }),
-                    ["<c-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Replace }),
+                    ["<c-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                    ["<c-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
                     ["<c-b>"] = cmp.mapping.scroll_docs(-4),
                     ["<c-f>"] = cmp.mapping.scroll_docs(4),
+                    ['<C-j>'] = cmp.mapping(function(fallback)
+                        if luasnip.locally_jumpable(1) then
+                            luasnip.jump(1)
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s", "n" }),
+                    ['<C-k>'] = cmp.mapping(function(fallback)
+                        if luasnip.locally_jumpable(-1) then
+                            luasnip.jump(-1)
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s", "n" }),
                     ["<c-space>"] = cmp.mapping.complete(),
                     ["<c-e>"] = cmp.mapping.abort(),
                     ["<cr>"] = cmp.mapping({
                         i = function(fallback)
                             if cmp.visible() and cmp.get_active_entry() then
-                                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                                if luasnip.expandable() then
+                                    luasnip.expand()
+                                else
+                                    cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                                end
                             else
                                 fallback()
                             end
@@ -52,20 +71,6 @@ return {
                         s = cmp.mapping.confirm({ select = true }),
                         c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
                     }),
-                    ["<tab>"] = function(fallback)
-                        if cmp.visible() then
-                            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                        else
-                            fallback()
-                        end
-                    end,
-                    ["<s-tab>"] = function(fallback)
-                        if cmp.visible() then
-                            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-                        else
-                            fallback()
-                        end
-                    end,
                 },
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },

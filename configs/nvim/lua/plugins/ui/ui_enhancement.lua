@@ -37,7 +37,7 @@ return {
                     view = "cmdline_output",
                 },
                 {
-                    filter = { min_height = 2, max_height = 4 },
+                    filter = { min_height = 2, max_height = 4, cmdline = true },
                     view = "notify",
                 },
             }

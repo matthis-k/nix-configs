@@ -35,7 +35,10 @@
       shellharden
       shfmt
       stylua
+      typescript
+      nodePackages_latest.typescript-language-server
       ueberzugpp
+      vscode-langservers-extracted
       wget
     ];
   };
@@ -44,6 +47,6 @@
     lib.hm.dag.entryAfter ["writeBoundary"]
     ''
       rm -rf ${config.home.homeDirectory}/.config/nvim
-      ln -s ${config.home.homeDirectory}/nix-configs/home-manager/nvim/config/ ${config.home.homeDirectory}/.config/nvim
+      ln -s ${config.home.homeDirectory}/nix-configs/configs/nvim ${config.home.homeDirectory}/.config/nvim
     '';
 }
