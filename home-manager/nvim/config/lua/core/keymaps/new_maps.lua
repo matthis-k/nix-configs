@@ -140,34 +140,17 @@ local mappings = {
     ["<c-s>"] = { "<cmd>w<cr>", "Save file", mode = { "i", "v", "n", "s" } },
 }
 mappings = {
-    -- Better up/down
-    j = { "gj", "Better down", expr = true },
-    k = { "gk", "Better up", expr = true },
     ["<leader>"] = {
-        L = {
-            {
-                k = { "<cmd", "rondom" },
-            },
-            {
-                when = { ft = "rust" },
-                x = { "<cmd>!cargo run<cr>", "cargo run" },
-            },
-            {
-                when = { ft = "lua" },
-                s = { "<cmd>so %<cr>", "source file" },
-                x = { "<cmd>!lua %<cr>", "run file" },
-            },
+        O = {
+            name = "tests",
+            when = { ft = "lua" },
+            T = { function() vim.notify("hello") end, "say hello" },
         },
-        l = {
-            name = "LSP",
-            when = { event = "LspAttatch", enabled = function() return true end, ft = "lua" },
-            c = { actions.lsp.code_action, "Code action" },
-            d = { actions.lsp.show_diagnostics, "Show diagnostics" },
-            g = { actions.lsp.go_to_definition, "Go to definition" },
-            h = { actions.lsp.hover, "Hover" },
-            n = { actions.lsp.rename, "Rename", when = false },
-            r = { actions.lsp.show_references, "Show references" },
-        },
+        M = {
+            { "A", "desc A", when = { event = "EnterInsert" }, },
+            { "B", "desc B", when = { ft = "lua" }, },
+        }
+
     },
 }
 return mappings
