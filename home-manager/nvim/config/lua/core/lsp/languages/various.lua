@@ -1,3 +1,3 @@
 return {
-    treesitter = { "bash", "vim", "regex", "lua", "markdown", "markdown_inline", "rasi" }
+    treesitter = { "bash", "vimdoc", "vim", "regex", "lua", "markdown", "markdown_inline", "rasi" }
 }
