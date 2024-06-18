@@ -1,4 +1,5 @@
 return {
+    { "neovim/nvim-lspconfig" },
     {
         "folke/lazydev.nvim",
         ft = "lua",
