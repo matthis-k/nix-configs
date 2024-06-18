@@ -46,14 +46,40 @@
   environment.systemPackages = with pkgs; [
     autoconf
     automake
+    bash
+    binutils
     busybox
+    bzip2
+    cargo
+    clang
     cmake
+    coreutils
+    diffutils
+    findutils
+    gawk
+    gcc
     git
+    gnum4
     gnumake
+    go
+    gradle
+    gzip
     jq
     libcxx
     libgcc
     libtool
+    maven
+    mercurial
+    nodejs
+    openjdk
+    patch
+    python3
+    python3Packages.pip
+    python3Packages.virtualenv
+    ruby
+    rustc
+    subversion
+    yarn
     pkg-config
   ];
 
