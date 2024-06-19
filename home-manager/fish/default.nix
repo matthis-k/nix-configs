@@ -14,6 +14,7 @@
     bat
     du-dust
     fd
+    fzf
     ripgrep
     lazygit
     hyperfine
