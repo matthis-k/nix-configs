@@ -4,6 +4,9 @@ NormalizedMaps.__index = NormalizedMaps
 
 ---@class condkey.ast.AnyNode
 ---@field NODE_TYPE "Event" | "Action" | "Label" | "Node" | "Variant"
+---@field enable? condkey.ast.Event
+---@field disable? condkey.ast.Event
+---@field mode? string | string[]
 local AnyNode = {}
 AnyNode.__index = AnyNode
 
@@ -18,18 +21,20 @@ Event.__index = Event
 ---@class condkey.ast.Action: condkey.ast.AnyNode
 ---@field [1] function() | string
 ---@field [2] string
----@field when? condkey.ast.Event
+---@field buffer? number
+---@field silent? boolean
+---@field noremap? boolean
+---@field nowait? boolean
+---@field expr? boolean
 local Action = setmetatable({ NODE_TYPE = "Action" }, { __index = AnyNode, })
 Action.__index = Action
 
 ---@class condkey.ast.Label: condkey.ast.AnyNode
----@field [1] string
----@field when? condkey.ast.Event
+---@field name string
 local Label = setmetatable({ NODE_TYPE = "Label" }, { __index = AnyNode, })
 Label.__index = Label
 
 ---@class condkey.ast.Node: condkey.ast.AnyNode
----@field when? condkey.ast.Event
 local Node = setmetatable({ NODE_TYPE = "Node" }, { __index = AnyNode, })
 Node.__index = Node
 
@@ -37,55 +42,29 @@ Node.__index = Node
 local Variant = setmetatable({ NODE_TYPE = "Variant" }, { __index = AnyNode, })
 Variant.__index = Variant
 
-function AnyNode:validate(object, validators, fallback)
-    if type(validators) == "table" and type(object) == "table" then
-        for key, validator in pairs(validators) do
-            local value = object[key]
-            if type(validator) == "function" and not validator(value) then
-                return false
-            elseif type(validator) == "string" and type(value) ~= validator then
-                return false
-            elseif type(validator) == "table" then
-                if not vim.iter(validator):any(function(val) return AnyNode:validate(value, val[1], val.fallback) end) then
-                    return false
-                elseif not AnyNode:validate(value, validator) then
-                    return false
-                end
-            end
-        end
-        if fallback then
-            for key, value in pairs(object) do
-                if not validators[key] and not fallback(value) then
-                    return false
-                end
-            end
-        end
-    elseif type(validators) == "table" and vim.iter(validators):all(function(validator)
-            return type(validator) == "string"
-        end) and not vim.list_contains(validators, type(object)) then
-        return false
-    elseif type(validators) == "string" and type(object) ~= validators then
-        return false
-    elseif type(validators) == "function" and not validators(object) then
-        return false
-    end
-    return true
-end
-
 ---@param action? any
 ---@return boolean
 function AnyNode:is_action(action)
+    if action == nil then action = self end
     return type(action) == "table"
         and (type(action[1]) == "string" or type(action[1]) == "function")
         and (type(action[2]) == "string")
+        and ((not action.buffer) or type(action.buffer) == "number")
+        and ((not action.silent) or type(action.silent) == "boolean")
+        and ((not action.noremap) or type(action.noremap) == "boolean")
+        and ((not action.nowaitt) or type(action.nowaitt) == "boolean")
+        and ((not action.expr) or type(action.expr) == "boolean")
 end
 
 ---@param action any
 ---@return condkey.ast.Action | nil
 function Action:new(action)
     if self:is_action(action) then
-        if action.when then
-            action.when = Event:new(action.when)
+        if action.enable then
+            action.enable = Event:new(action.enable)
+        end
+        if action.disable then
+            action.disable = Event:new(action.disable)
         end
         setmetatable(action, self)
         return action
@@ -95,6 +74,7 @@ end
 ---@param event any
 ---@return boolean
 function AnyNode:is_event(event)
+    if event == nil then event = self end
     return type(event) == "table"
         and (not event.event or type(event.event) == "string")
         and (not event.cond or type(event.cond) == "function")
@@ -128,7 +108,7 @@ function AnyNode:is_label(label)
     -- vim.iter(event) does not use the key if it is an array ({ "label" })
     local function only_has_correct_keys(l)
         for key, _ in pairs(l) do
-            if key ~= 1 and key ~= "when" then return false end
+            if key ~= "name" and key ~= "enable" and key ~= "disable" then return false end
         end
         return true
     end
@@ -136,8 +116,9 @@ function AnyNode:is_label(label)
         (label.NODE_TYPE and label.NODE_TYPE == "Label")
         or (type(label) == "string"
             or (type(label) == "table"
-                and (label[1] and type(label[1]) == "string")
-                and (not label.when or self:is_event(label.when))
+                and (label.name and type(label.name) == "string")
+                and (not label.enable or self:is_event(label.enable))
+                and (not label.disable or self:is_event(label.disable))
                 and only_has_correct_keys(label)))
 end
 
@@ -146,10 +127,13 @@ end
 function Label:new(label)
     if self:is_label(label) then
         if type(label) == "string" then
-            return setmetatable({ label }, self)
+            return setmetatable({ name = label }, self)
         elseif type(label) == "table" then
-            if label.when then
-                label.when = Event:new(label.when)
+            if label.enable then
+                label.enable = Event:new(label.enable)
+            end
+            if label.disable then
+                label.disable = Event:new(label.disable)
             end
             setmetatable(label, self)
             return label
@@ -164,13 +148,15 @@ function AnyNode:is_node(maps)
     if type(maps) ~= "table" then
         return false
     end
+    if AnyNode:is_label(self) then return false end
     return
         (maps.NODE_TYPE and maps.NODE_TYPE == "Node")
         or vim.iter(maps):all(function(key, value)
             return
                 type(key) == "string"
                 and ((key == "name" and AnyNode:is_label(value))
-                    or (key == "when" and AnyNode:is_event(value))
+                    or (key == "enable" and AnyNode:is_event(value))
+                    or (key == "disable" and AnyNode:is_event(value))
                     or AnyNode:is_action(value)
                     or AnyNode:is_node(value)
                     or AnyNode:is_variant(value))
@@ -230,16 +216,17 @@ function AnyNode:auto(maps)
 end
 
 ---@param self? condkey.ast.AnyNode
----@param when? condkey.ast.Event
+---@param key string
+---@param value? any
 ---@return condkey.ast.AnyNode | nil
-function AnyNode:propagate_when(when)
+function AnyNode:propagate_field(key, value)
     if not self then return end
-    if self:is_event(self) then
+    if self:is_event() then
     elseif self:is_label() or self:is_action() then
-        if self.when == nil then self.when = when end
-    elseif self:is_variant(self) or self:is_node(self) then
+        if self[key] == nil then self[key] = value end
+    elseif self:is_variant() or self:is_node() then
         for _, child in pairs(self) do
-            child:propagate_when(self.when ~= nil and self.when or when)
+            child:propagate_field(key, self[key] ~= nil and self[key] or value)
         end
     end
     return self
@@ -256,7 +243,7 @@ function AnyNode:flatten(result, prefix)
     if self:is_node() or self:is_variant() then
         for key, child in pairs(self) do
             local new_prefix
-            if type(key) == "number" or key == "name" or key == "when" then
+            if type(key) == "number" or key == "name" or key == "enable" or key == "disable" then
                 new_prefix = prefix
             else
                 new_prefix = prefix .. key
@@ -275,11 +262,14 @@ end
 ---@param self condkey.ast.AnyNode
 ---@return condkey.ast.AnyNode?
 function AnyNode:without_metatable()
+    ---@class condkey.ast.AnyNode
     local result = setmetatable(vim.deepcopy(self), nil)
     if self:is_action() or self:is_label() or self:is_event() then
-        if result.when then
-            ---@type condkey.ast.AnyNode?
-            result.when = result.when:without_metatable()
+        if result.enable then
+            result.enable = result.enable:without_metatable()
+        end
+        if result.disable then
+            result.disable = result.disable:without_metatable()
         end
     end
     return result
@@ -287,28 +277,64 @@ end
 
 ---@param condition? condkey.ast.Event
 ---@return condkey.NormalizedMaps
-function NormalizedMaps:filter_condition(condition)
+function NormalizedMaps:filter_enable(condition)
     local result = {}
     vim.iter(self):each(function(key, children)
         result[key] = vim.deepcopy(vim.iter(children):find(function(child)
-            return vim.deep_equal(child.when, condition)
+            return vim.deep_equal(child.enable, condition)
         end))
         if result[key] then
-            result[key].when = nil
+            result[key].enable = nil
+        end
+        if result[key] then
+            result[key].disable = nil
+        end
+    end)
+    return result
+end
+
+---@param condition? condkey.ast.Event
+---@return condkey.NormalizedMaps
+function NormalizedMaps:filter_disable(condition)
+    local result = {}
+    vim.iter(self):each(function(key, children)
+        result[key] = vim.deepcopy(vim.iter(children):find(function(child)
+            return vim.deep_equal(child.disable, condition)
+        end))
+        if result[key] then
+            result[key].enable = nil
+        end
+        if result[key] then
+            result[key].disable = nil
+        end
+    end)
+    vim.iter(result):each(function(k, value)
+        if k == "name" then
+            result[k] = false
+        end
+        if AnyNode:is_action(value) then
+            value[1] = "<nop>"
+        elseif AnyNode:is_label(value) then
+            value.name = "which_key_ignore"
         end
     end)
     return result
 end
 
 ---@return condkey.ast.Node
-function NormalizedMaps:get_all_conditions()
+function NormalizedMaps:get_conditions()
     local result = {}
     vim.iter(self):each(function(key, children)
         result[key] = vim.iter(children):each(function(child)
             if not vim.iter(result):find(function(condition)
-                    return vim.deep_equal(child.when, condition)
+                    return vim.deep_equal(child.enable, condition)
                 end) then
-                table.insert(result, child.when)
+                table.insert(result, child.enable)
+            end
+            if not vim.iter(result):find(function(condition)
+                    return vim.deep_equal(child.disable, condition)
+                end) then
+                table.insert(result, child.disable)
             end
         end)
     end)
@@ -317,14 +343,47 @@ end
 
 ---@return condkey.NormalizedMaps
 function NormalizedMaps:new(maps)
-    return setmetatable(AnyNode:auto(maps):propagate_when():flatten() or {}, NormalizedMaps)
+    return setmetatable(AnyNode:auto(maps):propagate_field("enable"):propagate_field("disable"):flatten() or {},
+        NormalizedMaps)
 end
 
--- vim.print(AnyNode:is_event(false))
--- vim.print(AnyNode:validate({ ft = "lua", }, { ft = { "nil", "string" } }))
-
-local maps = NormalizedMaps:new({ ["<leader>l"] = { name = { { "LSP" }, { "lua", when = { ft = "lua" } } }, a = { { "code action", "codeactioooon" }, { "aösldfj", "öalsdkf", when = { ft = "lua" } } } } })
-vim.print("no condition -> " .. vim.inspect(maps:filter_condition()))
-for _, condition in pairs(maps:get_all_conditions()) do
-    vim.print(vim.inspect(condition) .. " -> " .. vim.inspect(maps:filter_condition(condition)))
+function NormalizedMaps:setup()
+    local autocommand_group = vim.api.nvim_create_augroup("CondKey", { clear = true })
+    local wk = require("which-key")
+    wk.register(self:filter_enable())
+    for _, cond in pairs(self:get_conditions()) do
+        vim.api.nvim_create_autocmd(cond.event, {
+            group = autocommand_group,
+            pattern = cond.pattern,
+            desc = "Manage keymaps from condeky",
+            callback = function(ev)
+                if cond.ft and cond.ft ~= vim.api.nvim_get_option_value("filetype", { buf = 0 }) then
+                    return
+                end
+                if cond.cond and not cond.cond(ev) then
+                    return
+                end
+                wk.register(self:filter_disable(cond))
+                wk.register(self:filter_enable(cond))
+            end
+        })
+    end
 end
+
+local counter = 1
+local function even_counter()
+    counter = counter + 1
+    return counter % 2 == 0
+end
+
+local maps = NormalizedMaps:new({
+    ["<leader>r"] = {
+        name = "TEST",
+        r = { function()
+            vim.notify("TEST WORKS", vim.log.levels.INFO)
+        end, "print stuff" },
+        enable = { event = "BufWritePre", cond = even_counter },
+        disable = { event = "BufWritePost", cond = function() return counter % 2 == 1 end }
+    }
+})
+maps:setup()
