@@ -381,6 +381,7 @@ in {
       "super, space, togglefloating"
       "super, x, exec, ${pkgs.wlogout}/bin/wlogout -p layer-shell"
       "super, tab, overview:toggle"
+      "super, p, pin"
     ];
 
     bindm = [

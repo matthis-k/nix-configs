@@ -45,6 +45,12 @@
   '';
   programs.fish.shellAliases = {
     lg = "lazygit";
+    ls = "exa";
+    du = "dust";
+    find = "fd";
+    yy = "yazi";
+    cat = "bat";
+    grep = "rg";
   };
 
   home.sessionVariables = {

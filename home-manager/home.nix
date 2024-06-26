@@ -19,21 +19,6 @@
     ./rust.nix
   ];
 
-  nixpkgs = {
-    overlays = [
-      outputs.overlays.additions
-      outputs.overlays.modifications
-      outputs.overlays.unstable-packages
-
-      inputs.nur.overlay
-      inputs.nix-software-center.overlay
-      inputs.rust-overlay.overlays.default
-    ];
-    config = {
-      allowUnfree = true;
-    };
-  };
-
   home.packages = with pkgs; [
     nix-software-center
     libreoffice
@@ -43,11 +28,7 @@
     vscode-fhs
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "nix-2.16.2"
-  ];
-
-  home = rec {
+  home = {
     username = "matthisk";
     homeDirectory = "/home/matthisk";
   };

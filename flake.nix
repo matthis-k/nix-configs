@@ -61,6 +61,19 @@
           inputs.home-manager.nixosModules.home-manager
           ./nixos/configuration.nix
           ./nixos/hardware-configuration-laptop.nix
+          {
+            home-manager.extraSpecialArgs = {
+              inherit inputs outputs color;
+              host = "laptop";
+            };
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.matthisk = {pkgs, ...}: {
+              imports = [
+                ./home-manager/home.nix
+              ];
+            };
+          }
         ];
       };
       desktop = nixpkgs.lib.nixosSystem {
@@ -72,6 +85,19 @@
           inputs.home-manager.nixosModules.home-manager
           ./nixos/configuration.nix
           ./nixos/hardware-configuration-desktop.nix
+          {
+            home-manager.extraSpecialArgs = {
+              inherit inputs outputs color;
+              host = "desktop";
+            };
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.matthisk = {pkgs, ...}: {
+              imports = [
+                ./home-manager/home.nix
+              ];
+            };
+          }
         ];
       };
     };

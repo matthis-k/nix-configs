@@ -10,7 +10,6 @@
     # Or modules from other flakes (such as nixos-hardware):
     # inputs.hardware.nixosModules.common-cpu-amd
     # inputs.hardware.nixosModules.common-ssd
-    inputs.home-manager.nixosModules.home-manager
     ./bootup.nix
     ./gdm.nix
     ./locales.nix
@@ -88,11 +87,16 @@
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
+
+      inputs.nur.overlay
+      inputs.nix-software-center.overlay
+      inputs.rust-overlay.overlays.default
     ];
     config = {
       allowUnfree = true;
       allowUnfreePredicate = _: true;
       permittedInsecurePackages = [
+        "nix-2.16.2"
         "electron-24.8.6"
       ];
     };
