@@ -20,6 +20,21 @@
   services.pipewire = {
     enable = true;
     alsa.enable = true;
+    alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.enable = true;
+  };
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    config = {
+      common.default = ["gtk"];
+      hyprland.default = ["hyprland" "gtk"];
+    };
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-hyprland
+    ];
   };
 }
