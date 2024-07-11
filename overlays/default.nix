@@ -18,6 +18,7 @@
       });
     waybar = inputs.waybar.packages.${prev.system}.default;
     hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
+    ags = inputs.ags.packages.${prev.system}.ags;
     hyprlandPlugin.hyprexpo = inputs.hyprland-plugins.packages.${prev.system}.hyprexpo;
     hyprlandPlugin.hyprspace = inputs.Hyprspace.packages.${prev.system}.Hyprspace;
   };

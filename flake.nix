@@ -19,6 +19,8 @@
     Hyprspace.url = "github:KZDKM/Hyprspace";
     Hyprspace.inputs.hyprland.follows = "hyprland";
 
+    ags.url = "github:Aylur/ags";
+
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
     hyprland-plugins.inputs.hyprland.follows = "hyprland";
 

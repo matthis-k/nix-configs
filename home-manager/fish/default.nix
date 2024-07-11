@@ -59,8 +59,7 @@
   };
 
   programs.fish.functions = {
-    rebuild-system = ''sudo nixos-rebuild switch --flake "$SYS_FLAKE#$SYS_FLAKE_HOST"'';
-    rebuild-home = ''home-manager switch --flake "$SYS_FLAKE#$USER@$SYS_FLAKE_HOST"'';
+    rebuild = ''sudo nixos-rebuild switch --flake "$SYS_FLAKE#$SYS_FLAKE_HOST"'';
   };
 
   xdg.configFile."fish/themes/Catpuccin-Mocha.theme" = {source = color.files pkgs ./Catppuccin-Mocha.theme;};

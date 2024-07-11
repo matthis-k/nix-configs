@@ -81,12 +81,9 @@ in {
       else ",preferred,auto,1";
     exec = [
       "${pkgs.hyprland}/bin/hyprctl setcursor 'Catppuccin-Mocha-Blue-Cursors' 24"
-      "${pkgs.busybox}/bin/pkill waybar; ${pkgs.waybar}/bin/waybar"
-      "${pkgs.busybox}/bin/pkill ${pkgs.swaynotificationcenter}/bin/swaync; ${pkgs.swaynotificationcenter}/bin/swaync"
-      "${pkgs.busybox}/bin/pkill ${pkgs.swaybg}/bin/swaybg; ${pkgs.swaybg}/bin/swaybg -i ~/.config/wallpaper.png"
+      "${pkgs.procps}/bin/pkill ${pkgs.ags}/bin/ags; ${pkgs.ags}/bin/ags"
     ];
     exec-once = [
-      "${pkgs.swaynotificationcenter}/bin/swaync"
       "${pkgs.blueberry}/bin/blueberry-tray"
       "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator"
     ];

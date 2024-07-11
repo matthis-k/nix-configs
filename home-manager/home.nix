@@ -16,6 +16,7 @@
     ./spicetify.nix
     ./waybar
     ./kitty
+    ./ags
     ./rust.nix
   ];
 
