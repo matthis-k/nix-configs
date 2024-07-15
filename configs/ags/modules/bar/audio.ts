@@ -25,6 +25,9 @@ export function Volume() {
         on_primary_click_release: () => {
             reveal.setValue(!reveal.value)
         },
+        on_secondary_click_release: () => {
+            Utils.execAsync("pavucontrol")
+        },
     })
 
     const slider = Widget.Revealer({
