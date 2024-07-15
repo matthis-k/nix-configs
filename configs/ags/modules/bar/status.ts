@@ -4,6 +4,7 @@ import { Volume } from "./audio";
 import { Wifi } from "./wifi";
 import { Bluetooth } from "./bluetooth";
 import { Tray } from "./tray";
+import { PowerProfiles } from "./power_profiles";
 
 const Applets = () =>
     Widget.Box({
@@ -16,6 +17,7 @@ const Applets = () =>
             Volume(),
             Bluetooth(),
             Wifi(),
+            PowerProfiles(),
             Battery()
         ]
     });
