@@ -48,8 +48,8 @@
       });
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
     overlays = import ./overlays {inherit inputs color;};
-    nixosModules = import ./modules/nixos color;
-    homeManagerModules = import ./modules/home-manager color;
+    nixosModules = import ./modules/nixos;
+    homeManagerModules = import ./modules/home-manager;
     nixosConfigurations = {
       laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
