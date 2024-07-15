@@ -10,12 +10,14 @@ export function Tray() {
                 // @ts-expect-error
                 self.children = items.map((item) => {
                     if (item.id.trim() != "nm-applet" && item.id.trim() != "BlueBerry") {
-                        return Widget.EventBox({
-                            child: Widget.Icon({ icon: item.bind("icon") }),
-                            on_primary_click_release: (_, event) => item.activate(event),
-                            on_secondary_click_release: (_, event) => item.openMenu(event),
-                            tooltip_markup: item.bind("tooltip_markup")
-                        });
+                        return Widget.CenterBox({
+                            center_widget: Widget.EventBox({
+                                child: Widget.Icon({ icon: item.bind("icon") }),
+                                on_primary_click_release: (_, event) => item.activate(event),
+                                on_secondary_click_release: (_, event) => item.openMenu(event),
+                                tooltip_markup: item.bind("tooltip_markup")
+                            })
+                        })
                     } else {
                         return undefined;
                     }

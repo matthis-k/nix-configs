@@ -1,3 +1,4 @@
+import Gtk from "gi://Gtk?version=3.0";
 const battery = await Service.import("battery")
 
 export function Battery() {
@@ -20,30 +21,29 @@ export function Battery() {
     const value = battery.bind("percent").as(p => p > 0 ? p / 100 : 0)
     const icon = Utils.watch(battery_icon(), battery, battery_icon)
     const reveal = Variable(false)
-    return Widget.Box({
+    return Widget.CenterBox({
         class_names: Utils.watch(battery_classes(), battery, battery_classes),
         visible: battery.bind("available"),
         tooltip_markup: Utils.watch(battery_tooltip(), battery, "changed", battery_tooltip),
-        child: Widget.Box({
-            children: [
-                Widget.Revealer({
-                    reveal_child: reveal.bind(),
-                    transition: "slide_right",
-                    child:
-                        Widget.LevelBar({
-                            widthRequest: 50,
-                            vpack: "center",
-                            value,
-                        }),
-                }),
-                Widget.EventBox({
-                    child: Widget.Icon({ icon }),
-                    on_primary_click_release: () => {
-                        reveal.setValue(!reveal.value)
-                    },
-                })
-            ],
-        }),
+        start_widget:
+            Widget.Revealer({
+                reveal_child: reveal.bind(),
+                transition: "slide_right",
+                child:
+                    Widget.LevelBar({
+                        widthRequest: 50,
+                        vpack: "center",
+                        value,
+                    }),
+            }),
+        end_widget: Widget.EventBox({
+            child: Widget.Icon({
+                icon,
+            }),
+            on_primary_click_release: () => {
+                reveal.setValue(!reveal.value)
+            },
+        })
     })
 }
 

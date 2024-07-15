@@ -48,11 +48,10 @@ export function Volume() {
 
     const is_muted = audio.speaker.bind("is_muted")
 
-    return Widget.Box({
-        halign: Gtk.Align.CENTER,
-        valign: Gtk.Align.CENTER,
+    return Widget.CenterBox({
         class_names: is_muted.as((is_muted) => [is_muted ? "muted" : "", "audio", "applet"]),
-        children: [slider, icon],
+        start_widget: slider,
+        end_widget: icon,
     })
 }
 

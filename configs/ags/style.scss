@@ -107,8 +107,8 @@ window.bar {
       .applet {
         border-radius: 1rem;
         padding: 0rem 0.2rem;
-        min-width: 1.5rem;
-        min-height: 1.5rem;
+        min-width: 1rem;
+        min-height: 1rem;
       }
 
       padding: 0rem 1rem;
@@ -125,6 +125,7 @@ window.bar {
       }
 
       .battery {
+
         levelbar {
           trough {
             margin: 0rem 0.5rem;
