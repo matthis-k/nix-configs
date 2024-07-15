@@ -8,9 +8,6 @@
     home-manager.url = github:nix-community/home-manager/release-24.05;
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-software-center.url = github:vlinkz/nix-software-center;
-    nix-software-center.inputs.nixpkgs.follows = "nixpkgs-unstable";
-
     waybar.url = github:Alexays/Waybar;
     waybar.inputs.nixpkgs.follows = "nixpkgs-unstable";
 

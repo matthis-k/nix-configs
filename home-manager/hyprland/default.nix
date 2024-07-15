@@ -30,7 +30,6 @@
       hyprpaper
       hyprpicker
       kitty
-      nix-software-center
       launchpad
       libdrm
       libnotify

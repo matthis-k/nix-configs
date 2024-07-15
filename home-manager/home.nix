@@ -21,7 +21,6 @@
   ];
 
   home.packages = with pkgs; [
-    nix-software-center
     libreoffice
     steam
     nix-output-monitor

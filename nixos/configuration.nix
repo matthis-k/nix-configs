@@ -89,7 +89,6 @@
       outputs.overlays.unstable-packages
 
       inputs.nur.overlay
-      inputs.nix-software-center.overlay
       inputs.rust-overlay.overlays.default
     ];
     config = {
