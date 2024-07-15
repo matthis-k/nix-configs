@@ -148,6 +148,7 @@ return {
             AlphaFooter = { fg = p.blue },
 
             WhichKeyBorder = { fg = p.blue, bg = p.mantle },
+            WhichKeyTitle = { fg = p.maroon, bg = p.mantle },
         }
         require("catppuccin").setup(opts)
 

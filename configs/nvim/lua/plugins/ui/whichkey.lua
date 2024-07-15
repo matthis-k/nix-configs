@@ -4,21 +4,17 @@ return {
         module = true,
         event = "VeryLazy",
         opts = {
+            preset = "modern",
             icons = {
                 breadcrumb = "»",
                 separator = "➜",
                 group = "+",
             },
-            popup_mappings = {
-                scroll_down = "<c-d>",
-                scroll_up = "<c-u>",
-            },
-            window = {
+            win = {
                 border = require("core.visuals").border,
-                position = "bottom",
-                margin = { 0, 0, 0, 0 },
-                padding = { 1, 2, 1, 2 },
-                winblend = 0,
+                wo = {
+                    winblend = 0,
+                },
             },
             layout = {
                 height = { min = 4, max = 25 },
@@ -29,27 +25,9 @@ return {
             modes = {
                 t = false,
             },
-            ignore_missing = false,
-            hidden = { "<silent>", "<cmd>", "<cmd>", "<cr>", "^:", "^ ", "^call ", "^lua " },
             show_help = false,
             show_keys = true,
             triggers = "auto",
-            triggers_nowait = {
-                -- marks
-                "`",
-                "'",
-                "g`",
-                "g'",
-                -- registers
-                '"',
-                "<c-r>",
-                -- spelling
-                "z=",
-            },
-            triggers_blacklist = {
-                i = { "j", "k" },
-                v = { "j", "k" },
-            },
             disable = {
                 buftypes = {},
                 filetypes = {},
@@ -61,10 +39,10 @@ return {
             local maps = {
                 mode = { "n", "v" },
                 { "<leader><tab>", group = "tabs" },
-                { "<leader>S",     group = "snippet" },
+                { "<leader>s",     group = "snippet" },
                 { "<leader>a",     group = "actions" },
                 { "<leader>b",     group = "buffers" },
-                { "<leader>c",     group = "ChatGPT" },
+                { "<leader>c",     group = "chatgpt" },
                 { "<leader>d",     group = "debug" },
                 { "<leader>g",     group = "git" },
                 { "<leader>l",     group = "lsp" },
@@ -75,7 +53,7 @@ return {
                 { "<leader>u",     group = "ui" },
                 { "<leader>v",     group = "vim" },
                 { "<leader>w",     group = "windows" },
-                { "A",             group = "assignment" },
+                { "a",             group = "assignment" },
                 { "[",             group = "prev" },
                 { "]",             group = "next" },
                 { "g",             group = "goto" },

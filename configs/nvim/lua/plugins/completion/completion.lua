@@ -25,6 +25,10 @@ return {
             local cmp = require("cmp")
             local luasnip = require("luasnip")
             return {
+                window = {
+                    completion = { border = require("core.visuals").border },
+                    documentation = { border = require("core.visuals").border },
+                },
                 completion = {
                     winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
                     completeopt = "menu,menuone,noinsert,noselect",
