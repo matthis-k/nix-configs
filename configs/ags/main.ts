@@ -1,4 +1,6 @@
 import { Bar } from "modules/bar/main"
+import { Window } from "resource:///com/github/Aylur/ags/widgets/window.js"
+const hyprland = await Service.import("hyprland")
 
 
 const scss = `${App.configDir}/style.scss`
@@ -11,12 +13,13 @@ Utils.monitorFile(scss, () => {
     App.applyCss(css)
 })
 
+function per_monitor(callback: (monitor: number) => Window<any, unknown>): Window<any, unknown>[] {
+    return Array.from(hyprland.monitors.map((monitor) => callback(monitor.id)))
+}
+
 App.config({
     style: css,
-    windows: [
-        Bar(),
-    ],
+    windows: [...per_monitor(Bar)]
 })
-
 
 export { }
