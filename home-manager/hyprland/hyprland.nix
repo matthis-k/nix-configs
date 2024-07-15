@@ -81,7 +81,7 @@ in {
       else ",preferred,auto,1";
     exec = [
       "${pkgs.hyprland}/bin/hyprctl setcursor 'Catppuccin-Mocha-Blue-Cursors' 24"
-      "${pkgs.procps}/bin/pkill ${pkgs.ags}/bin/ags; ${pkgs.ags}/bin/ags"
+      "${pkgs.uniq-proc} restart ags"
     ];
     exec-once = [
       "${pkgs.blueberry}/bin/blueberry-tray"

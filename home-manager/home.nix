@@ -17,6 +17,7 @@
     ./waybar
     ./kitty
     ./ags
+    ./uniq-proc
     ./rust.nix
   ];
 

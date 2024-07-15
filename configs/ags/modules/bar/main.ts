@@ -79,7 +79,7 @@ function Right() {
     })
 }
 
-function Bar(monitor) {
+function Bar(monitor: number) {
     return Widget.Window({
         name: `bar-${monitor}`, // name has to be unique
         class_name: "bar",
