@@ -2,7 +2,7 @@ import Gtk from "gi://Gtk?version=3.0";
 
 
 export function Wallpaper(monitor: number) {
-    const image = App.configDir + "/assets/wallpaper.jpg"
+    const image = App.configDir + "/assets/wallpaper.png"
     return Widget.Window({
         name: `wallpaper-${monitor}`,
         class_name: "wallpaper",

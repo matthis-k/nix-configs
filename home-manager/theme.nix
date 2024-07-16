@@ -3,60 +3,64 @@
   config,
   ...
 }: {
-  home.pointerCursor = {
-    gtk.enable = true;
-    name = "Catppuccin-Mocha-Blue-Cursors";
-    package = pkgs.catppuccin-cursors.mochaBlue;
-    size = 24;
-  };
+  catppuccin.enable = true;
+  catppuccin.flavor = "mocha";
+  catppuccin.accent = "blue";
+  catppuccin.pointerCursor.enable = true;
+  catppuccin.pointerCursor.accent = "blue";
+  catppuccin.pointerCursor.flavor = "mocha";
   gtk.enable = true;
-  gtk.theme = {
-    name = "Catppuccin-Mocha-Standard-Blue-Dark";
-    package = pkgs.catppuccin-gtk.override {
-      variant = "mocha";
-      accents = ["blue"];
-      tweaks = ["normal"];
-    };
-  };
-  gtk.iconTheme = {
-    package = pkgs.catppuccin-papirus-folders;
-    name = "Papirus";
-  };
-  gtk.cursorTheme = {
-    name = "Catppuccin-Mocha-Blue-Cursors";
-    package = pkgs.catppuccin-cursors.mochaBlue;
-    size = 24;
-  };
-  gtk.font = {
-    name = "Hack Nerd Font Mono";
-    package = pkgs.nerdfonts.override {
-      fonts = [
-        "FiraCode"
-        "Hack"
-      ];
-    };
-  };
-
-  xdg.configFile = {
-    "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
-    "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
-    "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
-  };
-
+  gtk.catppuccin.enable = true;
+  gtk.catppuccin.flavor = "mocha";
+  gtk.catppuccin.accent = "blue";
+  gtk.catppuccin.icon.enable = true;
+  gtk.catppuccin.icon.flavor = "mocha";
+  gtk.catppuccin.icon.accent = "blue";
+  gtk.catppuccin.size = "standard";
   qt.enable = true;
-  qt.platformTheme.name = "qtct";
+  qt.style.catppuccin.enable = true;
+  qt.style.catppuccin.apply = true;
+  qt.style.catppuccin.flavor = "mocha";
+  qt.style.catppuccin.accent = "blue";
   qt.style.name = "kvantum";
-
-  home.packages = with pkgs; [
-    qt6Packages.qtstyleplugin-kvantum
-    libsForQt5.qtstyleplugin-kvantum
-    (catppuccin-kvantum.override {
-      accent = "Blue";
-      variant = "Mocha";
-    })
-  ];
-
-  xdg.configFile."Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
-    General.theme = "Catppuccin-Mocha-Blue";
-  };
+  qt.platformTheme.name = "kvantum";
+  i18n.inputMethod.fcitx5.catppuccin.apply = true;
+  i18n.inputMethod.fcitx5.catppuccin.flavor = "mocha";
+  i18n.inputMethod.fcitx5.catppuccin.enable = true;
+  programs.alacritty.enable = true;
+  programs.alacritty.catppuccin.enable = true;
+  programs.alacritty.catppuccin.flavor = "mocha";
+  programs.bat.enable = true;
+  programs.bat.catppuccin.enable = true;
+  programs.bat.catppuccin.flavor = "mocha";
+  programs.bottom.enable = true;
+  programs.bottom.catppuccin.enable = true;
+  programs.bottom.catppuccin.flavor = "mocha";
+  programs.fish.enable = true;
+  programs.fish.catppuccin.enable = true;
+  programs.fish.catppuccin.flavor = "mocha";
+  programs.fzf.enable = true;
+  programs.fzf.catppuccin.enable = true;
+  programs.fzf.catppuccin.flavor = "mocha";
+  programs.git.delta.enable = true;
+  programs.git.delta.catppuccin.enable = true;
+  programs.git.delta.catppuccin.flavor = "mocha";
+  programs.imv.enable = true;
+  programs.imv.catppuccin.enable = true;
+  programs.imv.catppuccin.flavor = "mocha";
+  programs.kitty.enable = true;
+  programs.kitty.catppuccin.enable = true;
+  programs.kitty.catppuccin.flavor = "mocha";
+  programs.lazygit.enable = true;
+  programs.lazygit.catppuccin.enable = true;
+  programs.lazygit.catppuccin.flavor = "mocha";
+  programs.lazygit.catppuccin.accent = "blue";
+  programs.mpv.enable = true;
+  programs.mpv.catppuccin.enable = true;
+  programs.mpv.catppuccin.flavor = "mocha";
+  programs.mpv.catppuccin.accent = "blue";
+  programs.neovim.catppuccin.enable = false;
+  programs.yazi.enable = true;
+  programs.yazi.catppuccin.enable = true;
+  programs.yazi.catppuccin.flavor = "mocha";
 }

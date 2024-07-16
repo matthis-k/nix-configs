@@ -10,8 +10,6 @@
     ./swaync
   ];
 
-  programs.waybar.enable = true;
-
   programs.rofi.enable = true;
   programs.rofi.package = pkgs.rofi-wayland;
 
@@ -37,7 +35,7 @@
       pavucontrol
       playerctl
       polkit_gnome
-      swaybg
+      uniq-proc
       swappy
       tesseract
       wayland-protocols

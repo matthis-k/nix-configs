@@ -1,3 +1,0 @@
-[submodule "pkgs/uniq-proc"]
-	path = pkgs/uniq-proc
-	url = git@github.com:matthis-k/uniq-proc.git

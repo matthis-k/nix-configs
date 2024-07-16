@@ -1,7 +1,6 @@
 {
   pkgs,
   color,
-  inputs,
   host,
   ...
 }: let
@@ -10,7 +9,7 @@ in {
   wayland.windowManager.hyprland.enable = true;
   wayland.windowManager.hyprland.package = pkgs.hyprland;
   wayland.windowManager.hyprland.plugins = with pkgs; [
-    hyprlandPlugin.hyprspace
+    #hyprlandPlugin.hyprspace
   ];
 
   wayland.windowManager.hyprland.extraConfig = let
@@ -81,7 +80,7 @@ in {
       else ",preferred,auto,1";
     exec = [
       "${pkgs.hyprland}/bin/hyprctl setcursor 'Catppuccin-Mocha-Blue-Cursors' 24"
-      "${pkgs.uniq-proc} restart ags"
+      "${pkgs.uniq-proc}/bin/uniq-proc restart ags"
     ];
     exec-once = [
       "${pkgs.blueberry}/bin/blueberry-tray"
@@ -377,8 +376,8 @@ in {
       "super, return, exec, ${pkgs.kitty}/bin/kitty"
       "super, space, togglefloating"
       "super, x, exec, ${pkgs.wlogout}/bin/wlogout -p layer-shell"
-      "super, tab, overview:toggle"
       "super, p, pin"
+      # "super, tab, overview:toggle"
     ];
 
     bindm = [

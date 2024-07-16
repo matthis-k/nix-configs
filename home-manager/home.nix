@@ -1,25 +1,41 @@
 {
   inputs,
   outputs,
-  lib,
-  config,
   pkgs,
   ...
 }: {
   imports = [
     inputs.hyprland.homeManagerModules.default
+    inputs.catppuccin.homeManagerModules.catppuccin
     ./fish
     ./firefox.nix
     ./hyprland
     ./nvim
     ./theme.nix
     ./spicetify.nix
-    ./waybar
     ./kitty
     ./ags
-    ./uniq-proc
     ./rust.nix
   ];
+
+  nixpkgs = {
+    overlays = [
+      outputs.overlays.additions
+      outputs.overlays.modifications
+      outputs.overlays.unstable-packages
+
+      inputs.nur.overlay
+      inputs.rust-overlay.overlays.default
+    ];
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = _: true;
+      permittedInsecurePackages = [
+        "nix-2.16.2"
+        "electron-24.8.6"
+      ];
+    };
+  };
 
   home.packages = with pkgs; [
     libreoffice

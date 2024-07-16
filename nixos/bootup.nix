@@ -4,6 +4,8 @@
   ...
 }: {
   boot.loader.grub.enable = true;
+  boot.loader.grub.catppuccin.enable = true;
+  boot.loader.grub.catppuccin.flavor = "mocha";
   boot.loader.grub.device = "nodev";
   boot.loader.grub.useOSProber = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -13,10 +15,7 @@
   boot.kernelParams = ["splash" "quiet" "udev.log_level=3"];
   hardware.nvidia.modesetting.enable = host == "desktop";
   boot.initrd.systemd.enable = true;
-  boot.plymouth = {
-    enable = true;
-    themePackages = [(pkgs.catppuccin-plymouth.override {variant = "mocha";})];
-    theme = "catppuccin-mocha";
-    font = "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/HackNerdFont-Regular.ttf";
-  };
+  boot.plymouth.enable = true;
+  boot.plymouth.catppuccin.enable = true;
+  boot.plymouth.catppuccin.flavor = "mocha";
 }

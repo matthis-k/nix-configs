@@ -39,6 +39,12 @@
     font-awesome
   ];
 
+  catppuccin.enable = true;
+  catppuccin.accent = "blue";
+  catppuccin.flavor = "mocha";
+  console.catppuccin.enable = true;
+  console.catppuccin.flavor = "mocha";
+
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
 
@@ -80,6 +86,7 @@
     subversion
     yarn
     pkg-config
+    home-manager
   ];
 
   nixpkgs = {

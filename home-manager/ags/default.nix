@@ -7,7 +7,7 @@
 }: {
   # add the home manager module
   imports = [inputs.ags.homeManagerModules.default];
-  home.packages = with pkgs; [bun sassc];
+  home.packages = with pkgs; [bun sassc uniq-proc];
 
   home.activation.linkAgsConfig =
     lib.hm.dag.entryAfter ["writeBoundary"]
