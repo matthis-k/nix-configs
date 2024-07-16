@@ -1,4 +1,5 @@
 import { Bar } from "modules/bar/main"
+import { Wallpaper } from "modules/wallpaper/main"
 import { Window } from "resource:///com/github/Aylur/ags/widgets/window.js"
 const hyprland = await Service.import("hyprland")
 
@@ -19,7 +20,7 @@ function per_monitor(callback: (monitor: number) => Window<any, unknown>): Windo
 
 App.config({
     style: css,
-    windows: [...per_monitor(Bar)]
+    windows: [...per_monitor(Bar), ...per_monitor(Wallpaper)]
 })
 
 export { }
