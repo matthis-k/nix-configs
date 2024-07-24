@@ -49,12 +49,14 @@ window.bar {
     padding-left: 2rem;
     padding-right: 2rem;
     border-radius: 2rem;
+    margin: 4px;
 
     .module-lvl2 {
       background-color: $surface1;
       border-radius: 3rem;
       padding-left: 0.3rem;
       padding-right: 0.3rem;
+      margin: 2px;
     }
 
     button {
@@ -72,21 +74,21 @@ window.bar {
 
   .workspaces {
     .workspace {
-      border-left: 3px solid transparent;
-      border-right: 3px solid transparent;
-
-      &.focused {
-        border-left: 3px solid $blue;
-        border-right: 3px solid $blue;
-      }
-
       label {
         color: $text;
       }
 
+      border-left: 3px solid $surface1;
+      border-right: 3px solid $surface1;
+
       &.focused {
         label {
           color: $blue;
+        }
+
+        &.empty {
+          border-left: 3px solid $blue;
+          border-right: 3px solid $blue;
         }
       }
 

@@ -15,6 +15,7 @@
   };
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
+  services.preload.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.dbus.enable = true;
   security.pam.services.hyprlock = {};

@@ -32,7 +32,6 @@ export function Volume() {
 
     const slider = Widget.Revealer({
         child: Widget.Slider({
-            inverted: true,
             hexpand: true,
             vexpand: false,
             draw_value: false,
@@ -53,8 +52,8 @@ export function Volume() {
 
     return Widget.CenterBox({
         class_names: is_muted.as((is_muted) => [is_muted ? "muted" : "", "audio", "applet"]),
-        start_widget: slider,
-        end_widget: icon,
+        start_widget: icon,
+        end_widget: slider,
     })
 }
 

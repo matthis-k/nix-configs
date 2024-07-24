@@ -47,7 +47,12 @@ export function Workspaces(monitor_id: number = 0) {
     const workspaces = Utils.watch(getWorkspaces(monitor_id), hyprland, () => getWorkspaces(monitor_id))
     const workspaces_widgets = workspaces.as((workspaces) => workspaces.map((id) => {
         return Widget.Box({
-            class_names: [`${hyprland.active.workspace.id == id ? "focused" : ""}`, "workspace", "module-lvl2"],
+            class_names: [
+                `${hyprland.clients.filter((client) => client.workspace.id == id).length == 0 ? "empty" : ""}`,
+                `${hyprland.active.workspace.id == id ? "focused" : ""}`,
+                "workspace",
+                "module-lvl2"
+            ],
             halign: Gtk.Align.CENTER,
             valign: Gtk.Align.CENTER,
             children: [
