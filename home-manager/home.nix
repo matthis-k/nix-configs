@@ -10,7 +10,6 @@
     ./fish
     ./firefox.nix
     ./hyprland
-    ./nvim
     ./theme.nix
     ./spicetify.nix
     ./kitty
@@ -24,6 +23,8 @@
     nix-output-monitor
     docker
     vscode-fhs
+
+    nixovim
   ];
 
   home = {
@@ -38,5 +39,5 @@
 
   systemd.user.startServices = "sd-switch";
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "24.11";
 }

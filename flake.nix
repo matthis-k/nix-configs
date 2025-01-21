@@ -2,10 +2,10 @@
   description = "Best flake ever";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&rev=918d8340afd652b011b937d29d5eea0be08467f5";
@@ -16,7 +16,7 @@
     # catppuccin.url = "github:catppuccin/nix";
 
     nvim-flake.url = "github:matthis-k/nvim-flake";
-    nvim-flake.inputs.nixpkgs.follows = "nixpkgs";
+    nvim-flake.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     ags.url = "github:aylur/ags";
     ags.inputs.nixpkgs.follows = "nixpkgs";

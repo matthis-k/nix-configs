@@ -21,4 +21,5 @@ in {
   hyprlandPlugin.hyprexpo = inputs.hyprland-plugins.packages.${pkgs.system}.hyprexpo;
   hyprlandPlugin.hyprspace = inputs.Hyprspace.packages.${pkgs.system}.Hyprspace;
   firefox-nightly-bin = inputs.firefox-nightly.packages.${pkgs.system}.firefox-nightly-bin;
+  nixovim = inputs.nvim-flake.packages.${pkgs.system}.nvim;
 }
