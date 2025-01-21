@@ -15,6 +15,9 @@
 
     # catppuccin.url = "github:catppuccin/nix";
 
+    nvim-flake.url = "github:matthis-k/nvim-flake";
+    nvim-flake.inputs.nixpkgs.follows = "nixpkgs";
+
     ags.url = "github:aylur/ags";
     ags.inputs.nixpkgs.follows = "nixpkgs";
     astal.url = "github:aylur/astal";
@@ -29,9 +32,6 @@
     spicetify.inputs.nixpkgs.follows = "nixpkgs";
 
     nur.url = "github:nix-community/NUR";
-
-    firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
-    firefox-nightly.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     nixos-cli.url = "github:water-sucks/nixos";
     nixos-cli.inputs.nixpkgs.follows = "nixpkgs-unstable";
