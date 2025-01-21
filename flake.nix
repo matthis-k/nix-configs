@@ -13,7 +13,7 @@
     Hyprspace.url = "github:KZDKM/Hyprspace";
     Hyprspace.inputs.hyprland.follows = "hyprland";
 
-    # catppuccin.url = "github:catppuccin/nix";
+    catppuccin.url = "github:catppuccin/nix";
 
     nvim-flake.url = "github:matthis-k/nvim-flake";
     nvim-flake.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -67,7 +67,7 @@
         };
         modules = [
           inputs.home-manager.nixosModules.home-manager
-          # inputs.catppuccin.nixosModules.catppuccin
+          inputs.catppuccin.nixosModules.catppuccin
           inputs.nixos-cli.nixosModules.nixos-cli
           ./nixos/configuration.nix
           ./nixos/hardware-configuration-laptop.nix
@@ -93,7 +93,7 @@
         };
         modules = [
           inputs.home-manager.nixosModules.home-manager
-          # inputs.catppuccin.nixosModules.catppuccin
+          inputs.catppuccin.nixosModules.catppuccin
           inputs.nixos-cli.nixosModules.nixos-cli
           ./nixos/configuration.nix
           ./nixos/hardware-configuration-desktop.nix

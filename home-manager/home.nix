@@ -6,7 +6,7 @@
 }: {
   imports = [
     inputs.hyprland.homeManagerModules.default
-    # inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeManagerModules.catppuccin
     ./fish
     ./firefox.nix
     ./hyprland

@@ -11,9 +11,9 @@
   services.fprintd.tod.enable = true;
   services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
 
-  # services.displayManager.sddm.catppuccin.enable = true;
-  # services.displayManager.sddm.catppuccin.flavor = "mocha";
-  # services.displayManager.sddm.catppuccin.font = "Hack Nerd Font Mono";
+  services.displayManager.sddm.catppuccin.enable = true;
+  services.displayManager.sddm.catppuccin.flavor = "mocha";
+  services.displayManager.sddm.catppuccin.font = "Hack Nerd Font Mono";
 
   services.displayManager.sddm.package = pkgs.kdePackages.sddm;
 }

@@ -37,11 +37,10 @@
     font-awesome
   ];
 
-  # catppuccin.enable = true;
-  # catppuccin.accent = "blue";
-  # catppuccin.flavor = "mocha";
-  # console.catppuccin.enable = true;
-  # console.catppuccin.flavor = "mocha";
+  catppuccin.enable = true;
+  catppuccin.accent = "blue";
+  catppuccin.flavor = "mocha";
+  catppuccin.cache.enable = true;
 
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
