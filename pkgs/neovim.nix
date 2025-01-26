@@ -1,5 +1,5 @@
-{inputs, pkgs, lib, system, ...}: let
-    neovim = inputs.nvim-flake.packages.${system}.nvim;
-    in {
-        neovim = builtins.trace "called" neovim;
+{ inputs, pkgs, ... }:
+{
+  nvim = inputs.nvim-flake.packages.${pkgs.system}.nvim;
+  nvimdev = inputs.nvim-flake.packages.${pkgs.system}.nvimdev;
 }

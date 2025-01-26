@@ -1,9 +1,6 @@
-let
-  dirReq = import ./imp/dirRec.nix;
-  filterFiles = import ./common/filterFiles.nix;
-  dir = ./imp;
-in
-  dirReq.imp {
-    inherit dir;
-    structured = true;
-  }
+{
+  importing = {
+    recursivePaths = import ./importing/recursivePaths.nix;
+  };
+  colors.semanticPalette = import ./semanticPalette.nix;
+}

@@ -1,4 +1,3 @@
-# returns { path: Path, name: String: type: regular|directory|symlink|unkown }
 {
   filters ? [],
   hidden ? false,
@@ -6,32 +5,44 @@
   types ? [],
   dir,
 }: let
+
   trimFileType = import ./trimFileType.nix;
-  fileList = let
-    list = builtins.readDir dir;
-    pathAndType =
-      builtins.mapAttrs (path: type: let
-        absPath = /${dir}/${path};
-      in {
-        inherit type;
-        path = absPath;
-        name = trimFileType absPath;
-      })
-      list;
-  in
-    builtins.attrValues pathAndType;
+
+  fileList =
+    dir
+    |> builtins.readDir
+    |> (list: builtins.mapAttrs
+      (path: type: let
+         absPath = "/${dir}/${path}";
+       in {
+         inherit type;
+         path = absPath;
+         name = trimFileType absPath;
+       })
+      list
+    )
+    |> builtins.attrValues;
 
   hiddenFilter = [
-    (file: let
-      isHidden = (builtins.match ''^\..*$'' (builtins.baseNameOf file.path)) != null;
-    in
-      !isHidden || hidden)
+    (file:
+      let
+        baseName = builtins.baseNameOf file.path;
+        isHidden = (builtins.match ''^\..*$'' baseName) != null;
+      in
+        !isHidden || hidden
+    )
   ];
 
   extensionsFilter =
-    if extensions == []
-    then []
-    else [(file: builtins.any (extension: builtins.match ''^.*\.${extension}$'' (builtins.toString file.path) != null) extensions)];
+    if extensions == [] then
+      []
+    else [
+      (file:
+        builtins.any (extension:
+          builtins.match ''^.*\.${extension}$'' (builtins.toString file.path) != null
+        ) extensions
+      )
+    ];
 
   typeFilter = [(file: builtins.elem file.type types)];
 
@@ -43,4 +54,5 @@
 
   applyAllFilters = file: builtins.all (filter: filter file) allFilters;
 in
-  builtins.filter applyAllFilters fileList
+  fileList
+  |> builtins.filter applyAllFilters

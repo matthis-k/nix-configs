@@ -5,28 +5,63 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nvim-flake.url = "github:matthis-k/nvim-flake";
-    nvim-flake.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    ags.url = "github:aylur/ags";
-    ags.inputs.nixpkgs.follows = "nixpkgs";
+    hyprland.url = "github:hyprwm/Hyprland/v0.47.0";
+
+    # stylix.url = "github:danth/stylix";
+    base16.url = "github:SenchoPens/base16.nix";
+    base16-schemes = {
+      url = "github:tinted-theming/schemes";
+      flake = false;
+    };
+
+    nvim-flake = {
+      url = "github:matthis-k/nvim-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     { self, nixpkgs, ... }@inputs:
     let
-      lib = import ./lib;
-      packages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (
-        system: let
-        pkgs = nixpkgs.legacyPackages.${system};
-        res = builtins.mapAttrs (
-          name: package:
-          package { inherit inputs system pkgs lib ; }
-        ) (lib.dirRec.imp {dir = ./pkgs; structured = true;});
-        in
-        { default = inputs.nvim-flake.packages.x86_64-linux.nvim; } );
+      mylib = import ./lib;
+      packages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system: {
+        nvim = inputs.nvim-flake.packages.${system}.nvim;
+      });
     in
     {
-      inherit lib packages;
+      inherit packages;
+      lib = mylib;
+      nixosConfigurations = {
+        laptop = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs mylib;
+          };
+          modules = [
+            inputs.hyprland.nixosModules.default
+            inputs.home-manager.nixosModules.home-manager
+            # inputs.stylix.nixosModules.stylix
+            inputs.base16.nixosModule
+            { scheme = "${inputs.base16-schemes}/base16/catppuccin-mocha.yaml"; }
+            ./nixos/configuration.nix
+            ./nixos/hardware-configuration.nix
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.matthisk = ./home.nix;
+              home-manager.extraSpecialArgs = inputs;
+            }
+          ];
+        };
+      };
     };
 }
