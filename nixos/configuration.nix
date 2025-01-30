@@ -11,6 +11,8 @@
     ./hardware-configuration.nix
   ];
 
+  boot.plymouth.enable = true;
+
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
@@ -117,12 +119,13 @@
   services.displayManager.sddm.wayland.enable = true;
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "matthisk";
-  services.displayManager.defaultSession = "plasma";
+  services.displayManager.defaultSession = "hyprland-uwsm";
 
   programs.hyprland = {
     enable = true;
     package = pkgs.hyprland;
-    portalPackage = pkgs.xdg-desktop-portal-wlr;
+    portalPackage = pkgs.xdg-desktop-portal-hyprland;
+    withUWSM = true;
   };
 
   services.desktopManager.plasma6.enable = true;
@@ -192,6 +195,8 @@
     wl-clipboard
     kitty
     nvim
+    hyprpolkitagent
+    hyprshell
   ];
 
   nixpkgs.config = {
@@ -202,8 +207,26 @@
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
+  systemd.user.services.hyprpolkitagent = {
+    enable = true;
+    wantedBy = [ "default.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";
+    };
+  };
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    wireplumber.enable = true;
+  };
+
   nixpkgs.overlays = [
     inputs.nvim-flake.overlays.default
+    inputs.ags-flake.overlays.default
     inputs.hyprland.overlays.default
   ];
 

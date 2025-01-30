@@ -12,7 +12,7 @@ in
     env = [ ];
     monitor = [ "eDP-1,1920x1080,0x0,1" ];
     exec = [
-      # "${pkgs.ags}/bin/ags quit; ${pkgs.ags}/bin/ags run"
+      "${pkgs.busybox}/bin/pkill hyprshell quit; ${pkgs.hyprshell}/bin/hyprshell"
     ];
 
     general = {
@@ -238,7 +238,7 @@ in
     };
 
     xwayland = {
-      enabled = true;
+      enabled = false;
       use_nearest_neighbor = true;
       force_zero_scaling = false;
     };
@@ -306,7 +306,7 @@ in
       allow_small_split = false;
       special_scale_factor = 1.0;
       mfact = 1.0;
-      new_status="slave";
+      new_status = "slave";
       new_on_top = false;
       new_on_active = "none";
       orientation = "left";
@@ -391,6 +391,14 @@ in
       "float, blueberry.py"
       "float, xdg-desktop-portal"
       "float, xdg-desktop-portal-gnome"
+    ];
+    windowrulev2 = [
+      "opacity 0.0 override, class:^(xwaylandvideobridge)$"
+      "noanim, class:^(xwaylandvideobridge)$"
+      "noinitialfocus, class:^(xwaylandvideobridge)$"
+      "maxsize 1 1, class:^(xwaylandvideobridge)$"
+      "noblur, class:^(xwaylandvideobridge)$"
+      "nofocus, class:^(xwaylandvideobridge)$"
     ];
   };
 }

@@ -1,4 +1,4 @@
-{ self, inputs, ... }:
+{ self, ... }:
 {
   programs.home-manager.enable = true;
   imports = self.lib.importing.recursivePaths ./home ++ [

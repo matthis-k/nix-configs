@@ -13,6 +13,9 @@
     hyprland.url = "github:hyprwm/Hyprland/v0.47.0";
 
     # stylix.url = "github:danth/stylix";
+    catppuccin.url = "github:catppuccin/nix";
+
+
     base16.url = "github:SenchoPens/base16.nix";
     base16-schemes = {
       url = "github:tinted-theming/schemes";
@@ -21,6 +24,11 @@
 
     nvim-flake = {
       url = "github:matthis-k/nvim-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ags-flake = {
+      url = "github:matthis-k/ags-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -33,34 +41,50 @@
   outputs =
     { self, nixpkgs, ... }@inputs:
     let
-      mylib = import ./lib;
+      lib = import ./lib;
       packages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system: {
         nvim = inputs.nvim-flake.packages.${system}.nvim;
       });
     in
     {
-      inherit packages;
-      lib = mylib;
+      inherit packages lib;
       nixosConfigurations = {
         laptop = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs mylib;
+            inherit inputs;
           };
-          modules = [
-            inputs.hyprland.nixosModules.default
-            inputs.home-manager.nixosModules.home-manager
-            # inputs.stylix.nixosModules.stylix
-            inputs.base16.nixosModule
-            { scheme = "${inputs.base16-schemes}/base16/catppuccin-mocha.yaml"; }
-            ./nixos/configuration.nix
-            ./nixos/hardware-configuration.nix
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.matthisk = ./home.nix;
-              home-manager.extraSpecialArgs = inputs;
-            }
-          ];
+          modules =
+            let
+              parts = lib.importing.recursivePaths ./parts |> builtins.map (path: import path);
+              nixosParts = parts |> builtins.map (part: part.nixos or { });
+              hmParts = parts |> builtins.map (part: part.homeManager or { });
+            in
+            nixosParts
+            ++ [
+              inputs.hyprland.nixosModules.default
+              inputs.home-manager.nixosModules.home-manager
+              # inputs.stylix.nixosModules.stylix
+              inputs.base16.nixosModule
+              { scheme = "${inputs.base16-schemes}/base16/catppuccin-mocha.yaml"; }
+              ./nixos/configuration.nix
+              ./nixos/hardware-configuration.nix
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.backupFileExtension = "bak";
+                home-manager.users.matthisk = {
+                  programs.home-manager.enable = true;
+                  imports = hmParts;
+                  home = {
+                    username = "matthisk";
+                    homeDirectory = "/home/matthisk";
+                  };
+                  systemd.user.startServices = "sd-switch";
+                  home.stateVersion = "24.11";
+                };
+                home-manager.extraSpecialArgs = inputs;
+              }
+            ];
         };
       };
     };
