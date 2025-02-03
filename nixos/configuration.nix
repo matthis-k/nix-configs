@@ -1,21 +1,138 @@
 {
-  inputs,
-  outputs,
-  lib,
+  self,
   config,
+  lib,
   pkgs,
+  inputs,
   ...
-}: {
+}:
+{
   imports = [
-    # Or modules from other flakes (such as nixos-hardware):
-    # inputs.hardware.nixosModules.common-cpu-amd
-    # inputs.hardware.nixosModules.common-ssd
-    ./bootup.nix
-    ./sddm.nix
-    ./locales.nix
-    ./nix-settings.nix
-    ./services.nix
+    ./hardware-configuration.nix
   ];
+
+  boot.plymouth.enable = true;
+  hardware.bluetooth.enable = true;
+
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "nodev";
+  boot.loader.grub.useOSProber = true;
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.gfxmodeEfi = "1920x1020";
+  boot.loader.grub.gfxmodeBios = "1920x1020";
+  boot.loader.grub.font = lib.mkForce "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/HackNerdFontMono-Regular.ttf";
+  boot.plymouth.font = lib.mkForce "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/HackNerdFontMono-Regular.ttf";
+
+  boot.kernelParams = [
+    "splash"
+    "quiet"
+    "udev.log_level=3"
+  ];
+  boot.initrd.systemd.enable = true;
+
+  boot.loader.grub.extraEntries = ''
+    menuentry "Firmware settings" --class efi {
+        fwsetup
+    }
+    menuentry "Reboot" --class restart {
+      reboot
+    }
+    menuentry "Shutdown" --class shutdown {
+      halt
+    }
+  '';
+
+  environment.etc = lib.mapAttrs' (name: value: {
+    name = "nix/path/${name}";
+    value.source = value.flake;
+  }) config.nix.registry;
+  nix = {
+    registry = (lib.mapAttrs (_: flake: { inherit flake; })) (
+      (lib.filterAttrs (_: lib.isType "flake")) inputs
+    );
+    nixPath = [ "/etc/nix/path" ];
+    gc.automatic = true;
+    gc.dates = "weekly";
+    gc.options = "--delete-older-than 14d";
+    optimise.automatic = true;
+    optimise.dates = [ "weekly" ];
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "pipe-operators"
+      ];
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org/"
+        "https://hyprland.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      ];
+    };
+  };
+
+  networking.hostName = "matthisk-laptop";
+  networking.networkmanager.enable = true;
+  systemd.services.NetworkManager-wait-online = {
+    serviceConfig = {
+      ExecStart = [
+        ""
+        "${pkgs.networkmanager}/bin/nm-online -q"
+      ];
+    };
+  };
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
+  services.preload.enable = true;
+  services.dbus.enable = true;
+
+  time.timeZone = "Europe/Berlin";
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "de_DE.UTF-8";
+    LC_IDENTIFICATION = "de_DE.UTF-8";
+    LC_MEASUREMENT = "de_DE.UTF-8";
+    LC_MONETARY = "de_DE.UTF-8";
+    LC_NAME = "de_DE.UTF-8";
+    LC_NUMERIC = "de_DE.UTF-8";
+    LC_PAPER = "de_DE.UTF-8";
+    LC_TELEPHONE = "de_DE.UTF-8";
+    LC_TIME = "de_DE.UTF-8";
+  };
+
+  services.xserver.xkb = {
+    layout = "de";
+    variant = "";
+  };
+
+  console = {
+    keyMap = "de";
+  };
+
+  services.xserver.enable = true;
+
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "matthisk";
+  services.displayManager.defaultSession = "hyprland-uwsm";
+
+  programs.hyprland = {
+    enable = true;
+    package = pkgs.hyprland;
+    portalPackage = pkgs.xdg-desktop-portal-hyprland;
+    withUWSM = true;
+  };
+
+  services.desktopManager.plasma6.enable = true;
+
+  programs.firefox.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -36,14 +153,6 @@
     })
     font-awesome
   ];
-
-  catppuccin.enable = true;
-  catppuccin.accent = "blue";
-  catppuccin.flavor = "mocha";
-  catppuccin.cache.enable = true;
-
-  hardware.opengl.driSupport32Bit = true;
-  hardware.pulseaudio.support32Bit = true;
 
   environment.systemPackages = with pkgs; [
     autoconf
@@ -84,34 +193,71 @@
     yarn
     pkg-config
     home-manager
-    jetbrains.clion
+    wl-clipboard
+    kitty
+    nvim
+    nvimdev
+    hyprpolkitagent
+    hyprshell
+    gjs
+
+    ags.ags
+    ags.astal
+    ags.docs
+    ags.io
+    ags.gjs
+    ags.astal3
+    ags.astal4
+    ags.apps
+    ags.auth
+    ags.battery
+    ags.bluetooth
+    ags.cava
+    ags.greet
+    ags.hyprland
+    ags.mpris
+    ags.network
+    ags.notifd
+    ags.powerprofiles
+    ags.river
+    ags.tray
+    ags.wireplumber
   ];
 
-  nixpkgs = {
-    overlays = [
-      outputs.overlays.additions
-      outputs.overlays.modifications
-      outputs.overlays.unstable-packages
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowUnfreePredicate = _: true;
+  };
 
-      inputs.nur.overlay
-      inputs.rust-overlay.overlays.default
-    ];
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = _: true;
-      permittedInsecurePackages = [
-        "nix-2.16.2"
-        "electron-24.8.6"
-        "clion"
-      ];
+  programs.fish.enable = true;
+  users.defaultUserShell = pkgs.fish;
+
+  systemd.user.services.hyprpolkitagent = {
+    enable = true;
+    wantedBy = [ "default.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";
     };
   };
 
-  users.defaultUserShell = pkgs.fish;
-  programs.fish.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    wireplumber.enable = true;
+  };
 
-  users.extraGroups.libvirtd.members = ["matthisk"];
-  users.extraGroups.docker.members = ["matthisk"];
+  nixpkgs.overlays = [
+    inputs.nvim-flake.overlays.default
+    inputs.nvim-flake.overlays.nvimdev
+    inputs.ags-flake.overlays.default
+    inputs.hyprland.overlays.default
+  ];
+
+  users.extraGroups.libvirtd.members = [ "matthisk" ];
+  users.extraGroups.docker.members = [ "matthisk" ];
   virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
   programs.virt-manager.enable = true;
@@ -123,10 +269,14 @@
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
       ];
-      extraGroups = ["networkmanager" "wheel" "video" "audio"];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "video"
+        "audio"
+      ];
       useDefaultShell = true;
     };
   };
-
-  system.stateVersion = "24.11";
+  system.stateVersion = "24.11"; # Did you read the comment?
 }

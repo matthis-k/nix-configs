@@ -5,175 +5,87 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&rev=918d8340afd652b011b937d29d5eea0be08467f5";
+    hyprland.url = "github:hyprwm/Hyprland/v0.47.0";
 
-    Hyprspace.url = "github:KZDKM/Hyprspace";
-    Hyprspace.inputs.hyprland.follows = "hyprland";
-
+    # stylix.url = "github:danth/stylix";
     catppuccin.url = "github:catppuccin/nix";
 
-    nvim-flake.url = "github:matthis-k/nvim-flake";
-    nvim-flake.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
-    ags.url = "github:aylur/ags";
-    ags.inputs.nixpkgs.follows = "nixpkgs";
-    astal.url = "github:aylur/astal";
-    astal.inputs.nixpkgs.follows = "nixpkgs";
+    base16.url = "github:SenchoPens/base16.nix";
+    base16-schemes = {
+      url = "github:tinted-theming/schemes";
+      flake = false;
+    };
 
-    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
-    hyprland-plugins.inputs.hyprland.follows = "hyprland";
+    nvim-flake = {
+      url = "github:matthis-k/nvim-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    rust-overlay.url = "github:oxalica/rust-overlay";
+    ags-flake = {
+      url = "github:matthis-k/ags-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    spicetify.url = "github:Gerg-L/spicetify-nix";
-    spicetify.inputs.nixpkgs.follows = "nixpkgs";
-
-    nur.url = "github:nix-community/NUR";
-
-    nixos-cli.url = "github:water-sucks/nixos";
-    nixos-cli.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    systems = [
-      "x86_64-linux"
-    ];
-    forAllSystems = nixpkgs.lib.genAttrs systems;
-    color = import ./color.nix;
-  in {
-    packages = forAllSystems (system:
-      import ./pkgs {
-        pkgs = nixpkgs.legacyPackages.${system};
-        inherit color inputs;
+  outputs =
+    { self, nixpkgs, ... }@inputs:
+    let
+      lib = import ./lib;
+      packages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system: {
+        nvim = inputs.nvim-flake.packages.${system}.nvim;
       });
-    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
-    overlays = import ./overlays {inherit inputs color;};
-    nixosModules = import ./modules/nixos;
-    homeManagerModules = import ./modules/home-manager;
-    nixosConfigurations = {
-      laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs outputs color;
-          host = "laptop";
+    in
+    {
+      inherit packages lib;
+      nixosConfigurations = {
+        laptop = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+          };
+          modules =
+            let
+              parts = lib.importing.recursivePaths ./parts |> builtins.map (path: import path);
+              nixosParts = parts |> builtins.map (part: part.nixos or { });
+              hmParts = parts |> builtins.map (part: part.homeManager or { });
+            in
+            nixosParts
+            ++ [
+              inputs.hyprland.nixosModules.default
+              inputs.home-manager.nixosModules.home-manager
+              # inputs.stylix.nixosModules.stylix
+              inputs.base16.nixosModule
+              { scheme = "${inputs.base16-schemes}/base16/catppuccin-mocha.yaml"; }
+              ./nixos/configuration.nix
+              ./nixos/hardware-configuration.nix
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.backupFileExtension = "bak";
+                home-manager.users.matthisk = {
+                  programs.home-manager.enable = true;
+                  imports = hmParts;
+                  home = {
+                    username = "matthisk";
+                    homeDirectory = "/home/matthisk";
+                  };
+                  systemd.user.startServices = "sd-switch";
+                  home.stateVersion = "24.11";
+                };
+                home-manager.extraSpecialArgs = inputs;
+              }
+            ];
         };
-        modules = [
-          inputs.home-manager.nixosModules.home-manager
-          inputs.catppuccin.nixosModules.catppuccin
-          inputs.nixos-cli.nixosModules.nixos-cli
-          ./nixos/configuration.nix
-          ./nixos/hardware-configuration-laptop.nix
-          {
-            home-manager.extraSpecialArgs = {
-              inherit inputs outputs color;
-              host = "laptop";
-            };
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.matthisk = {pkgs, ...}: {
-              imports = [
-                ./home-manager/home.nix
-              ];
-            };
-          }
-        ];
-      };
-      desktop = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs outputs color;
-          host = "desktop";
-        };
-        modules = [
-          inputs.home-manager.nixosModules.home-manager
-          inputs.catppuccin.nixosModules.catppuccin
-          inputs.nixos-cli.nixosModules.nixos-cli
-          ./nixos/configuration.nix
-          ./nixos/hardware-configuration-desktop.nix
-          {
-            home-manager.extraSpecialArgs = {
-              inherit inputs outputs color;
-              host = "desktop";
-            };
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.matthisk = {pkgs, ...}: {
-              imports = [
-                ./home-manager/home.nix
-              ];
-            };
-          }
-        ];
       };
     };
-
-    homeConfigurations = {
-      "matthisk@laptop" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs color;
-          host = "laptop";
-        };
-        modules = [
-          ./home-manager/home.nix
-          {
-            nixpkgs = {
-              overlays = [
-                outputs.overlays.additions
-                outputs.overlays.modifications
-                outputs.overlays.unstable-packages
-
-                inputs.nur.overlay
-                inputs.rust-overlay.overlays.default
-              ];
-              config = {
-                allowUnfree = true;
-                allowUnfreePredicate = _: true;
-                permittedInsecurePackages = [
-                  "nix-2.16.2"
-                  "electron-24.8.6"
-                ];
-              };
-            };
-          }
-        ];
-      };
-      "matthisk@desktop" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs color;
-          host = "desktop";
-        };
-        modules = [
-          ./home-manager/home.nix
-          {
-            nixpkgs = {
-              overlays = [
-                outputs.overlays.additions
-                outputs.overlays.modifications
-                outputs.overlays.unstable-packages
-
-                inputs.nur.overlay
-                inputs.rust-overlay.overlays.default
-              ];
-              config = {
-                allowUnfree = true;
-                allowUnfreePredicate = _: true;
-                permittedInsecurePackages = [
-                  "electron-24.8.6"
-                ];
-              };
-            };
-          }
-        ];
-      };
-    };
-  };
 }
