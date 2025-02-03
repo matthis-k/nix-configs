@@ -29,11 +29,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738174376,
-        "narHash": "sha256-uUlOdID9d4oMm5+MmdevXbp+2dkf2aiMKYryvBz37Mk=",
+        "lastModified": 1738438989,
+        "narHash": "sha256-I5BfDBKSFXZwBGZF08Fy0iZSZ3qh0d0oo0gCUHGNfuo=",
         "owner": "matthis-k",
         "repo": "ags-flake",
-        "rev": "e2df545269e5d869c3985c8c93c4c6d15c0df280",
+        "rev": "29a6a29a05692c510b1e4fa645845c999d87a1d0",
         "type": "github"
       },
       "original": {
@@ -1059,11 +1059,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1737681375,
-        "narHash": "sha256-P6K9sOtmt3gkxscKvKTmuZL6fuc3wJiaSAHSmQBUDjM=",
+        "lastModified": 1738594893,
+        "narHash": "sha256-nJYXCs4+MgZ5bAiUdyYr+QmPSjjCpQdw9+qVxicTgLo=",
         "owner": "matthis-k",
         "repo": "nvim-flake",
-        "rev": "34451dd2225dbc7bb2b71099f94c28e5b27ab1ba",
+        "rev": "3261fd401f8975db0b4d43bf6f3e210c17a73e5e",
         "type": "github"
       },
       "original": {

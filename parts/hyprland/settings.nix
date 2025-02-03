@@ -12,7 +12,8 @@ in
     env = [ ];
     monitor = [ "eDP-1,1920x1080,0x0,1" ];
     exec = [
-      "${pkgs.busybox}/bin/pkill hyprshell quit; ${pkgs.hyprshell}/bin/hyprshell"
+      "${pkgs.busybox}/bin/pkill hyprshell; ${pkgs.hyprshell}/bin/hyprshell"
+      "${pkgs.hyprland}/bin/hyprctl setcursor $HYPRCURSOR_THEME $HYPRCURSOR_SIZE"
     ];
 
     general = {
@@ -214,7 +215,7 @@ in
       close_special_on_empty = true;
       new_window_takes_over_fullscreen = 0;
       exit_window_retains_fullscreen = false;
-      initial_workspace_tracking = 2;
+      initial_workspace_tracking = 1;
       middle_click_paste = false;
       render_unfocused_fps = 15;
       disable_xdg_env_checks = false;

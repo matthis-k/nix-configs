@@ -12,6 +12,7 @@
   ];
 
   boot.plymouth.enable = true;
+  hardware.bluetooth.enable = true;
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
@@ -21,6 +22,7 @@
   boot.loader.grub.gfxmodeEfi = "1920x1020";
   boot.loader.grub.gfxmodeBios = "1920x1020";
   boot.loader.grub.font = lib.mkForce "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/HackNerdFontMono-Regular.ttf";
+  boot.plymouth.font = lib.mkForce "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/HackNerdFontMono-Regular.ttf";
 
   boot.kernelParams = [
     "splash"
@@ -131,7 +133,6 @@
   services.desktopManager.plasma6.enable = true;
 
   programs.firefox.enable = true;
-  programs.starship.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -195,8 +196,32 @@
     wl-clipboard
     kitty
     nvim
+    nvimdev
     hyprpolkitagent
     hyprshell
+    gjs
+
+    ags.ags
+    ags.astal
+    ags.docs
+    ags.io
+    ags.gjs
+    ags.astal3
+    ags.astal4
+    ags.apps
+    ags.auth
+    ags.battery
+    ags.bluetooth
+    ags.cava
+    ags.greet
+    ags.hyprland
+    ags.mpris
+    ags.network
+    ags.notifd
+    ags.powerprofiles
+    ags.river
+    ags.tray
+    ags.wireplumber
   ];
 
   nixpkgs.config = {
@@ -226,6 +251,7 @@
 
   nixpkgs.overlays = [
     inputs.nvim-flake.overlays.default
+    inputs.nvim-flake.overlays.nvimdev
     inputs.ags-flake.overlays.default
     inputs.hyprland.overlays.default
   ];

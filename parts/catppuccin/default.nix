@@ -14,9 +14,17 @@
       };
     };
   homeManager =
-    { catppuccin, nixosConfig, ... }:
     {
+      catppuccin,
+      nixosConfig,
+      pkgs,
+      ...
+    }:
+    {
+      qt.enable = true;
       qt.style.name = "kvantum";
+      qt.platformTheme.name = "kvantum";
+
       gtk.enable = true;
       imports = [
         catppuccin.homeManagerModules.catppuccin
@@ -25,7 +33,6 @@
         enable = nixosConfig.catppuccin.enable;
         accent = nixosConfig.catppuccin.accent;
         flavor = nixosConfig.catppuccin.flavor;
-        gtk.enable = nixosConfig.catppuccin.enable;
         gtk.icon = {
           enable = nixosConfig.catppuccin.enable;
           accent = nixosConfig.catppuccin.accent;

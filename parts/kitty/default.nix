@@ -5,11 +5,10 @@
       programs.kitty.enable = true;
       programs.kitty.themeFile = "Catppuccin-Mocha";
       programs.kitty.font = {
-        name = "Hack Nerd Font Mono";
+        name = "Hack Nerd Font";
         size = 10;
         package = pkgs.nerdfonts.override {
           fonts = [
-            "FiraCode"
             "Hack"
           ];
         };
