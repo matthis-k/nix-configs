@@ -339,6 +339,7 @@ in
 
     bind = [
       "alt control, w, exec, ${pkgs.firefox}/bin/firefox"
+      "super, a, exec, ${pkgs.ags.astal}/bin/astal --instance hyprshell launcher"
       "super shift, 0, movetoworkspace, 10"
       "super shift, 1, movetoworkspace, 1"
       "super shift, 2, movetoworkspace, 2"
