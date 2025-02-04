@@ -11,6 +11,7 @@ in
   wayland.windowManager.hyprland.settings = {
     env = [ ];
     monitor = [ "eDP-1,1920x1080,0x0,1" ];
+    exec-once = [ "systemctl start --user hyprpolkitagent.service" ];
     exec = [
       "${pkgs.busybox}/bin/pkill hyprshell; ${pkgs.hyprshell}/bin/hyprshell"
       "${pkgs.hyprland}/bin/hyprctl setcursor $HYPRCURSOR_THEME $HYPRCURSOR_SIZE"

@@ -43,6 +43,12 @@
     }
   '';
 
+  environment.variables = {
+    QT_QPA_PLATFORM = "wayland";
+    SDL_VIDEODRIVER = "wayland";
+    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+  };
   environment.etc = lib.mapAttrs' (name: value: {
     name = "nix/path/${name}";
     value.source = value.flake;
@@ -198,6 +204,7 @@
     nvim
     nvimdev
     hyprpolkitagent
+    libsForQt5.qt5ct
     hyprshell
     gjs
 
@@ -234,6 +241,7 @@
 
   systemd.user.services.hyprpolkitagent = {
     enable = true;
+    description = "HyprPolkitAgent Service";
     wantedBy = [ "default.target" ];
     serviceConfig = {
       Type = "simple";
