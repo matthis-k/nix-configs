@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737670873,
-        "narHash": "sha256-XRAGO5gQlD11Px43fTGbCedXQfSIwnd1KXF3enHml1E=",
+        "lastModified": 1738087375,
+        "narHash": "sha256-GLyNtU9A2VN22jNRHZ2OXuFfTJLh8uEVVt+ftsKUX0c=",
         "owner": "aylur",
         "repo": "ags",
-        "rev": "cbe373ff8571126424f8f11b1cc01d9ad19db13e",
+        "rev": "a6a7a0adb17740f4c34a59902701870d46fbb6a4",
         "type": "github"
       },
       "original": {
@@ -29,11 +29,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738643409,
-        "narHash": "sha256-GuHUs3Y7NF+U5+YHlOWqZp2HmpWm+t1NmY93/hZUOrs=",
+        "lastModified": 1738816836,
+        "narHash": "sha256-P6xbN28OLFiLbQyIZTBmsNX83TrX4xzDq20Xz9EjjcQ=",
         "owner": "matthis-k",
         "repo": "ags-flake",
-        "rev": "df3609c76f80a5e6b158dd3e028ed5b94357e73b",
+        "rev": "a641957594e8573d4c252389a066deabc68b45d2",
         "type": "github"
       },
       "original": {
