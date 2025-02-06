@@ -96,6 +96,7 @@ in
         "workspaces,1,7, md3_decel, slide"
         "specialWorkspace,1,8, md3_decel, slide"
         "border,1,10, md3_decel"
+        "layers,0"
       ];
     };
 
@@ -402,6 +403,8 @@ in
       "maxsize 1 1, class:^(xwaylandvideobridge)$"
       "noblur, class:^(xwaylandvideobridge)$"
       "nofocus, class:^(xwaylandvideobridge)$"
+
+      "noanim, class:^(hyprshell-launcher)$"
     ];
   };
 }
