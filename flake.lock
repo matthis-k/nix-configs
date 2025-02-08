@@ -29,11 +29,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738819370,
-        "narHash": "sha256-7c365aFQQ/9LBL+62ygbk8pkt4oBk6SZD/GR99PrZQk=",
+        "lastModified": 1739043661,
+        "narHash": "sha256-8PO+Aa5LOBIF8P4RlLIDccn9Gz/8q0EAd9541ZMM3yE=",
         "owner": "matthis-k",
         "repo": "ags-flake",
-        "rev": "8ceaf77c36a4353486f832cedb1f1cbef886b1ef",
+        "rev": "1c57bc69d0741babaf3c725e710082c7a42249a6",
         "type": "github"
       },
       "original": {
