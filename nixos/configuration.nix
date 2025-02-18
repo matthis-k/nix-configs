@@ -54,6 +54,7 @@
     value.source = value.flake;
   }) config.nix.registry;
   nix = {
+    package = pkgs.lix;
     registry = (lib.mapAttrs (_: flake: { inherit flake; })) (
       (lib.filterAttrs (_: lib.isType "flake")) inputs
     );
@@ -68,7 +69,7 @@
       experimental-features = [
         "nix-command"
         "flakes"
-        "pipe-operators"
+        "pipe-operator"
       ];
       substituters = [
         "https://nix-community.cachix.org"
@@ -262,6 +263,7 @@
     inputs.nvim-flake.overlays.nvimdev
     inputs.ags-flake.overlays.default
     inputs.hyprland.overlays.default
+    inputs.hyprland-contrib.overlays.default
   ];
 
   users.extraGroups.libvirtd.members = [ "matthisk" ];

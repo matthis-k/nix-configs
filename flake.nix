@@ -10,11 +10,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprland.url = "github:hyprwm/Hyprland/v0.47.0";
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # stylix.url = "github:danth/stylix";
     catppuccin.url = "github:catppuccin/nix";
-
 
     base16.url = "github:SenchoPens/base16.nix";
     base16-schemes = {
@@ -63,6 +71,7 @@
             ++ [
               inputs.hyprland.nixosModules.default
               inputs.home-manager.nixosModules.home-manager
+              inputs.lix-module.nixosModules.default
               # inputs.stylix.nixosModules.stylix
               inputs.base16.nixosModule
               { scheme = "${inputs.base16-schemes}/base16/catppuccin-mocha.yaml"; }
