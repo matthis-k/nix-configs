@@ -10,6 +10,12 @@
   imports = [
     ./hardware-configuration.nix
   ];
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
 
   boot.plymouth.enable = true;
   hardware.bluetooth.enable = true;
