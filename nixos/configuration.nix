@@ -230,6 +230,8 @@
     ags.river
     ags.tray
     ags.wireplumber
+
+    grimblast
   ];
 
   nixpkgs.config = {
@@ -263,7 +265,7 @@
     inputs.nvim-flake.overlays.nvimdev
     inputs.ags-flake.overlays.default
     inputs.hyprland.overlays.default
-    inputs.hyprland-contrib.overlays.default
+    inputs.hyprpicker.overlays.default
   ];
 
   users.extraGroups.libvirtd.members = [ "matthisk" ];

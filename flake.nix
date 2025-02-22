@@ -16,9 +16,9 @@
     };
 
     hyprland.url = "github:hyprwm/Hyprland/v0.47.0";
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
+    hyprpicker = {
+      url = "github:hyprwm/hyprpicker";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # stylix.url = "github:danth/stylix";
