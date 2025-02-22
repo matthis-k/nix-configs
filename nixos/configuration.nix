@@ -216,12 +216,9 @@
     gjs
 
     ags.ags
-    ags.astal
     ags.docs
     ags.io
     ags.gjs
-    ags.astal3
-    ags.astal4
     ags.apps
     ags.auth
     ags.battery

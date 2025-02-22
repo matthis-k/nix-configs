@@ -39,11 +39,6 @@
       url = "github:matthis-k/ags-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    ags = {
-      url = "github:aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =

@@ -3,9 +3,7 @@
     "ags": {
       "inputs": {
         "astal": "astal",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1738087375,
@@ -23,41 +21,22 @@
     },
     "ags-flake": {
       "inputs": {
-        "ags": "ags_2",
+        "ags": "ags",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1739043661,
-        "narHash": "sha256-8PO+Aa5LOBIF8P4RlLIDccn9Gz/8q0EAd9541ZMM3yE=",
+        "lastModified": 1740265369,
+        "narHash": "sha256-UOzduFFjUyGfGowGMWwhIPiFeGxqYLIstbIjia6i9Mw=",
         "owner": "matthis-k",
         "repo": "ags-flake",
-        "rev": "1c57bc69d0741babaf3c725e710082c7a42249a6",
+        "rev": "7ab836405d62b2c6f0b15eeda3b57efeab6c11c0",
         "type": "github"
       },
       "original": {
         "owner": "matthis-k",
         "repo": "ags-flake",
-        "type": "github"
-      }
-    },
-    "ags_2": {
-      "inputs": {
-        "astal": "astal_2",
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1738087375,
-        "narHash": "sha256-GLyNtU9A2VN22jNRHZ2OXuFfTJLh8uEVVt+ftsKUX0c=",
-        "owner": "aylur",
-        "repo": "ags",
-        "rev": "a6a7a0adb17740f4c34a59902701870d46fbb6a4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "aylur",
-        "repo": "ags",
         "type": "github"
       }
     },
@@ -95,27 +74,6 @@
       }
     },
     "astal": {
-      "inputs": {
-        "nixpkgs": [
-          "ags",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1737670815,
-        "narHash": "sha256-ZCxxshGN7XooabArcoGkYSNx5yVunqjKJi2aTv6cznI=",
-        "owner": "aylur",
-        "repo": "astal",
-        "rev": "127e9cdcbf173846a3c40ddc0abfbb038df48042",
-        "type": "github"
-      },
-      "original": {
-        "owner": "aylur",
-        "repo": "astal",
-        "type": "github"
-      }
-    },
-    "astal_2": {
       "inputs": {
         "nixpkgs": [
           "ags-flake",
@@ -1126,11 +1084,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1739923778,
-        "narHash": "sha256-BqUY8tz0AQ4to2Z4+uaKczh81zsGZSYxjgvtw+fvIfM=",
+        "lastModified": 1740162160,
+        "narHash": "sha256-SSYxFhqCOb3aiPb6MmN68yEzBIltfom8IgRz7phHscM=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "36864ed72f234b9540da4cf7a0c49e351d30d3f1",
+        "rev": "11415c7ae8539d6292f2928317ee7a8410b28bb9",
         "type": "github"
       },
       "original": {
@@ -1189,7 +1147,6 @@
         "plugins-lz-n": "plugins-lz-n",
         "plugins-markview-nvim": "plugins-markview-nvim",
         "plugins-nvim-cmp-buffer": "plugins-nvim-cmp-buffer",
-        "plugins-nvim-cmp-path": "plugins-nvim-cmp-path",
         "plugins-nvim-cmp-spell": "plugins-nvim-cmp-spell",
         "plugins-nvim-lspconfig": "plugins-nvim-lspconfig",
         "plugins-plenary-nvim": "plugins-plenary-nvim",
@@ -1200,11 +1157,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1740228095,
-        "narHash": "sha256-kUrm2BvIykqeqpL+IpVtr+PLerxiri45j4zZUpp9xEQ=",
+        "lastModified": 1740282294,
+        "narHash": "sha256-WZr9RssNUIxgDUKkgo9vaMMMJNNWv7L960psNHEMSJs=",
         "owner": "matthis-k",
         "repo": "nvim-flake",
-        "rev": "e2e278802779e32ff0034ac0bc68d708c45fd15e",
+        "rev": "acf62223db9e2b96a1664aa08135a77d4aa1387c",
         "type": "github"
       },
       "original": {
@@ -1338,22 +1295,6 @@
       "original": {
         "owner": "hrsh7th",
         "repo": "cmp-buffer",
-        "type": "github"
-      }
-    },
-    "plugins-nvim-cmp-path": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1664784283,
-        "narHash": "sha256-thppiiV3wjIaZnAXmsh7j3DUc6ceSCvGzviwFUnoPaI=",
-        "owner": "hrsh7th",
-        "repo": "cmp-path",
-        "rev": "91ff86cd9c29299a64f968ebb45846c485725f23",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hrsh7th",
-        "repo": "cmp-path",
         "type": "github"
       }
     },
@@ -1494,7 +1435,6 @@
     },
     "root": {
       "inputs": {
-        "ags": "ags",
         "ags-flake": "ags-flake",
         "base16": "base16",
         "base16-schemes": "base16-schemes",
