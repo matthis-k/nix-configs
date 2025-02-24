@@ -1141,6 +1141,7 @@
         ],
         "plugins-base16-nvim": "plugins-base16-nvim",
         "plugins-care-cmp": "plugins-care-cmp",
+        "plugins-conform-nvim": "plugins-conform-nvim",
         "plugins-gitsigns-nvim": "plugins-gitsigns-nvim",
         "plugins-helpview-nvim": "plugins-helpview-nvim",
         "plugins-lazydev-nvim": "plugins-lazydev-nvim",
@@ -1157,11 +1158,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1740282294,
-        "narHash": "sha256-WZr9RssNUIxgDUKkgo9vaMMMJNNWv7L960psNHEMSJs=",
+        "lastModified": 1740350329,
+        "narHash": "sha256-Sx5I3GK3rUBxXBOi8jS60wSzRl6DTYAj4iMAf+RYpKw=",
         "owner": "matthis-k",
         "repo": "nvim-flake",
-        "rev": "acf62223db9e2b96a1664aa08135a77d4aa1387c",
+        "rev": "e64d88785fb8fcdfc4b014cd53bc5b32b10c8d01",
         "type": "github"
       },
       "original": {
@@ -1199,6 +1200,22 @@
       "original": {
         "owner": "max397574",
         "repo": "care-cmp",
+        "type": "github"
+      }
+    },
+    "plugins-conform-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739657764,
+        "narHash": "sha256-H9JLiRtixDKDN50SH6gkqgjlhLzHMAaOT1pc69ZFdco=",
+        "owner": "stevearc",
+        "repo": "conform.nvim",
+        "rev": "a6f5bdb78caa305496357d17e962bbc4c0b392e2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stevearc",
+        "repo": "conform.nvim",
         "type": "github"
       }
     },
