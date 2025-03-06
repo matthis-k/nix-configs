@@ -54,6 +54,8 @@
     SDL_VIDEODRIVER = "wayland";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    EDITOR = "nvim";
+    VISUAL = "nvim";
   };
   environment.etc = lib.mapAttrs' (name: value: {
     name = "nix/path/${name}";
@@ -177,6 +179,7 @@
     cargo
     clang
     cmake
+    comma
     coreutils
     diffutils
     findutils
@@ -213,7 +216,9 @@
     hyprpolkitagent
     libsForQt5.qt5ct
     hyprshell
+    satty
     gjs
+    nix-index
 
     ags.ags
     ags.docs

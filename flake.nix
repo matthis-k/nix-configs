@@ -32,7 +32,7 @@
 
     nvim-flake = {
       url = "github:matthis-k/nvim-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     ags-flake = {

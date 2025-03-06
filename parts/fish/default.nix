@@ -37,7 +37,7 @@
             };
             git = {
               paging = {
-                pager = "delta --dark --paging=never";
+                pager = "${pkgs.delta}/bin/delta --dark --paging=never";
               };
             };
           };
@@ -59,12 +59,13 @@
           fish_vi_key_bindings
 
           fish_config theme choose "Catpuccin-Mocha"
-          eval (ssh-agent -c) > /dev/null
-          for ssh_key in (fd --base-directory ~/.ssh/ "id_*" -E "id_*.pub" -a)
-              ssh-add $ssh_key &> /dev/null
+          eval (${pkgs.openssh}/bin/ssh-agent -c) > /dev/null
+          for ssh_key in (${pkgs.fd}/bin/fd --base-directory ~/.ssh/ "id_*" -E "id_*.pub" -a)
+              ${pkgs.openssh}/bin/ssh-add $ssh_key &> /dev/null
           end
         '';
         fish.shellAliases = {
+          ci = "zi";
           lg = "lazygit";
           ls = "eza";
           du = "dust";
