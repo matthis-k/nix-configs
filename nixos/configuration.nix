@@ -147,8 +147,6 @@
 
   services.desktopManager.plasma6.enable = true;
 
-  programs.firefox.enable = true;
-
   security.sudo.wheelNeedsPassword = false;
 
   fonts.packages = with pkgs; [
@@ -179,7 +177,6 @@
     cargo
     clang
     cmake
-    comma
     coreutils
     diffutils
     findutils

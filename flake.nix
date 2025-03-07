@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
@@ -21,7 +25,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    # stylix.url = "github:danth/stylix";
     catppuccin.url = "github:catppuccin/nix";
 
     base16.url = "github:SenchoPens/base16.nix";
@@ -39,6 +42,9 @@
       url = "github:matthis-k/ags-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    zen-flake.url = "github:0xc000022070/zen-browser-flake";
+    zen-flake.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   outputs =
@@ -67,7 +73,6 @@
               inputs.hyprland.nixosModules.default
               inputs.home-manager.nixosModules.home-manager
               inputs.lix-module.nixosModules.default
-              # inputs.stylix.nixosModules.stylix
               inputs.base16.nixosModule
               { scheme = "${inputs.base16-schemes}/base16/catppuccin-mocha.yaml"; }
               ./nixos/configuration.nix

@@ -339,7 +339,7 @@ in
     ];
 
     bind = [
-      "alt control, w, exec, ${pkgs.firefox}/bin/firefox"
+      "alt control, w, exec, ${pkgs.zen-browser.beta}/bin/zen"
       "super, a, exec, ${pkgs.ags.ags}/bin/ags request --instance hyprshell launcher"
       "super shift, 0, movetoworkspace, 10"
       "super shift, 1, movetoworkspace, 1"
@@ -380,7 +380,6 @@ in
       "super, q, killactive"
       "super, return, exec, ${pkgs.kitty}/bin/kitty"
       "super, space, togglefloating"
-      "super, x, exec, ${pkgs.wlogout}/bin/wlogout -p layer-shell"
       "super, p, pin"
       # "super, tab, overview:toggle"
     ];
