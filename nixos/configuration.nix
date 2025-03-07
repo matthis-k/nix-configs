@@ -209,37 +209,10 @@
     yarn
     pkg-config
     home-manager
-    wl-clipboard
     kitty
     nvim
     nvimdev
-    hyprpolkitagent
     libsForQt5.qt5ct
-    hyprshell
-    satty
-    gjs
-    nix-index
-
-    ags.ags
-    ags.docs
-    ags.io
-    ags.gjs
-    ags.apps
-    ags.auth
-    ags.battery
-    ags.bluetooth
-    ags.cava
-    ags.greet
-    ags.hyprland
-    ags.mpris
-    ags.network
-    ags.notifd
-    ags.powerprofiles
-    ags.river
-    ags.tray
-    ags.wireplumber
-
-    grimblast
   ];
 
   nixpkgs.config = {
