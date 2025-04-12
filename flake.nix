@@ -13,19 +13,18 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
+    hyprland = {
+      url = "github:hyprwm/Hyprland/v0.47.0";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
-    hyprland.url = "github:hyprwm/Hyprland/v0.47.0";
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
-    catppuccin.url = "github:catppuccin/nix";
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     base16.url = "github:SenchoPens/base16.nix";
     base16-schemes = {
@@ -42,9 +41,10 @@
       url = "github:matthis-k/ags-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    zen-flake.url = "github:0xc000022070/zen-browser-flake";
-    zen-flake.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    zen-flake = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -72,7 +72,6 @@
             ++ [
               inputs.hyprland.nixosModules.default
               inputs.home-manager.nixosModules.home-manager
-              inputs.lix-module.nixosModules.default
               inputs.base16.nixosModule
               { scheme = "${inputs.base16-schemes}/base16/catppuccin-mocha.yaml"; }
               ./nixos/configuration.nix

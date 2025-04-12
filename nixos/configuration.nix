@@ -62,7 +62,6 @@
     value.source = value.flake;
   }) config.nix.registry;
   nix = {
-    package = pkgs.lix;
     registry = (lib.mapAttrs (_: flake: { inherit flake; })) (
       (lib.filterAttrs (_: lib.isType "flake")) inputs
     );
@@ -77,7 +76,7 @@
       experimental-features = [
         "nix-command"
         "flakes"
-        "pipe-operator"
+        "pipe-operators"
       ];
       substituters = [
         "https://nix-community.cachix.org"

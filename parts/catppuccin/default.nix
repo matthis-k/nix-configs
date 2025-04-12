@@ -27,7 +27,7 @@
 
       gtk.enable = true;
       imports = [
-        catppuccin.homeManagerModules.catppuccin
+        catppuccin.homeModules.catppuccin
       ];
       catppuccin = {
         enable = nixosConfig.catppuccin.enable;

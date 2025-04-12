@@ -1,4 +1,12 @@
 {
+  nixos =
+    { pkgs, ... }:
+    {
+      programs = {
+        command-not-found.enable = false;
+        nix-index.enableFishIntegration = false;
+      };
+    };
   homeManager =
     {
       pkgs,
@@ -19,6 +27,8 @@
       programs = {
         bat.enable = true;
         bottom.enable = true;
+        command-not-found.enable = false;
+        nix-index.enableFishIntegration = false;
         git = {
           enable = true;
           delta.enable = true;

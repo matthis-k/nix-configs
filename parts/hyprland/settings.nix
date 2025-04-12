@@ -13,8 +13,8 @@ in
     monitor = [ "eDP-1,1920x1080,0x0,1" ];
     exec-once = [ "systemctl start --user hyprpolkitagent.service" ];
     exec = [
-      "${pkgs.busybox}/bin/pkill hyprshell; ${pkgs.hyprshell}/bin/hyprshell"
-      "${pkgs.hyprland}/bin/hyprctl setcursor $HYPRCURSOR_THEME $HYPRCURSOR_SIZE"
+      "${pkgs.uwsm}/bin/uwsm app -- ${pkgs.busybox}/bin/pkill hyprshell; ${pkgs.hyprshell}/bin/hyprshell"
+      "${pkgs.uwsm}/bin/uwsm app --${pkgs.hyprland}/bin/hyprctl setcursor $HYPRCURSOR_THEME $HYPRCURSOR_SIZE"
     ];
 
     general = {
@@ -241,7 +241,7 @@ in
     };
 
     xwayland = {
-      enabled = false;
+      enabled = true;
       use_nearest_neighbor = true;
       force_zero_scaling = false;
     };
@@ -322,25 +322,25 @@ in
     blurls = [ " waybar " ];
 
     bindl = [
-      ", XF86AudioPlay, exec, ${pkgs.playerctl}/bin/playerctl play-pause"
-      ", XF86AudioNext, exec, ${pkgs.playerctl}/bin/playerctl next"
-      ", XF86AudioPrev, exec, ${pkgs.playerctl}/bin/playerctl previous"
-      ", XF86AudioStop, exec, ${pkgs.playerctl}/bin/playerctl stop"
+      ", XF86AudioPlay, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.playerctl}/bin/playerctl play-pause"
+      ", XF86AudioNext, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.playerctl}/bin/playerctl next"
+      ", XF86AudioPrev, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.playerctl}/bin/playerctl previous"
+      ", XF86AudioStop, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.playerctl}/bin/playerctl stop"
     ];
 
     bindle = [
-      ", XF86MonBrightnessUp,     exec, ${pkgs.brightnessctl}/bin/brightnessctl -c backlight set +5% -n 1"
-      ", XF86MonBrightnessDown,   exec, ${pkgs.brightnessctl}/bin/brightnessctl -c backlight set 5%- -n 1"
-      ", XF86KbdBrightnessUp,     exec, ${pkgs.brightnessctl}/bin/brightnessctl -c leds set +50%"
-      ", XF86KbdBrightnessDown,   exec, ${pkgs.brightnessctl}/bin/brightnessctl -c leds set 50%-"
-      ", XF86AudioMute,           exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-      ", XF86AudioRaiseVolume,    exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-      ", XF86AudioLowerVolume,    exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+      ", XF86MonBrightnessUp,     exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.brightnessctl}/bin/brightnessctl -c backlight set +5% -n 1"
+      ", XF86MonBrightnessDown,   exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.brightnessctl}/bin/brightnessctl -c backlight set 5%- -n 1"
+      ", XF86KbdBrightnessUp,     exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.brightnessctl}/bin/brightnessctl -c leds set +50%"
+      ", XF86KbdBrightnessDown,   exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.brightnessctl}/bin/brightnessctl -c leds set 50%-"
+      ", XF86AudioMute,           exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ", XF86AudioRaiseVolume,    exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+      ", XF86AudioLowerVolume,    exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
     ];
 
     bind = [
-      "alt control, w, exec, ${pkgs.zen-browser.beta}/bin/zen"
-      "super, a, exec, ${pkgs.ags.ags}/bin/ags request --instance hyprshell launcher"
+      "alt control, w, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.zen-browser.beta}/bin/zen-beta"
+      "super, a, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.ags.ags}/bin/ags request --instance hyprshell launcher"
       "super shift, 0, movetoworkspace, 10"
       "super shift, 1, movetoworkspace, 1"
       "super shift, 2, movetoworkspace, 2"
@@ -353,13 +353,13 @@ in
       "super shift, 9, movetoworkspace, 9"
       "super shift, f, fullscreen, 1"
       "super shift, h, movewindoworgroup, l"
-      "super shift, e, exec, wl-paste | ${pkgs.satty}/bin/satty --copy-command ${pkgs.wl-clipboard}/bin/wl-copy --fullscreen -f -"
+      "super shift, e, exec, ${pkgs.uwsm}/bin/uwsm app -- wl-paste | ${pkgs.satty}/bin/satty --copy-command ${pkgs.wl-clipboard}/bin/wl-copy --fullscreen -f -"
       "super shift, j, movewindoworgroup, d"
       "super shift, k, movewindoworgroup, u"
       "super shift, l, movewindoworgroup, r"
-      "super shift, p, exec, ${pkgs.hyprpicker}/bin/hyprpicker"
-      "super shift, r, exec, ${pkgs.grimblast}/bin/grimblast save area - | ${pkgs.tesseract}/bin/tesseract stdin stdout -l eng --psm 1 | ${pkgs.wl-clipboard}/bin/wl-copy"
-      "super shift, s, exec, ${pkgs.grimblast}/bin/grimblast copy area"
+      "super shift, p, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.hyprpicker}/bin/hyprpicker"
+      "super shift, r, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast save area - | ${pkgs.tesseract}/bin/tesseract stdin stdout -l eng --psm 1 | ${pkgs.wl-clipboard}/bin/wl-copy"
+      "super shift, s, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast copy area"
       "super, 0, workspace, 10"
       "super, 1, workspace, 1"
       "super, 2, workspace, 2"
@@ -378,7 +378,7 @@ in
       "super, l, movefocus, r"
       "super, m, fullscreen, 1"
       "super, q, killactive"
-      "super, return, exec, ${pkgs.kitty}/bin/kitty"
+      "super, return, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.kitty}/bin/kitty"
       "super, space, togglefloating"
       "super, p, pin"
       # "super, tab, overview:toggle"
