@@ -57,43 +57,48 @@
     in
     {
       inherit packages lib;
-      nixosConfigurations = {
-        laptop = nixpkgs.lib.nixosSystem {
+      nixosConfigurations =
+        let
           specialArgs = {
             inherit inputs;
+            hostMachine = "laptop";
           };
-          modules =
-            let
-              parts = lib.importing.recursivePaths ./parts |> builtins.map (path: import path);
-              nixosParts = parts |> builtins.map (part: part.nixos or { });
-              hmParts = parts |> builtins.map (part: part.homeManager or { });
-            in
-            nixosParts
-            ++ [
-              inputs.hyprland.nixosModules.default
-              inputs.home-manager.nixosModules.home-manager
-              inputs.base16.nixosModule
-              { scheme = "${inputs.base16-schemes}/base16/catppuccin-mocha.yaml"; }
-              ./nixos/configuration.nix
-              ./nixos/hardware-configuration.nix
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "bak";
-                home-manager.users.matthisk = {
-                  programs.home-manager.enable = true;
-                  imports = hmParts;
-                  home = {
-                    username = "matthisk";
-                    homeDirectory = "/home/matthisk";
+        in
+        {
+          laptop = nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            modules =
+              let
+                parts = lib.importing.recursivePaths ./parts |> builtins.map (path: import path);
+                nixosParts = parts |> builtins.map (part: part.nixos or { });
+                hmParts = parts |> builtins.map (part: part.homeManager or { });
+              in
+              nixosParts
+              ++ [
+                inputs.hyprland.nixosModules.default
+                inputs.home-manager.nixosModules.home-manager
+                inputs.base16.nixosModule
+                { scheme = "${inputs.base16-schemes}/base16/catppuccin-mocha.yaml"; }
+                {
+                  home-manager.useGlobalPkgs = true;
+                  home-manager.useUserPackages = true;
+                  home-manager.backupFileExtension = "bak";
+                  home-manager.users.matthisk = {
+                    programs.home-manager.enable = true;
+                    imports = hmParts;
+                    home = {
+                      username = "matthisk";
+                      homeDirectory = "/home/matthisk";
+                    };
+                    systemd.user.startServices = "sd-switch";
+                    home.stateVersion = "24.11";
                   };
-                  systemd.user.startServices = "sd-switch";
-                  home.stateVersion = "24.11";
-                };
-                home-manager.extraSpecialArgs = inputs;
-              }
-            ];
+                  home-manager.extraSpecialArgs = inputs // {
+                    hostMachine = "laptop";
+                  };
+                }
+              ];
+          };
         };
-      };
     };
 }
