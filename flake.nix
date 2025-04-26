@@ -54,51 +54,51 @@
       packages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system: {
         nvim = inputs.nvim-flake.packages.${system}.nvim;
       });
+
+      build_config =
+        hostMachine:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs hostMachine;
+          };
+          modules =
+            let
+              parts = lib.importing.recursivePaths ./parts |> builtins.map (path: import path);
+              nixosParts = parts |> builtins.map (part: part.nixos or { });
+              hmParts = parts |> builtins.map (part: part.homeManager or { });
+            in
+            nixosParts
+            ++ [
+              inputs.hyprland.nixosModules.default
+              inputs.home-manager.nixosModules.home-manager
+              inputs.base16.nixosModule
+              { scheme = "${inputs.base16-schemes}/base16/catppuccin-mocha.yaml"; }
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.backupFileExtension = "bak";
+                home-manager.users.matthisk = {
+                  programs.home-manager.enable = true;
+                  imports = hmParts;
+                  home = {
+                    username = "matthisk";
+                    homeDirectory = "/home/matthisk";
+                  };
+                  systemd.user.startServices = "sd-switch";
+                  home.stateVersion = "24.11";
+                };
+                home-manager.extraSpecialArgs = inputs // {
+                  inherit hostMachine;
+                };
+              }
+            ];
+        };
+
     in
     {
       inherit packages lib;
-      nixosConfigurations =
-        let
-          specialArgs = {
-            inherit inputs;
-            hostMachine = "laptop";
-          };
-        in
-        {
-          laptop = nixpkgs.lib.nixosSystem {
-            inherit specialArgs;
-            modules =
-              let
-                parts = lib.importing.recursivePaths ./parts |> builtins.map (path: import path);
-                nixosParts = parts |> builtins.map (part: part.nixos or { });
-                hmParts = parts |> builtins.map (part: part.homeManager or { });
-              in
-              nixosParts
-              ++ [
-                inputs.hyprland.nixosModules.default
-                inputs.home-manager.nixosModules.home-manager
-                inputs.base16.nixosModule
-                { scheme = "${inputs.base16-schemes}/base16/catppuccin-mocha.yaml"; }
-                {
-                  home-manager.useGlobalPkgs = true;
-                  home-manager.useUserPackages = true;
-                  home-manager.backupFileExtension = "bak";
-                  home-manager.users.matthisk = {
-                    programs.home-manager.enable = true;
-                    imports = hmParts;
-                    home = {
-                      username = "matthisk";
-                      homeDirectory = "/home/matthisk";
-                    };
-                    systemd.user.startServices = "sd-switch";
-                    home.stateVersion = "24.11";
-                  };
-                  home-manager.extraSpecialArgs = inputs // {
-                    hostMachine = "laptop";
-                  };
-                }
-              ];
-          };
-        };
+      nixosConfigurations = {
+        laptop = build_config "laptop";
+      };
     };
 }

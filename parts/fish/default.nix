@@ -76,6 +76,7 @@
         '';
         fish.shellAliases = {
           ci = "zi";
+          c = "z";
           lg = "lazygit";
           ls = "eza";
           du = "dust";
