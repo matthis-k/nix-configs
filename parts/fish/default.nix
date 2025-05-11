@@ -75,15 +75,17 @@
           end
         '';
         fish.shellAliases = {
-          ci = "zi";
           c = "z";
-          lg = "lazygit";
-          ls = "eza";
+          cat = "bat";
+          ci = "zi";
           du = "dust";
           find = "fd";
-          yy = "yazi";
-          cat = "bat";
           grep = "rg";
+          lg = "lazygit";
+          ls = "eza";
+          n = "nvim";
+          nd = "nvimdev";
+          yy = "yazi";
         };
 
       };
