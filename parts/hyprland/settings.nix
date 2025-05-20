@@ -10,7 +10,15 @@ in
 {
   wayland.windowManager.hyprland.settings = {
     env = [ ];
-    monitor = if nixosConfig.hostMachine == "laptop" then [ "eDP-1,1920x1080,0x0,1" ] else "";
+    monitor =
+      {
+        laptop = [ "eDP-1,1920x1080,0x0,1" ];
+        desktop = [
+          "HDMI-A-1,1920x1080,0x0,1"
+          "DP-1,1920x1080,1920x0,1"
+        ];
+      }
+      .${nixosConfig.hostMachine};
     exec-once = [ "systemctl start --user hyprpolkitagent.service" ];
     exec = [
       "${pkgs.uwsm}/bin/uwsm app -- ${pkgs.busybox}/bin/pkill hyprshell; ${pkgs.hyprshell}/bin/hyprshell"
