@@ -99,6 +99,7 @@
       inherit packages lib;
       nixosConfigurations = {
         laptop = build_config "laptop";
+        desktop = build_config "desktop";
       };
     };
 }

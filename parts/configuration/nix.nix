@@ -7,13 +7,22 @@
         allowUnfree = true;
         allowUnfreePredicate = _: true;
       };
-      nixpkgs.overlays = [
-        inputs.nvim-flake.overlays.default
-        inputs.nvim-flake.overlays.nvimdev
-        inputs.ags-flake.overlays.default
-        inputs.hyprland.overlays.default
-        inputs.hyprpicker.overlays.default
-      ];
+      nixpkgs.overlays =
+        let
+          unstable_overlay = final: prev: {
+            unstable = import inputs.nixpkgs-unstable {
+              system = prev.system;
+            };
+          };
+        in
+        [
+          unstable_overlay
+          inputs.nvim-flake.overlays.default
+          inputs.nvim-flake.overlays.nvimdev
+          inputs.ags-flake.overlays.default
+          inputs.hyprland.overlays.default
+          inputs.hyprpicker.overlays.default
+        ];
 
       nix = {
         registry = (lib.mapAttrs (_: flake: { inherit flake; })) (

@@ -1,6 +1,11 @@
 {
   nixos =
-    { pkgs, ... }:
+    {
+      pkgs,
+      config,
+      lib,
+      ...
+    }:
     {
       environment.variables = {
         QT_QPA_PLATFORM = "wayland";
@@ -22,6 +27,11 @@
         portalPackage = pkgs.xdg-desktop-portal-hyprland;
         withUWSM = true;
       };
+      hardware.graphics = {
+        package = pkgs.unstable.mesa;
+        enable32Bit = true;
+        package32 = pkgs.unstable.pkgsi686Linux.mesa;
+      };
       hardware.bluetooth.enable = true;
       services.power-profiles-daemon.enable = true;
       services.upower.enable = true;
@@ -36,6 +46,28 @@
         pulse.enable = true;
         wireplumber.enable = true;
       };
+
+      boot = lib.mkIf (config.hostMachine == "desktop") {
+        kernelParams = [ "nvidia-drm.nodeset=1" ];
+        initrd.kernelModules = [
+          "nvidia"
+          "nvidia_modeset"
+          "nvidia_uvm"
+          "nvidia_drm"
+        ];
+      };
+
+      hardware.nvidia = lib.mkIf (config.hostMachine == "desktop") {
+        modesetting.enable = true;
+        powerManagement.enable = true;
+        open = false;
+        nvidiaSettings = true;
+      };
+
+      environment.systemPackages = lib.mkIf (config.hostMachine == "desktop") [
+        config.boot.kernelPackages.nvidiaPackages.stable
+      ];
+      services.xserver.videoDrivers = lib.mkIf (config.hostMachine == "desktop") [ "nvidia" ];
 
       systemd.user.services.hyprpolkitagent = {
         enable = true;
