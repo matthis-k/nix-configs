@@ -8,20 +8,20 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/9fbf25c3-7059-461f-b29c-d741a5b75a39";
+    { device = "/dev/disk/by-uuid/4982bca1-1b4e-4e38-a001-681bf2a0fa6e";
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."luks-2f11c208-ad1f-4495-9f90-b483927ca478".device = "/dev/disk/by-uuid/2f11c208-ad1f-4495-9f90-b483927ca478";
+  boot.initrd.luks.devices."luks-b408967a-9a3e-4584-90fd-c81bfab81628".device = "/dev/disk/by-uuid/b408967a-9a3e-4584-90fd-c81bfab81628";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/B307-55D3";
+    { device = "/dev/disk/by-uuid/67FD-1D72";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
@@ -33,7 +33,6 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.docker0.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp42s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
 
