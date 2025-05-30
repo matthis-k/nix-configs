@@ -27,7 +27,7 @@
         portalPackage = pkgs.xdg-desktop-portal-hyprland;
         withUWSM = true;
       };
-      hardware.graphics = {
+      hardware.graphics = lib.mkIf (config.hostMachine == "desktop") {
         package = pkgs.unstable.mesa;
         enable32Bit = true;
         package32 = pkgs.unstable.pkgsi686Linux.mesa;
