@@ -10,21 +10,16 @@
       security.sudo.wheelNeedsPassword = false;
 
       fonts.packages = with pkgs; [
-        (nerdfonts.override {
-          fonts = [
-            "FiraCode"
-            "DroidSansMono"
-            "FiraMono"
-            "Go-Mono"
-            "Hack"
-            "Inconsolata"
-            "JetBrainsMono"
-            "RobotoMono"
-            "SourceCodePro"
-            "Terminus"
-          ];
-        })
-        font-awesome
+        nerd-fonts.fira-code
+        nerd-fonts.droid-sans-mono
+        nerd-fonts.fira-mono
+        nerd-fonts.go-mono
+        nerd-fonts.hack
+        nerd-fonts.inconsolata
+        nerd-fonts.jetbrains-mono
+        nerd-fonts.roboto-mono
+        nerd-fonts.sauce-code-pro
+        pkgs.font-awesome
       ];
 
       environment.systemPackages = with pkgs; [
@@ -97,6 +92,6 @@
           useDefaultShell = true;
         };
       };
-      system.stateVersion = "24.11"; # Did you read the comment?
+      system.stateVersion = "25.05";
     };
 }

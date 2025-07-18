@@ -10,10 +10,10 @@
       boot.loader.grub.efiSupport = true;
       boot.loader.grub.gfxmodeEfi = "1920x1020";
       boot.loader.grub.gfxmodeBios = "1920x1020";
-      boot.loader.grub.font = lib.mkForce "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/HackNerdFontMono-Regular.ttf";
+      boot.loader.grub.font = lib.mkForce "${pkgs.nerd-fonts.hack}/share/fonts/truetype/NerdFonts/Hack/HackNerdFontMono-Regular.ttf";
 
       boot.plymouth.enable = true;
-      boot.plymouth.font = lib.mkForce "${pkgs.nerdfonts}/share/fonts/truetype/NerdFonts/HackNerdFontMono-Regular.ttf";
+      boot.plymouth.font = lib.mkForce "${pkgs.nerd-fonts.hack}/share/fonts/truetype/NerdFonts/Hack/HackNerdFontMono-Regular.ttf";
 
       boot.kernelParams = [
         "splash"

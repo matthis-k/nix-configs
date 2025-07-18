@@ -2,28 +2,24 @@
   description = "Best flake ever";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.47.0";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin = {
       url = "github:catppuccin/nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     base16.url = "github:SenchoPens/base16.nix";
@@ -34,16 +30,12 @@
 
     nvim-flake = {
       url = "github:matthis-k/nvim-flake";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-
-    ags-flake = {
-      url = "github:matthis-k/ags-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     zen-flake = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -60,6 +52,7 @@
         nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs hostMachine;
+            mylib = lib;
           };
           modules =
             let
@@ -85,7 +78,7 @@
                     homeDirectory = "/home/matthisk";
                   };
                   systemd.user.startServices = "sd-switch";
-                  home.stateVersion = "24.11";
+                  home.stateVersion = "25.05";
                 };
                 home-manager.extraSpecialArgs = inputs // {
                   inherit hostMachine;

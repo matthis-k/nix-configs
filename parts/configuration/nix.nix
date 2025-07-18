@@ -9,19 +9,17 @@
       };
       nixpkgs.overlays =
         let
-          unstable_overlay = final: prev: {
-            unstable = import inputs.nixpkgs-unstable {
+          stable_overlay = final: prev: {
+            stable = import inputs.nixpkgs-stable {
               system = prev.system;
             };
           };
         in
         [
-          unstable_overlay
+          stable_overlay
           inputs.nvim-flake.overlays.default
           inputs.nvim-flake.overlays.nvimdev
-          inputs.ags-flake.overlays.default
           inputs.hyprland.overlays.default
-          inputs.hyprpicker.overlays.default
         ];
 
       nix = {

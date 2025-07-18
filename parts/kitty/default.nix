@@ -7,11 +7,7 @@
       programs.kitty.font = {
         name = "Hack Nerd Font";
         size = 10;
-        package = pkgs.nerdfonts.override {
-          fonts = [
-            "Hack"
-          ];
-        };
+        package = pkgs.nerd-fonts.hack;
       };
       programs.kitty.settings = {
         mouse_hide_wait = 0;

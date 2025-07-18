@@ -4,9 +4,27 @@
       pkgs,
       config,
       lib,
+      inputs,
       ...
     }:
     {
+      environment.systemPackages =
+        with pkgs;
+        [
+          #grimblast
+          hyprpolkitagent
+          satty
+          wl-clipboard
+          kitty
+        ]
+        ++ (
+          if config.hostMachine == "desktop" then
+            [
+              config.boot.kernelPackages.nvidiaPackages.stable
+            ]
+          else
+            [ ]
+        );
       environment.variables = {
         QT_QPA_PLATFORM = "wayland";
         SDL_VIDEODRIVER = "wayland";
@@ -23,10 +41,12 @@
 
       programs.hyprland = {
         enable = true;
-        package = pkgs.hyprland;
-        portalPackage = pkgs.xdg-desktop-portal-hyprland;
+        package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+        portalPackage =
+          inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
         withUWSM = true;
       };
+
       hardware.graphics = lib.mkIf (config.hostMachine == "desktop") {
         package = pkgs.unstable.mesa;
         enable32Bit = true;
@@ -64,9 +84,6 @@
         nvidiaSettings = true;
       };
 
-      environment.systemPackages = lib.mkIf (config.hostMachine == "desktop") [
-        config.boot.kernelPackages.nvidiaPackages.stable
-      ];
       services.xserver.videoDrivers = lib.mkIf (config.hostMachine == "desktop") [ "nvidia" ];
 
       systemd.user.services.hyprpolkitagent = {
@@ -78,41 +95,15 @@
           ExecStart = "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent";
         };
       };
-    };
-  homeManager =
-    { pkgs, ... }:
-    {
       imports = [
         ./settings.nix
       ];
-      wayland.windowManager.hyprland.enable = true;
-      wayland.windowManager.hyprland.systemd.enable = false;
-      home.packages = with pkgs; [
-        ags.ags
-        ags.apps
-        ags.auth
-        ags.battery
-        ags.bluetooth
-        ags.cava
-        ags.docs
-        ags.gjs
-        ags.greet
-        ags.hyprland
-        ags.io
-        ags.mpris
-        ags.network
-        ags.notifd
-        ags.powerprofiles
-        ags.river
-        ags.tray
-        ags.wireplumber
-        gjs
-
-        grimblast
-        hyprpolkitagent
-        hyprshell
-        satty
-        wl-clipboard
-      ];
+    };
+  homeManager =
+    { ... }:
+    {
+      xdg.configFile."hypr/hyprland.conf".text = ''
+        source = /etc/xdg/hypr/hyprland.conf
+      '';
     };
 }

@@ -1,14 +1,15 @@
 {
   pkgs,
-  nixosConfig,
-  self,
+  config,
+  mylib,
   ...
 }:
 let
-  p = self.lib.colors.semanticPalette nixosConfig.scheme;
+  l = builtins.trace mylib mylib;
+  p = l.colors.semanticPalette config.scheme;
 in
 {
-  wayland.windowManager.hyprland.settings = {
+  programs.hyprland.settings = {
     env =
       {
         laptop = [ ];
@@ -21,7 +22,7 @@ in
           "__GL_VRR_ALLOWED,0"
         ];
       }
-      .${nixosConfig.hostMachine};
+      .${config.hostMachine};
     monitor =
       {
         laptop = [ "eDP-1,1920x1080,0x0,1" ];
@@ -30,10 +31,9 @@ in
           "DP-1,1920x1080,1920x0,1"
         ];
       }
-      .${nixosConfig.hostMachine};
+      .${config.hostMachine};
     exec-once = [ "systemctl start --user hyprpolkitagent.service" ];
     exec = [
-      "${pkgs.uwsm}/bin/uwsm app -- ${pkgs.busybox}/bin/pkill hyprshell; ${pkgs.hyprshell}/bin/hyprshell"
       "${pkgs.uwsm}/bin/uwsm app --${pkgs.hyprland}/bin/hyprctl setcursor $HYPRCURSOR_THEME $HYPRCURSOR_SIZE"
     ];
 
@@ -360,7 +360,6 @@ in
 
     bind = [
       "alt control, w, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.zen-browser.beta}/bin/zen-beta"
-      "super, a, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.ags.ags}/bin/ags request --instance hyprshell launcher"
       "super shift, 0, movetoworkspace, 10"
       "super shift, 1, movetoworkspace, 1"
       "super shift, 2, movetoworkspace, 2"
@@ -377,9 +376,9 @@ in
       "super shift, j, movewindoworgroup, d"
       "super shift, k, movewindoworgroup, u"
       "super shift, l, movewindoworgroup, r"
-      "super shift, p, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.hyprpicker}/bin/hyprpicker"
-      "super shift, r, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast save area - | ${pkgs.tesseract}/bin/tesseract stdin stdout -l eng --psm 1 | ${pkgs.wl-clipboard}/bin/wl-copy"
-      "super shift, s, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast copy area"
+      # "super shift, p, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.hyprpicker}/bin/hyprpicker"
+      # "super shift, r, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast save area - | ${pkgs.tesseract}/bin/tesseract stdin stdout -l eng --psm 1 | ${pkgs.wl-clipboard}/bin/wl-copy"
+      # "super shift, s, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast copy area"
       "super, 0, workspace, 10"
       "super, 1, workspace, 1"
       "super, 2, workspace, 2"
@@ -423,7 +422,6 @@ in
       "noblur, class:^(xwaylandvideobridge)$"
       "nofocus, class:^(xwaylandvideobridge)$"
 
-      "noanim, class:^(hyprshell-launcher)$"
     ];
   };
 }
