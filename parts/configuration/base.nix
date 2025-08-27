@@ -64,7 +64,6 @@
         kitty
         nvim
         nvimdev
-        libsForQt5.qt5ct
       ];
 
       programs.fish.enable = true;

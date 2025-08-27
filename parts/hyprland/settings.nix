@@ -103,22 +103,23 @@ in
     animations = {
       enabled = true;
       first_launch_animation = false;
-      bezier = [
-        "pace,0.46, 1, 0.29, 0.99"
-        "overshot,0.13,0.99,0.29,1.1"
-        "md3_decel, 0.05, 0.7, 0.1, 1"
-      ];
-      animation = [
-        "windowsIn,1,6, md3_decel, slide"
-        "windowsOut,1,6, md3_decel, slide"
-        "windowsMove,1,6, md3_decel, slide"
-        "fade,1,10, md3_decel"
-        "workspaces,1,7, md3_decel, slide"
-        "specialWorkspace,1,8, md3_decel, slide"
-        "border,1,10, md3_decel"
-        "layers,0"
-      ];
     };
+
+    bezier = [
+      "pace,0.46, 1, 0.29, 0.99"
+      "overshot,0.13,0.99,0.29,1.1"
+      "md3_decel, 0.05, 0.7, 0.1, 1"
+    ];
+    animation = [
+      "windowsIn,1,6, md3_decel, slide"
+      "windowsOut,1,6, md3_decel, slide"
+      "windowsMove,1,6, md3_decel, slide"
+      "fade,1,10, md3_decel"
+      "workspaces,1,7, md3_decel, slide"
+      "specialWorkspace,1,8, md3_decel, slide"
+      "border,1,10, md3_decel"
+      "layers,0"
+    ];
 
     input = {
       kb_model = "";
@@ -230,8 +231,6 @@ in
       swallow_exception_regex = "";
       focus_on_activate = false;
       mouse_move_focuses_monitor = true;
-      render_ahead_of_time = false;
-      render_ahead_safezone = 1;
       allow_session_lock_restore = false;
       background_color = "rgba(${p.base}ff)";
       close_special_on_empty = true;
@@ -268,17 +267,18 @@ in
 
     opengl = {
       nvidia_anti_flicker = true;
-      force_introspection = 2;
     };
 
     render = {
-      explicit_sync = 2;
-      explicit_sync_kms = 2;
       direct_scanout = false;
       expand_undersized_textures = true;
       xp_mode = false;
       ctm_animation = 2;
-      allow_early_buffer_release = true;
+      cm_fs_passthrough = 2;
+      cm_enabled = true;
+      send_content_type = true;
+      cm_auto_hdr = 1;
+      new_render_scheduling = true;
     };
 
     cursor = {
@@ -291,7 +291,12 @@ in
       no_warps = false;
       persistent_warps = false;
       warp_on_change_workspace = 0;
-      default_monitor = "";
+      default_monitor =
+        {
+          laptop = "eDP-1";
+          desktop = "HDMI-A-1";
+        }
+        .${config.hostMachine};
       zoom_factor = 1.0;
       zoom_rigid = false;
       enable_hyprcursor = true;
@@ -307,8 +312,6 @@ in
     };
 
     experimental = {
-      wide_color_gamut = false;
-      hdr = false;
       xx_color_management_v4 = false;
     };
 
@@ -334,9 +337,11 @@ in
       new_on_active = "none";
       orientation = "left";
       inherit_fullscreen = true;
-      center_master_slaves_on_right = false;
+      slave_count_for_center_master = 2;
+      center_master_fallback = "left";
       smart_resizing = false;
       drop_at_cursor = true;
+      always_keep_position = false;
     };
 
     blurls = [ " waybar " ];
@@ -376,9 +381,9 @@ in
       "super shift, j, movewindoworgroup, d"
       "super shift, k, movewindoworgroup, u"
       "super shift, l, movewindoworgroup, r"
-      # "super shift, p, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.hyprpicker}/bin/hyprpicker"
-      # "super shift, r, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast save area - | ${pkgs.tesseract}/bin/tesseract stdin stdout -l eng --psm 1 | ${pkgs.wl-clipboard}/bin/wl-copy"
-      # "super shift, s, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast copy area"
+      "super shift, p, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.hyprpicker}/bin/hyprpicker"
+      "super shift, r, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast save area - | ${pkgs.tesseract}/bin/tesseract stdin stdout -l eng --psm 1 | ${pkgs.wl-clipboard}/bin/wl-copy"
+      "super shift, s, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast copy area"
       "super, 0, workspace, 10"
       "super, 1, workspace, 1"
       "super, 2, workspace, 2"
@@ -407,13 +412,6 @@ in
       "super, mouse:272, movewindow"
       "super, mouse:273, resizewindow"
     ];
-    windowrule = [
-      "float, pavucontrol"
-      "float, nm-connection-editor"
-      "float, blueberry.py"
-      "float, xdg-desktop-portal"
-      "float, xdg-desktop-portal-gnome"
-    ];
     windowrulev2 = [
       "opacity 0.0 override, class:^(xwaylandvideobridge)$"
       "noanim, class:^(xwaylandvideobridge)$"
@@ -421,7 +419,8 @@ in
       "maxsize 1 1, class:^(xwaylandvideobridge)$"
       "noblur, class:^(xwaylandvideobridge)$"
       "nofocus, class:^(xwaylandvideobridge)$"
-
+      "size 1 1, class:^(xwaylandvideobridge)$"
+      "move -1000 -1000, class:^(xwaylandvideobridge)$"
     ];
   };
 }
