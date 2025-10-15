@@ -20,7 +20,6 @@
       home.packages = with pkgs; [
         fishPlugins.colored-man-pages
         fishPlugins.fzf-fish
-        fishPlugins.sponge
         fishPlugins.z
         hyperfine
       ];
