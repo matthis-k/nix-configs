@@ -32,9 +32,12 @@ in
         ];
       }
       .${config.hostMachine};
-    exec-once = [ "systemctl start --user hyprpolkitagent.service" ];
+    exec-once = [
+      "systemctl start --user hyprpolkitagent.service"
+      "${pkgs.uwsm}/bin/uwsm app -- ${pkgs.quickde}/bin/quickde"
+    ];
     exec = [
-      "${pkgs.uwsm}/bin/uwsm app --${pkgs.hyprland}/bin/hyprctl setcursor $HYPRCURSOR_THEME $HYPRCURSOR_SIZE"
+      "${pkgs.uwsm}/bin/uwsm app -- ${pkgs.hyprland}/bin/hyprctl setcursor $HYPRCURSOR_THEME $HYPRCURSOR_SIZE"
     ];
 
     general = {
@@ -102,7 +105,7 @@ in
     };
     animations = {
       enabled = true;
-      first_launch_animation = false;
+      workspace_wraparound = false;
     };
 
     bezier = [
@@ -164,9 +167,6 @@ in
       };
     };
     gestures = {
-      workspace_swipe = true;
-      workspace_swipe_fingers = 3;
-      workspace_swipe_min_fingers = false;
       workspace_swipe_distance = 300;
       workspace_swipe_touch = true;
       workspace_swipe_invert = true;
@@ -178,6 +178,7 @@ in
       workspace_swipe_direction_lock_threshold = 10;
       workspace_swipe_forever = false;
       workspace_swipe_use_r = false;
+      close_max_timeout = 1000;
     };
 
     group = {
@@ -406,6 +407,9 @@ in
       "super, space, togglefloating"
       "super, p, pin"
       # "super, tab, overview:toggle"
+    ];
+    gesture = [
+      "3, horizontal, workspace"
     ];
 
     bindm = [
