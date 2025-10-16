@@ -34,10 +34,11 @@ in
       .${config.hostMachine};
     exec-once = [
       "systemctl start --user hyprpolkitagent.service"
-      "${pkgs.uwsm}/bin/uwsm app -- ${pkgs.quickde}/bin/quickde"
+      "systemctl start --user quickde.service"
     ];
     exec = [
       "${pkgs.uwsm}/bin/uwsm app -- ${pkgs.hyprland}/bin/hyprctl setcursor $HYPRCURSOR_THEME $HYPRCURSOR_SIZE"
+      "systemctl restart --user quickde.service"
     ];
 
     general = {
