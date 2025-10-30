@@ -367,6 +367,8 @@ in
 
     bind = [
       "alt control, w, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.zen-browser.beta}/bin/zen-beta"
+      "super, a, exec, ${pkgs.quickde}/bin/quickde ipc call applauncher open"
+      "super, b, exec, ${pkgs.quickde}/bin/quickde ipc call bar toggle"
       "super shift, 0, movetoworkspace, 10"
       "super shift, 1, movetoworkspace, 1"
       "super shift, 2, movetoworkspace, 2"
