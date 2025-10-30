@@ -5,7 +5,7 @@
   ...
 }:
 let
-  l = builtins.trace mylib mylib;
+  l = mylib;
   p = l.colors.semanticPalette config.scheme;
 in
 {
