@@ -242,7 +242,6 @@ in
       middle_click_paste = false;
       render_unfocused_fps = 15;
       disable_xdg_env_checks = false;
-      disable_hyprland_qtutils_check = false;
       lockdead_screen_delay = 1000;
     };
 

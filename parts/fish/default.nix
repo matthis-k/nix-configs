@@ -28,10 +28,9 @@
         bottom.enable = true;
         command-not-found.enable = false;
         nix-index.enableFishIntegration = false;
-        git = {
-          enable = true;
-          delta.enable = true;
-        };
+        git.enable = true;
+        delta.enable = true;
+        delta.enableGitIntegration = true;
         eza = {
           enable = true;
           icons = "auto";
@@ -44,11 +43,15 @@
             gui = {
               nerdFontsVersion = "3";
             };
-            git = {
-              paging = {
+            git.pagers = [
+              {
                 pager = "${pkgs.delta}/bin/delta --dark --paging=never";
-              };
-            };
+                colorArg = "always";
+              }
+              {
+                externalDiffCommand = "${pkgs.difftastic}/bin/difft --color=always";
+              }
+            ];
           };
         };
         ripgrep.enable = true;

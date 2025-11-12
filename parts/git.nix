@@ -4,10 +4,10 @@
     {
       programs.git = {
         enable = true;
-        userName = "matthis-k";
-        userEmail = "matthis.kaelble@gmail.com";
+        settings = {
+          user.name = "matthis-k";
+          user.email = "matthis.kaelble@gmail.com";
 
-        extraConfig = {
           pull.rebase = false;
           merge.conflictstyle = "diff3";
           init.defaultBranch = "main";
