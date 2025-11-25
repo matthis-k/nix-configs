@@ -11,7 +11,7 @@
         let
           stable_overlay = final: prev: {
             stable = import inputs.nixpkgs-stable {
-              prev.stdenv.hostPlatform.system = prev.stdenv.hostPlatform.system;
+              stdenv.hostPlatform.system = prev.stdenv.hostPlatform.system;
             };
           };
         in
