@@ -68,7 +68,12 @@
           set fish_cursor_replace underscore
           set fish_cursor_external line
           set fish_cursor_visual block
-          fish_vi_key_bindings
+
+          function fish_user_key_bindings
+            fish_vi_key_bindings
+            bind -M default \cZ 'fg'
+            bind -M insert \cZ 'fg'
+          end
 
           fish_config theme choose "Catpuccin-Mocha"
           eval (${pkgs.openssh}/bin/ssh-agent -c) > /dev/null

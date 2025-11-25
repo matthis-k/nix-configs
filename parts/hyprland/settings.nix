@@ -47,7 +47,6 @@ in
       "col.nogroup_border" = "rgba(${p.green}ff)";
       "col.nogroup_border_active" = "rgba(${p.surface0}ff)";
       border_size = 2;
-      no_border_on_floating = false;
       gaps_in = 0;
       gaps_out = 0;
       gaps_workspaces = 0;
@@ -345,8 +344,6 @@ in
       always_keep_position = false;
     };
 
-    blurls = [ " waybar " ];
-
     bindl = [
       ", XF86AudioPlay, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.playerctl}/bin/playerctl play-pause"
       ", XF86AudioNext, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.playerctl}/bin/playerctl next"
@@ -418,15 +415,25 @@ in
       "super, mouse:272, movewindow"
       "super, mouse:273, resizewindow"
     ];
-    windowrulev2 = [
-      "opacity 0.0 override, class:^(xwaylandvideobridge)$"
-      "noanim, class:^(xwaylandvideobridge)$"
-      "noinitialfocus, class:^(xwaylandvideobridge)$"
-      "maxsize 1 1, class:^(xwaylandvideobridge)$"
-      "noblur, class:^(xwaylandvideobridge)$"
-      "nofocus, class:^(xwaylandvideobridge)$"
-      "size 1 1, class:^(xwaylandvideobridge)$"
-      "move -1000 -1000, class:^(xwaylandvideobridge)$"
+    windowrule = [
+      # xwayland-video-bridge fixes
+      "match:class xwaylandvideobridge, no_initial_focus true"
+      "match:class xwaylandvideobridge, no_focus true"
+      "match:class xwaylandvideobridge, no_anim true"
+      "match:class xwaylandvideobridge, no_blur true"
+      "match:class xwaylandvideobridge, max_size 1 1"
+      "match:class xwaylandvideobridge, opacity 0.0"
+
+      # only show border when 1 window in wokspace
+      "match:float false, match:workspace w[tv1], border_size 0"
+      "match:float false, match:workspace w[tv1], rounding 0"
+      "match:float false, match:workspace f[1], border_size 0"
+      "match:float false, match:workspace f[1], rounding 0"
+    ];
+    # only show border when 1 window in wokspace
+    workspace = [
+      "w[tv1], gapsout:0, gapsin:0"
+      "f[1], gapsout:0, gapsin:0"
     ];
   };
 }

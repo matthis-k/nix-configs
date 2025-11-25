@@ -10,9 +10,9 @@
       nixpkgs.overlays = [
         (final: prev: {
           zen-browser = {
-            inherit (inputs.zen-flake.packages.${pkgs.system}) beta;
-            inherit (inputs.zen-flake.packages.${pkgs.system}) twilight;
-            inherit (inputs.zen-flake.packages.${pkgs.system}) twilight-official;
+            inherit (inputs.zen-flake.packages.${prev.stdenv.hostPlatform.system}) beta;
+            inherit (inputs.zen-flake.packages.${prev.stdenv.hostPlatform.system}) twilight;
+            inherit (inputs.zen-flake.packages.${prev.stdenv.hostPlatform.system}) twilight-official;
           };
         })
       ];

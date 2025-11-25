@@ -64,6 +64,7 @@
         kitty
         nvim
         nvimdev
+        gh
       ];
 
       programs.fish.enable = true;

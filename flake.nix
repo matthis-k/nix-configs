@@ -55,9 +55,6 @@
     { self, nixpkgs, ... }@inputs:
     let
       lib = import ./lib;
-      packages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (system: {
-        nvim = inputs.nvim-flake.packages.${system}.nvim;
-      });
 
       build_config =
         hostMachine:
@@ -101,7 +98,7 @@
 
     in
     {
-      inherit packages lib;
+      inherit lib;
       nixosConfigurations = {
         laptop = build_config "laptop";
         desktop = build_config "desktop";
