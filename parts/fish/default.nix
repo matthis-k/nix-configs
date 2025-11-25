@@ -71,8 +71,9 @@
 
           function fish_user_key_bindings
             fish_vi_key_bindings
-            bind -M default \cZ 'fg'
-            bind -M insert \cZ 'fg'
+            for mode in default insert visual replace replace_one
+              bind -M $mode \cZ 'fg'
+            end
           end
 
           fish_config theme choose "Catpuccin-Mocha"
