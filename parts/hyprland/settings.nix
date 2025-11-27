@@ -384,6 +384,7 @@ in
       "super shift, p, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.hyprpicker}/bin/hyprpicker"
       "super shift, r, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast save area - | ${pkgs.tesseract}/bin/tesseract stdin stdout -l eng --psm 1 | ${pkgs.wl-clipboard}/bin/wl-copy"
       "super shift, s, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast copy area"
+      ", print, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast copy screen"
       "super, 0, workspace, 10"
       "super, 1, workspace, 1"
       "super, 2, workspace, 2"
