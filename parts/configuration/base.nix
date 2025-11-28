@@ -65,6 +65,8 @@
         nvim
         nvimdev
         gh
+        imv
+        mpv
       ];
 
       programs.fish.enable = true;
