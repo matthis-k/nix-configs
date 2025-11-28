@@ -21,6 +21,7 @@
           if config.hostMachine == "desktop" then
             [
               config.boot.kernelPackages.nvidiaPackages.stable
+              pkgs.nvidia-vaapi-driver
             ]
           else
             [ ]
@@ -48,9 +49,9 @@
       };
 
       hardware.graphics = lib.mkIf (config.hostMachine == "desktop") {
-        package = pkgs.unstable.mesa;
+        package = config.hardware.nvidia.package;
         enable32Bit = true;
-        package32 = pkgs.unstable.pkgsi686Linux.mesa;
+        package32 = config.hardware.nvidia.package.lib32;
       };
       hardware.bluetooth.enable = true;
       services.power-profiles-daemon.enable = true;
@@ -68,7 +69,7 @@
       };
 
       boot = lib.mkIf (config.hostMachine == "desktop") {
-        kernelParams = [ "nvidia-drm.nodeset=1" ];
+        kernelParams = [ "nvidia-drm.modeset=1" ];
         initrd.kernelModules = [
           "nvidia"
           "nvidia_modeset"
@@ -80,7 +81,7 @@
       hardware.nvidia = lib.mkIf (config.hostMachine == "desktop") {
         modesetting.enable = true;
         powerManagement.enable = true;
-        open = false;
+        open = true;
         nvidiaSettings = true;
       };
 

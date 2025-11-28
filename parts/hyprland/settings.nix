@@ -20,6 +20,8 @@ in
           "WLR_NO_HARDWARE_CURSORS,1"
           "__GL_GSYNC_ALLOWED"
           "__GL_VRR_ALLOWED,0"
+          "ELECTRON_OZONE_PLATFORM_HINT,auto"
+          "NVD_BACKEND,direct"
         ];
       }
       .${config.hostMachine};
