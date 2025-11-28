@@ -17,6 +17,7 @@
         in
         [
           stable_overlay
+          inputs.self.overlays.default
           inputs.nvim-flake.overlays.default
           inputs.nvim-flake.overlays.nvimdev
           inputs.hyprland.overlays.default

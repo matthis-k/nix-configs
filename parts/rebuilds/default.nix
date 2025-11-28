@@ -4,8 +4,8 @@
     {
       environment.variables.NIX_HOST = hostMachine;
       environment.systemPackages = [
-        pkgs.nrs
-        pkgs.nrsu
+        pkgs.locallyDefined.nrs
+        pkgs.locallyDefined.nrsu
       ];
     };
 }

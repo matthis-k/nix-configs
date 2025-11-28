@@ -97,8 +97,26 @@
         };
 
     in
+    let
+      localPackages = nixpkgs.lib.genAttrs [ "x86_64-linux" ] (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          pkgFiles = lib.importing.recursivePaths ./pkgs;
+          importedPkgs = builtins.map (path: {
+            name = nixpkgs.lib.removeSuffix ".nix" (builtins.baseNameOf path);
+            value = pkgs.callPackage path { };
+          }) pkgFiles;
+        in
+        builtins.listToAttrs importedPkgs
+      );
+    in
     {
       inherit lib;
+      packages = localPackages;
+      overlays.default = final: prev: {
+        locallyDefined = localPackages.${prev.stdenv.hostPlatform.system} or { };
+      };
       nixosConfigurations = {
         laptop = build_config "laptop";
         desktop = build_config "desktop";
