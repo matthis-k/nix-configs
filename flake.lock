@@ -739,11 +739,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765865729,
-        "narHash": "sha256-LuMWWgYZ8Wwig0I9AHJRbm2iTsogiggSZbmcj7BV0ec=",
+        "lastModified": 1765957336,
+        "narHash": "sha256-RkJiNu91zShqsqyRPYkYeHZl5lEYQ17EXRUMkvc4knw=",
         "owner": "matthis-k",
         "repo": "qs-flake",
-        "rev": "565ba7f7defa4d6344e996017ce0d909439c9174",
+        "rev": "271b088f2432b16cb8d83b99bafa78dc936846e2",
         "type": "github"
       },
       "original": {
