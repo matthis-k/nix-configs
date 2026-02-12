@@ -12,15 +12,7 @@
         value.source = value.flake;
       }) config.nix.registry;
 
-      networking.hostName = "matthisk-laptop";
+      networking.hostName = "matthisk-${config.hostMachine}";
       networking.networkmanager.enable = true;
-      systemd.services.NetworkManager-wait-online = {
-        serviceConfig = {
-          ExecStart = [
-            ""
-            "${pkgs.networkmanager}/bin/nm-online -q"
-          ];
-        };
-      };
     };
 }

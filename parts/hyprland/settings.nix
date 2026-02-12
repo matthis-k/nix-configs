@@ -204,6 +204,7 @@ in
         height = 14;
         priority = 3;
         render_titles = true;
+        blur = false;
         scrolling = false;
         text_color = "rgba(${p.text}ff)";
         "col.active" = "rgba(${p.green}ff)";
@@ -237,7 +238,7 @@ in
       allow_session_lock_restore = false;
       background_color = "rgba(${p.base}ff)";
       close_special_on_empty = true;
-      new_window_takes_over_fullscreen = 0;
+      on_focus_under_fullscreen = 0;
       exit_window_retains_fullscreen = false;
       initial_workspace_tracking = 1;
       middle_click_paste = false;
@@ -281,6 +282,8 @@ in
       send_content_type = true;
       cm_auto_hdr = 1;
       new_render_scheduling = true;
+      non_shader_cm = 3;
+      cm_sdr_eotf = 0;
     };
 
     cursor = {
@@ -301,6 +304,7 @@ in
         .${config.hostMachine};
       zoom_factor = 1.0;
       zoom_rigid = false;
+      zoom_detached_camera = true;
       enable_hyprcursor = true;
       hide_on_key_press = false;
       hide_on_touch = true;
@@ -308,13 +312,13 @@ in
       warp_back_after_non_mouse_input = false;
     };
 
+    quirks = {
+      prefer_hdr = 0;
+    };
+
     ecosystem = {
       no_update_news = true;
       no_donation_nag = true;
-    };
-
-    experimental = {
-      xx_color_management_v4 = false;
     };
 
     dwindle = {
@@ -338,7 +342,6 @@ in
       new_on_top = false;
       new_on_active = "none";
       orientation = "left";
-      inherit_fullscreen = true;
       slave_count_for_center_master = 2;
       center_master_fallback = "left";
       smart_resizing = false;
