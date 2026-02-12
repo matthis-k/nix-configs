@@ -53,6 +53,7 @@
     nordvpn-flake = {
       url = "github:connerohnesorge/nordvpn-flake";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hercules-ci-effects.inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
