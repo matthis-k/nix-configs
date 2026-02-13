@@ -55,6 +55,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.hercules-ci-effects.inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    opencode-openai-codex-auth = {
+      url = "github:numman-ali/opencode-openai-codex-auth";
+      flake = false;
+    };
   };
 
   outputs =

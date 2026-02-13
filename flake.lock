@@ -827,6 +827,22 @@
         "type": "github"
       }
     },
+    "opencode-openai-codex-auth": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767967233,
+        "narHash": "sha256-Kz2n5BpHqirc2AxE4huJJ5LOPyy9jVOydQnqE+AlZOc=",
+        "owner": "numman-ali",
+        "repo": "opencode-openai-codex-auth",
+        "rev": "bec2ad69b252ef4ad7dd33b9532ff8b4fdb6d016",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numman-ali",
+        "repo": "opencode-openai-codex-auth",
+        "type": "github"
+      }
+    },
     "plugins-pick-resession-nvim": {
       "flake": false,
       "locked": {
@@ -922,6 +938,7 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nordvpn-flake": "nordvpn-flake",
         "nvim-flake": "nvim-flake",
+        "opencode-openai-codex-auth": "opencode-openai-codex-auth",
         "qs-flake": "qs-flake",
         "quickshell": "quickshell",
         "zen-flake": "zen-flake"
