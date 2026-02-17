@@ -40,6 +40,7 @@
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
 
+      # Note: nvidia options are set in ../configuration/nvidia.nix
       programs.hyprland = {
         enable = true;
         package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
@@ -48,11 +49,6 @@
         withUWSM = true;
       };
 
-      hardware.graphics = lib.mkIf (config.hostMachine == "desktop") {
-        package = config.hardware.nvidia.package;
-        enable32Bit = true;
-        package32 = config.hardware.nvidia.package.lib32;
-      };
       hardware.bluetooth.enable = true;
       services.power-profiles-daemon.enable = true;
       services.upower.enable = true;
@@ -66,25 +62,6 @@
         pulse.enable = true;
         wireplumber.enable = true;
       };
-
-      boot = lib.mkIf (config.hostMachine == "desktop") {
-        kernelParams = [ "nvidia-drm.modeset=1" ];
-        initrd.kernelModules = [
-          "nvidia"
-          "nvidia_modeset"
-          "nvidia_uvm"
-          "nvidia_drm"
-        ];
-      };
-
-      hardware.nvidia = lib.mkIf (config.hostMachine == "desktop") {
-        modesetting.enable = true;
-        powerManagement.enable = true;
-        open = true;
-        nvidiaSettings = true;
-      };
-
-      services.xserver.videoDrivers = lib.mkIf (config.hostMachine == "desktop") [ "nvidia" ];
 
       systemd.user.services.hyprpolkitagent = {
         enable = true;
