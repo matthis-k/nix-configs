@@ -11,7 +11,7 @@
       environment.systemPackages =
         with pkgs;
         [
-          #grimblast
+          grimblast
           hyprpolkitagent
           satty
           wl-clipboard
