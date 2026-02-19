@@ -87,6 +87,22 @@
         "type": "github"
       }
     },
+    "clipvault": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771277246,
+        "narHash": "sha256-3wb6SUeImeeLWjegC6BXw3RE4nv4hPd7jGTz8e47hfA=",
+        "owner": "Rolv-Apneseth",
+        "repo": "clipvault",
+        "rev": "cdc92991720478e3d335151476dba20aacb842da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Rolv-Apneseth",
+        "repo": "clipvault",
+        "type": "github"
+      }
+    },
     "firefox-addons": {
       "inputs": {
         "nixpkgs": [
@@ -953,6 +969,7 @@
         "base16": "base16",
         "base16-schemes": "base16-schemes",
         "catppuccin": "catppuccin",
+        "clipvault": "clipvault",
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",
         "hyprland": "hyprland",

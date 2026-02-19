@@ -40,6 +40,11 @@
       flake = false;
     };
 
+    clipvault = {
+      url = "github:Rolv-Apneseth/clipvault";
+      flake = false;
+    };
+
     nvim-flake = {
       url = "github:matthis-k/nvim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -119,10 +124,22 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
           pkgFiles = lib.importing.recursivePaths ./pkgs;
-          importedPkgs = builtins.map (path: {
-            name = nixpkgs.lib.removeSuffix ".nix" (builtins.baseNameOf path);
-            value = pkgs.callPackage path { };
-          }) pkgFiles;
+          importedPkgs = builtins.map (
+            path:
+            let
+              name = nixpkgs.lib.removeSuffix ".nix" (builtins.baseNameOf path);
+              pkg = import path;
+              overrides =
+                if builtins.isFunction pkg then
+                  builtins.intersectAttrs (builtins.functionArgs pkg) { inherit inputs; }
+                else
+                  { };
+            in
+            {
+              inherit name;
+              value = pkgs.callPackage path overrides;
+            }
+          ) pkgFiles;
         in
         builtins.listToAttrs importedPkgs
       );
@@ -130,9 +147,14 @@
     {
       inherit lib;
       packages = localPackages;
-      overlays.default = final: prev: {
-        locallyDefined = localPackages.${prev.stdenv.hostPlatform.system} or { };
-      };
+      overlays.default =
+        final: prev:
+        let
+          local = localPackages.${prev.stdenv.hostPlatform.system} or { };
+        in
+        {
+          locallyDefined = local;
+        };
       nixosConfigurations = {
         laptop = build_config "laptop";
         desktop = build_config "desktop";

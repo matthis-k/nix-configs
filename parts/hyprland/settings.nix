@@ -37,6 +37,7 @@ in
     exec-once = [
       "systemctl start --user hyprpolkitagent.service"
       "systemctl start --user quickde.service"
+      "wl-paste --watch clipvault store"
     ];
     exec = [
       "${pkgs.uwsm}/bin/uwsm app -- ${pkgs.hyprland}/bin/hyprctl setcursor $HYPRCURSOR_THEME $HYPRCURSOR_SIZE"
