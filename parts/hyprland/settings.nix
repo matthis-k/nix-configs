@@ -53,7 +53,7 @@ in
       gaps_in = 0;
       gaps_out = 0;
       gaps_workspaces = 0;
-      layout = "dwindle";
+      layout = "scrolling";
       no_focus_fallback = false;
       resize_on_border = false;
       extend_border_grab_area = 15;
@@ -112,19 +112,44 @@ in
     };
 
     bezier = [
-      "pace,0.46, 1, 0.29, 0.99"
-      "overshot,0.13,0.99,0.29,1.1"
-      "md3_decel, 0.05, 0.7, 0.1, 1"
+      # "easeInSine,0.12, 0, 0.39, 0"
+      # "easeOutSine,0.61, 1, 0.88, 1"
+      # "easeInOutSine,0.37, 0, 0.63, 1"
+      # "easeInQuad,0.11, 0, 0.5, 0"
+      # "easeOutQuad,0.5, 1, 0.89, 1"
+      # "easeInOutQuad,0.45, 0, 0.55, 1"
+      # "easeInCubic,0.32, 0, 0.67, 0"
+      # "easeOutCubic,0.33, 1, 0.68, 1"
+      # "easeInOutCubic,0.65, 0, 0.35, 1"
+      "easeInQuart,0.5, 0, 0.75, 0"
+      "easeOutQuart,0.25, 1, 0.5, 1"
+      "easeInOutQuart,0.76, 0, 0.24, 1"
+      # "easeInQuint,0.64, 0, 0.78, 0"
+      # "easeOutQuint,0.22, 1, 0.36, 1"
+      # "easeInOutQuint,0.83, 0, 0.17, 1"
+      # "easeInExpo,0.7, 0, 0.84, 0"
+      # "easeOutExpo,0.16, 1, 0.3, 1"
+      # "easeInOutExpo,0.87, 0, 0.13, 1"
+      # "easeInCirc,0.55, 0, 1, 0.45"
+      # "easeOutCirc,0, 0.55, 0.45, 1"
+      # "easeInOutCirc,0.85, 0, 0.15, 1"
+      # "easeInBack,0.36, 0, 0.66, -0.56"
+      # "easeOutBack,0.34, 1.56, 0.64, 1"
+      # "easeInOutBack,0.68, -0.6, 0.32, 1.6"
     ];
     animation = [
-      "windowsIn,1,6, md3_decel, slide"
-      "windowsOut,1,6, md3_decel, slide"
-      "windowsMove,1,6, md3_decel, slide"
-      "fade,1,10, md3_decel"
-      "workspaces,1,7, md3_decel, slide"
-      "specialWorkspace,1,8, md3_decel, slide"
-      "border,1,10, md3_decel"
+      "global,1,4,easeInOutQuart"
+      "windowsOut,1,4,easeOutQuart,slide left"
+      "windowsIn,1,4,easeOutQuart,slide right"
+      "windowsMove,1,4,easeInOutQuart"
       "layers,0"
+      "fade,0"
+      "border,0"
+      "borderangle,1,4,easeInOutQuart,once"
+      "workspaces,1,4,easeInOutQuart,slidevert"
+      "specialWorkspace,1,4,easeInOutQuart,fade"
+      "zoomFactor,1,4,easeInOutQuart"
+      "monitorAdded,1,4,easeOutQuart"
     ];
 
     input = {
@@ -350,7 +375,18 @@ in
       always_keep_position = false;
     };
 
+    scrolling = {
+      fullscreen_on_one_column = true;
+      column_width = 0.75;
+      focus_fit_method = 1;
+      follow_focus = true;
+      follow_min_visible = 0.4;
+      explicit_column_widths = "0.333, 0.5, 0.667, 1.0";
+      direction = "right";
+    };
+
     bindl = [
+
       ", XF86AudioPlay, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.playerctl}/bin/playerctl play-pause"
       ", XF86AudioNext, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.playerctl}/bin/playerctl next"
       ", XF86AudioPrev, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.playerctl}/bin/playerctl previous"
@@ -382,11 +418,15 @@ in
       "super shift, 8, movetoworkspace, 8"
       "super shift, 9, movetoworkspace, 9"
       "super shift, f, fullscreen, 1"
-      "super shift, h, movewindoworgroup, l"
+      "super shift, h, layoutmsg, swapcol l"
+      "super shift, j, movetoworkspace, +1"
+      "super shift, k, movetoworkspace, -1"
+      "super shift, l, layoutmsg, swapcol r"
       "super shift, e, exec, ${pkgs.uwsm}/bin/uwsm app -- wl-paste | ${pkgs.satty}/bin/satty --copy-command ${pkgs.wl-clipboard}/bin/wl-copy --fullscreen -f -"
-      "super shift, j, movewindoworgroup, d"
-      "super shift, k, movewindoworgroup, u"
-      "super shift, l, movewindoworgroup, r"
+      "super, code:47, layoutmsg, colresize -0.05" # ö
+      "super, code:48, layoutmsg, colresize +0.05" # ä
+      "super, comma, layoutmsg, move -col"
+      "super, period, layoutmsg, move +col"
       "super shift, p, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.hyprpicker}/bin/hyprpicker"
       "super shift, r, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast save area - | ${pkgs.tesseract}/bin/tesseract stdin stdout -l eng --psm 1 | ${pkgs.wl-clipboard}/bin/wl-copy"
       "super shift, s, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast copy area"
@@ -403,10 +443,10 @@ in
       "super, 9, workspace, 9"
       "super, f, fullscreen"
       "super, g, togglegroup"
-      "super, h, movefocus, l"
-      "super, j, movefocus, d"
-      "super, k, movefocus, u"
-      "super, l, movefocus, r"
+      "super, h, layoutmsg, focus l"
+      "super, j, workspace, +1"
+      "super, k, workspace, -1"
+      "super, l, layoutmsg, focus r"
       "super, m, fullscreen, 1"
       "super, q, killactive"
       "super, return, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.kitty}/bin/kitty"
@@ -415,7 +455,9 @@ in
       # "super, tab, overview:toggle"
     ];
     gesture = [
-      "3, horizontal, workspace"
+      "3, vertical, workspace"
+      "3, left, dispatcher, layoutmsg, move +col"
+      "3, right, dispatcher, layoutmsg, move -col"
     ];
 
     bindm = [
@@ -423,21 +465,13 @@ in
       "super, mouse:273, resizewindow"
     ];
     windowrule = [
-      # xwayland-video-bridge fixes
-      "match:class xwaylandvideobridge, no_initial_focus true"
-      "match:class xwaylandvideobridge, no_focus true"
-      "match:class xwaylandvideobridge, no_anim true"
-      "match:class xwaylandvideobridge, no_blur true"
-      "match:class xwaylandvideobridge, max_size 1 1"
-      "match:class xwaylandvideobridge, opacity 0.0"
-
       # only show border when 1 window in wokspace
       "match:float false, match:workspace w[tv1], border_size 0"
       "match:float false, match:workspace w[tv1], rounding 0"
       "match:float false, match:workspace f[1], border_size 0"
       "match:float false, match:workspace f[1], rounding 0"
     ];
-    # only show border when 1 window in wokspace
+    # no gaps when 1 window in wokspace
     workspace = [
       "w[tv1], gapsout:0, gapsin:0"
       "f[1], gapsout:0, gapsin:0"
