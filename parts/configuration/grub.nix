@@ -8,8 +8,8 @@
       boot.loader.grub.device = "nodev";
       boot.loader.grub.useOSProber = true;
       boot.loader.grub.efiSupport = true;
-      boot.loader.grub.gfxmodeEfi = "1920x1020";
-      boot.loader.grub.gfxmodeBios = "1920x1020";
+      boot.loader.grub.gfxmodeEfi = "1920x1080";
+      boot.loader.grub.gfxmodeBios = "1920x1080";
       boot.loader.grub.font = lib.mkForce "${pkgs.nerd-fonts.hack}/share/fonts/truetype/NerdFonts/Hack/HackNerdFontMono-Regular.ttf";
 
       boot.plymouth.enable = true;
