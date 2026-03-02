@@ -18,6 +18,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    split-monitor-workspaces = {
+      url = "github:zjeffer/split-monitor-workspaces";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";

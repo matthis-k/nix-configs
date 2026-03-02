@@ -385,6 +385,13 @@ in
       direction = "right";
     };
 
+    plugin = {
+      "split-monitor-workspaces" = {
+        count = 9;
+        enable_persistent_workspaces = 0;
+      };
+    };
+
     bindl = [
 
       ", XF86AudioPlay, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.playerctl}/bin/playerctl play-pause"
@@ -407,21 +414,24 @@ in
       "alt control, w, exec, ${pkgs.uwsm}/bin/uwsm app -- zen" # TODO use the one from (hm module) programs.zen-browser.package somehow
       "super, a, exec, ${pkgs.quickde}/bin/quickde ipc call applauncher open"
       "super, b, exec, ${pkgs.quickde}/bin/quickde ipc call bar toggle"
-      "super shift, 0, movetoworkspace, 10"
-      "super shift, 1, movetoworkspace, 1"
-      "super shift, 2, movetoworkspace, 2"
-      "super shift, 3, movetoworkspace, 3"
-      "super shift, 4, movetoworkspace, 4"
-      "super shift, 5, movetoworkspace, 5"
-      "super shift, 6, movetoworkspace, 6"
-      "super shift, 7, movetoworkspace, 7"
-      "super shift, 8, movetoworkspace, 8"
-      "super shift, 9, movetoworkspace, 9"
+      "super shift, 1, split-movetoworkspace, 1"
+      "super shift, 2, split-movetoworkspace, 2"
+      "super shift, 3, split-movetoworkspace, 3"
+      "super shift, 4, split-movetoworkspace, 4"
+      "super shift, 5, split-movetoworkspace, 5"
+      "super shift, 6, split-movetoworkspace, 6"
+      "super shift, 7, split-movetoworkspace, 7"
+      "super shift, 8, split-movetoworkspace, 8"
+      "super shift, 9, split-movetoworkspace, 9"
       "super shift, f, fullscreen, 1"
       "super shift, h, layoutmsg, swapcol l"
-      "super shift, j, movetoworkspace, +1"
-      "super shift, k, movetoworkspace, -1"
+      "super shift, j, split-movetoworkspace, +1"
+      "super shift, k, split-movetoworkspace, -1"
       "super shift, l, layoutmsg, swapcol r"
+      "super control, h, focusmonitor, l"
+      "super control, j, focusmonitor, d"
+      "super control, k, focusmonitor, u"
+      "super control, l, focusmonitor, r"
       "super shift, e, exec, ${pkgs.uwsm}/bin/uwsm app -- wl-paste | ${pkgs.satty}/bin/satty --copy-command ${pkgs.wl-clipboard}/bin/wl-copy --fullscreen -f -"
       "super, code:47, layoutmsg, colresize -0.05" # ö
       "super, code:48, layoutmsg, colresize +0.05" # ä
@@ -431,21 +441,20 @@ in
       "super shift, r, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast save area - | ${pkgs.tesseract}/bin/tesseract stdin stdout -l eng --psm 1 | ${pkgs.wl-clipboard}/bin/wl-copy"
       "super shift, s, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast copy area"
       ", print, exec, ${pkgs.uwsm}/bin/uwsm app -- ${pkgs.grimblast}/bin/grimblast copy screen"
-      "super, 0, workspace, 10"
-      "super, 1, workspace, 1"
-      "super, 2, workspace, 2"
-      "super, 3, workspace, 3"
-      "super, 4, workspace, 4"
-      "super, 5, workspace, 5"
-      "super, 6, workspace, 6"
-      "super, 7, workspace, 7"
-      "super, 8, workspace, 8"
-      "super, 9, workspace, 9"
+      "super, 1, split-workspace, 1"
+      "super, 2, split-workspace, 2"
+      "super, 3, split-workspace, 3"
+      "super, 4, split-workspace, 4"
+      "super, 5, split-workspace, 5"
+      "super, 6, split-workspace, 6"
+      "super, 7, split-workspace, 7"
+      "super, 8, split-workspace, 8"
+      "super, 9, split-workspace, 9"
       "super, f, fullscreen"
       "super, g, togglegroup"
       "super, h, layoutmsg, focus l"
-      "super, j, workspace, +1"
-      "super, k, workspace, -1"
+      "super, j, split-workspace, +1"
+      "super, k, split-workspace, -1"
       "super, l, layoutmsg, focus r"
       "super, m, fullscreen, 1"
       "super, q, killactive"
