@@ -99,7 +99,6 @@ in
         enabled = false;
         range = 4;
         render_power = 3;
-        ignore_window = true;
         color = "rgba(${p.green}ff)";
         color_inactive = "rgba(${p.mantle}ff)";
         offset = "2, 2";
@@ -247,7 +246,6 @@ in
       font_family = "Sans";
       splash_font_family = "Sans";
       force_default_wallpaper = false;
-      vfr = true;
       vrr = 0;
       mouse_move_enables_dpms = true;
       key_press_enables_dpms = true;
@@ -303,7 +301,6 @@ in
       expand_undersized_textures = true;
       xp_mode = false;
       ctm_animation = 2;
-      cm_fs_passthrough = 2;
       cm_enabled = true;
       send_content_type = true;
       cm_auto_hdr = 1;
@@ -377,10 +374,10 @@ in
 
     scrolling = {
       fullscreen_on_one_column = true;
-      column_width = 0.75;
+      column_width = 0.9;
       focus_fit_method = 1;
       follow_focus = true;
-      follow_min_visible = 0.4;
+      follow_min_visible = 0.1;
       explicit_column_widths = "0.333, 0.5, 0.667, 1.0";
       direction = "right";
     };
@@ -411,7 +408,7 @@ in
     ];
 
     bind = [
-      "alt control, w, exec, ${pkgs.uwsm}/bin/uwsm app -- zen" # TODO use the one from (hm module) programs.zen-browser.package somehow
+      "alt control, w, exec, ${pkgs.uwsm}/bin/uwsm app -- zen-beta" # TODO use the one from (hm module) programs.zen-browser.package somehow
       "super, a, exec, ${pkgs.quickde}/bin/quickde ipc call applauncher open"
       "super, b, exec, ${pkgs.quickde}/bin/quickde ipc call bar toggle"
       "super shift, 1, split-movetoworkspace, 1"

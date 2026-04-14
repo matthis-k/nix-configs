@@ -20,7 +20,8 @@
           inputs.self.overlays.default
           inputs.nvim-flake.overlays.default
           inputs.nvim-flake.overlays.nvimdev
-          inputs.hyprland.overlays.default
+          inputs.hyprland.overlays.hyprland-packages
+          inputs.hyprland.overlays.hyprland-extras
         ];
 
       nix = {
